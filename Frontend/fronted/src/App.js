@@ -11,8 +11,12 @@ function App() {
         <input placeholder="Email" />
         <input placeholder="Password" type="password" />
 
-        <button type="submit">Login</button>
-        <button type="submit">Register</button>
+        <button type="submit" className="glow-on-hover">
+          Login
+        </button>
+        <button type="submit" className="glow-on-hover">
+          Register
+        </button>
       </form>
     </div>
   );
