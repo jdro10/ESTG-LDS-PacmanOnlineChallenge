@@ -157,3 +157,59 @@ button {
   height: 100px;
   width: 150px;
 }
+
+@media only screen and (max-width: 600px) {
+  body,
+  button {
+    background: #0f1d28;
+    -webkit-font-smoothing: antialiased !important;
+  }
+
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: #0f1d28;
+  }
+
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px;
+    background: #fff;
+    max-width: 600px;
+    width: 100%;
+    padding: 30px;
+  }
+
+  .login-container input {
+    margin-top: 20px;
+    border: 2px solid #0f1d28;
+    border-radius: 4px;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #0f1d28;
+  }
+
+  .login-container input::placeholder {
+    color: #0f1d28;
+  }
+
+  .login-container button {
+    margin-top: 10px;
+    border: 0px;
+    border-radius: 4px;
+    height: 48px;
+    width: 100px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+  }
+}
