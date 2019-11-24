@@ -1,0 +1,23 @@
+.container {
+  display: grid;
+  grid-template: 10vh 80vh 10vh/1fr;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
+.footer-container {
+  height: 100%;
+  grid-area: footer;
+  background-color: rgb(255, 229, 224);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+img {
+  height: 46px;
+  width: 46px;
+}
