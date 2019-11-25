@@ -5,6 +5,15 @@ import "./Main.css";
 export default function src() {
   return (
     <div className="container">
+      <div className="header-container">
+        <h1>Titulo </h1>
+      </div>
+      <div className="level-container">
+        <h1>Level </h1>
+      </div>
+      <div className="challenges-container">
+        <h1>challenges </h1>
+      </div>
       <div className="footer-container">
         <div className="social">
           <a href="https://github.com/RAJ66">

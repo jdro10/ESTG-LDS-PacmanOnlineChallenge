@@ -1,10 +1,30 @@
 .container {
   display: grid;
-  grid-template: 10vh 80vh 10vh/1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 10vh 80vh 10vh;
+
   grid-template-areas:
-    "header"
-    "main"
-    "footer";
+    "header header header header"
+    "lever lever challenges challenges"
+    "footer footer footer footer";
+}
+
+.header-container {
+  height: 100%;
+  grid-area: header;
+  background-color: rgb(255, 229, 224);
+}
+
+.level-container {
+  height: 100%;
+  grid-area: lever;
+  background-color: rgb(221, 177, 34);
+}
+
+.challenges-container {
+  height: 100%;
+  grid-area: challenges;
+  background-color: rgb(66, 177, 81);
 }
 
 .footer-container {
