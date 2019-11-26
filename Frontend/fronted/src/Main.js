@@ -8,8 +8,10 @@ export default function src() {
   return (
     <div className="container">
       <div className="header-container">
-        <h1>POC </h1>
-        <img src={logo} alt="Logo" />
+        <div className="header">
+          <h1>PacmanOnlineChallenge</h1>
+          <img src={logo} alt="Logo" />
+        </div>
       </div>
       <div className="level-container">
         <h1>Level </h1>
