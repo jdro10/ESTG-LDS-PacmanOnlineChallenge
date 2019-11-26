@@ -19,9 +19,8 @@ export default function src() {
         </div>
       </div>
       <div className="challenges-container">
-        <h1>challenges </h1>
         <div className="caixa">
-          <h1>teste</h1>
+          <h1>Challenges</h1>
         </div>
       </div>
       <div className="footer-container">
