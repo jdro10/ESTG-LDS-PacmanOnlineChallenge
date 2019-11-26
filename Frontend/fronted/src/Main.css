@@ -13,6 +13,8 @@
   height: 100%;
   grid-area: header;
   background-color: rgb(255, 229, 224);
+  display: flex;
+  flex-direction: row;
 }
 
 .level-container {

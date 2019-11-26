@@ -1,12 +1,15 @@
 import React from "react";
 import "./Main.css";
+import logo from "./assets/logo.png";
+
 // import { Container } from './styles';
 
 export default function src() {
   return (
     <div className="container">
       <div className="header-container">
-        <h1>Titulo </h1>
+        <h1>POC </h1>
+        <img src={logo} alt="Logo" />
       </div>
       <div className="level-container">
         <h1>Level </h1>
