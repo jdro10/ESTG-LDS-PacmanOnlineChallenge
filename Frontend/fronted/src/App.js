@@ -6,10 +6,17 @@ import logo from "./assets/logo.png";
 
 function App() {
   const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
     console.log(email);
+    console.log(pass);
+
+    api.post("/api/users", {
+      userEmail: email,
+      password: pass
+    });
   }
 
   return (
@@ -21,7 +28,12 @@ function App() {
           value={email}
           onChange={event => setEmail(event.target.value)}
         />
-        <input placeholder="Password" type="password" />
+        <input
+          placeholder="Password"
+          type="password"
+          value={pass}
+          onChange={event => setPass(event.target.value)}
+        />
 
         <button type="submit" className="glow-on-hover">
           Login
