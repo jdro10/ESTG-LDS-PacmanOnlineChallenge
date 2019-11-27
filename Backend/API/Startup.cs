@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using API.Models;
 using API.Services;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Cors;
 
 namespace API
 {
@@ -28,6 +29,8 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.Configure<POCDatabaseSettings>(
                 Configuration.GetSection(nameof(POCDatabaseSettings)));
 
@@ -46,6 +49,8 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

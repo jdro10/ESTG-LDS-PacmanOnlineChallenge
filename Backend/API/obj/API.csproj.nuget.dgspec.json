@@ -36,6 +36,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[2.9.3, )"
