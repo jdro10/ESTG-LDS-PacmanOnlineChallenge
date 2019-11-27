@@ -14,8 +14,8 @@ function App() {
     console.log(pass);
 
     api.post("/api/users", {
-      userEmail: email,
-      password: pass
+      UserEmail: email,
+      Password: pass
     });
   }
 
