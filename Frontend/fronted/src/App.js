@@ -1,7 +1,9 @@
 import React from "react";
 import "./App.css";
+import api from "./assets/api";
 
 import logo from "./assets/logo.png";
+import api from "./services/api";
 
 function App() {
   return (
