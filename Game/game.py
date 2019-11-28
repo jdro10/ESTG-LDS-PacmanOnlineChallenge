@@ -48,22 +48,36 @@ while not gameExit:
                 lead_x_change = 0
 
     if(vertical):
-        pacmanVermelho_y_change += randint(-1 , 1)
+        pacmanVermelho_y_change += randint(-10 , 10)
         pacmanVermelho_x_change += 0
         vertical = False
     else:
         pacmanVermelho_y_change += 0
-        pacmanVermelho_x_change += randint(-1 , 1)
+        pacmanVermelho_x_change += randint(-10 , 10)
         vertical = True
 
+
+    if pacmanVermelho_x + pacmanVermelho_x_change > 790 or pacmanVermelho_x + pacmanVermelho_x_change < 0:
+        pacmanVermelho_x_change = 0
+
+    if pacmanVermelho_y + pacmanVermelho_y_change > 590 or pacmanVermelho_y + pacmanVermelho_y_change < 0:
+        pacmanVermelho_y_change = 0
+
+    if lead_x + lead_x_change > 790 or lead_x + lead_x_change < 0:
+        lead_x_change = 0
+
+    if lead_y + lead_y_change > 590 or lead_y + lead_y_change < 0:
+        lead_y_change = 0
 
     pacmanVermelho_x += pacmanVermelho_x_change
     pacmanVermelho_y += pacmanVermelho_y_change
 
+
     lead_x += lead_x_change
     lead_y += lead_y_change
+
+
     gameDisplay.fill(black)
-    ##pacman(x, y)
     pygame.draw.rect(gameDisplay, yellow, [lead_x, lead_y, 10, 10]) ##[coordenada a desenhar,coordenada a desenhar, altura, largura]
     pygame.draw.rect(gameDisplay, red, [pacmanVermelho_x, pacmanVermelho_y, 10, 10])
     pygame.display.update()
