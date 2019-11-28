@@ -20,7 +20,7 @@ function App() {
   }
 
   return (
-    <div className="container">
+    <div className="container-inicio">
       <form className="login-container" onSubmit={handleSubmit}>
         <img src={logo} alt="It a match" />
         <input

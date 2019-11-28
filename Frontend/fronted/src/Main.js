@@ -6,7 +6,7 @@ import logo from "./assets/logo.png";
 
 export default function src() {
   return (
-    <div className="container">
+    <div className="container-main">
       <div className="header-container">
         <div className="header">
           <h1>PacmanOnlineChallenge</h1>
