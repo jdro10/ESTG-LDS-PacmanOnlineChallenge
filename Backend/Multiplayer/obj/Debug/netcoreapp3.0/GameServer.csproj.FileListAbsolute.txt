@@ -1,0 +1,33 @@
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\bin\Debug\netcoreapp3.0\GameServer.exe
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\bin\Debug\netcoreapp3.0\GameServer.deps.json
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\bin\Debug\netcoreapp3.0\GameServer.runtimeconfig.json
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\bin\Debug\netcoreapp3.0\GameServer.runtimeconfig.dev.json
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\bin\Debug\netcoreapp3.0\GameServer.dll
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\bin\Debug\netcoreapp3.0\GameServer.pdb
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\obj\Debug\netcoreapp3.0\GameServer.csprojAssemblyReference.cache
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\obj\Debug\netcoreapp3.0\GameServer.AssemblyInfoInputs.cache
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\obj\Debug\netcoreapp3.0\GameServer.AssemblyInfo.cs
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\obj\Debug\netcoreapp3.0\GameServer.dll
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\GameServer\obj\Debug\netcoreapp3.0\GameServer.pdb
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.exe
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.deps.json
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.runtimeconfig.json
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.runtimeconfig.dev.json
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.dll
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.pdb
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\obj\Debug\netcoreapp3.0\GameServer.csprojAssemblyReference.cache
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\obj\Debug\netcoreapp3.0\GameServer.AssemblyInfoInputs.cache
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\obj\Debug\netcoreapp3.0\GameServer.AssemblyInfo.cs
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\obj\Debug\netcoreapp3.0\GameServer.dll
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\Multiplayer\obj\Debug\netcoreapp3.0\GameServer.pdb
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.exe
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.deps.json
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.runtimeconfig.json
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.runtimeconfig.dev.json
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.dll
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\bin\Debug\netcoreapp3.0\GameServer.pdb
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\obj\Debug\netcoreapp3.0\GameServer.csprojAssemblyReference.cache
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\obj\Debug\netcoreapp3.0\GameServer.AssemblyInfoInputs.cache
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\obj\Debug\netcoreapp3.0\GameServer.AssemblyInfo.cs
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\obj\Debug\netcoreapp3.0\GameServer.dll
+C:\Users\jorge\VisualStudioCodeProjects\PacmanOnlineChallenge\pacmanonlinechallenge\Backend\Multiplayer\obj\Debug\netcoreapp3.0\GameServer.pdb
