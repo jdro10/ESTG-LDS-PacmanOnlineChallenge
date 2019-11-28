@@ -14,7 +14,7 @@ public class SynchronousSocketClient {
             IPEndPoint remoteEP = new IPEndPoint(ipAddress,65432);  
   
             Socket sender = new Socket(ipAddress.AddressFamily,   
-                SocketType.Stream, ProtocolType.Tcp );  
+                SocketType.Stream, ProtocolType.Tcp );
     
             try {  
                 sender.Connect(remoteEP);  
@@ -39,7 +39,7 @@ public class SynchronousSocketClient {
                     bytesRec = sender.Receive(bytes);
 	            }  
   
-                sender.Shutdown(SocketShutdown.Both);  
+                sender.Shutdown(SocketShutdown.Both);
                 sender.Close();  
   
             } catch (ArgumentNullException ane) {  
