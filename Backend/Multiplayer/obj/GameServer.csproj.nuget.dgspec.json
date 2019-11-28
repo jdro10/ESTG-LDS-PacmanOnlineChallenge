@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jorge\\Desktop\\LDS Project\\pacmanonlinechallenge\\Backend\\GameServer\\GameServer.csproj": {}
+    "C:\\Users\\jorge\\Desktop\\LDS Project\\pacmanonlinechallenge\\Backend\\Multiplayer\\GameServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jorge\\Desktop\\LDS Project\\pacmanonlinechallenge\\Backend\\GameServer\\GameServer.csproj": {
+    "C:\\Users\\jorge\\Desktop\\LDS Project\\pacmanonlinechallenge\\Backend\\Multiplayer\\GameServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jorge\\Desktop\\LDS Project\\pacmanonlinechallenge\\Backend\\GameServer\\GameServer.csproj",
+        "projectUniqueName": "C:\\Users\\jorge\\Desktop\\LDS Project\\pacmanonlinechallenge\\Backend\\Multiplayer\\GameServer.csproj",
         "projectName": "GameServer",
-        "projectPath": "C:\\Users\\jorge\\Desktop\\LDS Project\\pacmanonlinechallenge\\Backend\\GameServer\\GameServer.csproj",
+        "projectPath": "C:\\Users\\jorge\\Desktop\\LDS Project\\pacmanonlinechallenge\\Backend\\Multiplayer\\GameServer.csproj",
         "packagesPath": "C:\\Users\\jorge\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jorge\\Desktop\\LDS Project\\pacmanonlinechallenge\\Backend\\GameServer\\obj\\",
+        "outputPath": "C:\\Users\\jorge\\Desktop\\LDS Project\\pacmanonlinechallenge\\Backend\\Multiplayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jorge\\AppData\\Roaming\\NuGet\\NuGet.Config"
