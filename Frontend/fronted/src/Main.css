@@ -66,7 +66,7 @@ img {
   width: 46px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
   .container-main {
     grid-template-columns: 1fr;
     grid-template-rows: 10vh 40vh 40vh 10vh;
@@ -80,7 +80,7 @@ img {
   }
 }
 
-@media only screen and (max-height: 400px) {
+@media only screen and (max-height: 550px) {
   img {
     height: 26px;
     width: 26px;
