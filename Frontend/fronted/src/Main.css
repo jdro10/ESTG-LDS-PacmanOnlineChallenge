@@ -67,4 +67,9 @@ img {
 }
 
 @media only screen and (max-width: 600px) {
+  .container-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 10vh 40vh 40vh 10vh;
+    grid-template-areas: "header" "level" "challenges" "footer";
+  }
 }
