@@ -12,7 +12,7 @@
 .header-container {
   height: 100%;
   grid-area: header;
-  background-color: rgb(255, 229, 224);
+  background-color: #fff;
 }
 
 .header {
@@ -45,7 +45,7 @@
 }
 
 .caixa {
-  background-color: rgb(255, 229, 224);
+  background-color: #fff;
   height: 70%;
   width: 70%;
   border-radius: 10px;
@@ -54,7 +54,7 @@
 .footer-container {
   height: 100%;
   grid-area: footer;
-  background-color: rgb(255, 229, 224);
+  background-color: #fff;
 
   display: flex;
   justify-content: space-around;
@@ -71,6 +71,12 @@ img {
     grid-template-columns: 1fr;
     grid-template-rows: 10vh 40vh 40vh 10vh;
     grid-template-areas: "header" "level" "challenges" "footer";
+  }
+
+  body,
+  input,
+  button {
+    font-size: 12px;
   }
 }
 
