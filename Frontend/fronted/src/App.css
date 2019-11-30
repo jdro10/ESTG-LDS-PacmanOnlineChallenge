@@ -26,7 +26,7 @@ button {
   -webkit-font-smoothing: antialiased !important;
 }
 
-.container {
+.container-inicio {
   width: 100vw;
   height: 100vh;
   display: flex;
