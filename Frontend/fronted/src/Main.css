@@ -73,3 +73,11 @@ img {
     grid-template-areas: "header" "level" "challenges" "footer";
   }
 }
+
+@media only screen and (max-height: 400px) {
+  img {
+    height: 26px;
+    width: 26px;
+    margin: 10px 10px 10px 10px;
+  }
+}
