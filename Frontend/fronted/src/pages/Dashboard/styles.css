@@ -1,0 +1,89 @@
+.container-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 10vh 80vh 10vh;
+
+  grid-template-areas:
+    "header  header"
+    "level  challenges"
+    "footer footer";
+}
+
+.header-container {
+  height: 100%;
+  grid-area: header;
+  background-color: #fff;
+}
+
+.header {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.level-container {
+  grid-area: level;
+  background-color: #0f1d28;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.challenges-container {
+  grid-area: challenges;
+  background-color: #0f1d28;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caixa {
+  background-color: #fff;
+  height: 70%;
+  width: 70%;
+  border-radius: 10px;
+}
+
+.footer-container {
+  height: 100%;
+  grid-area: footer;
+  background-color: #fff;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+img {
+  height: 46px;
+  width: 46px;
+}
+
+@media only screen and (max-width: 600px) {
+  .container-main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 10vh 40vh 40vh 10vh;
+    grid-template-areas: "header" "level" "challenges" "footer";
+  }
+
+  body,
+  input,
+  button {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-height: 550px) {
+  img {
+    height: 26px;
+    width: 26px;
+    margin: 10px 10px 10px 10px;
+  }
+}
