@@ -22,3 +22,7 @@ C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\API\obj\Debug\n
 C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\API\obj\Debug\netcoreapp3.0\API.csproj.CopyComplete
 C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\API\obj\Debug\netcoreapp3.0\API.dll
 C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\API\obj\Debug\netcoreapp3.0\API.pdb
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\API\bin\Debug\netcoreapp3.0\JWT.dll
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\API\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\jorge\Desktop\LDS Project\pacmanonlinechallenge\Backend\API\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll

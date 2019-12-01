@@ -15,13 +15,18 @@ namespace API.Services
             var database = client.GetDatabase(settings.DatabaseName);
 
             _users = database.GetCollection<User>(settings.UserCollectionName);
-
         }
 
         public List<User> Get() => _users.Find(user => true).ToList();
 
         public User Get(string id) =>
             _users.Find<User>(user => user.Id == id).FirstOrDefault();
+
+        public User GetByName(string username) =>
+            _users.Find<User>(user => user.Username == username).FirstOrDefault();
+
+        public User GetByEmail(string email) =>
+            _users.Find<User>(user => user.Email == email).FirstOrDefault();
 
         public User Create(User user)
         {
