@@ -2,24 +2,22 @@ import React from "react";
 import "./styles.css";
 import logo from "../../assets/logo.png";
 
-// import { Container } from './styles';
-
 export default function Dashboard() {
   return (
-    <div className="container-main">
+    <div className="container-dashboard">
       <div className="header-container">
         <div className="header">
           <h1>PacmanOnlineChallenge</h1>
           <img src={logo} alt="Logo" />
         </div>
       </div>
-      <div className="level-container">
-        <div className="caixa">
-          <h1>Level</h1>
+      <div className="stats-container">
+        <div className="cashier">
+          <h1>Stats</h1>
         </div>
       </div>
       <div className="challenges-container">
-        <div className="caixa">
+        <div className="cashier">
           <h1>Challenges</h1>
         </div>
       </div>
