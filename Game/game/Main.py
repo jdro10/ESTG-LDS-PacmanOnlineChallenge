@@ -1,7 +1,7 @@
 import pygame
-from pacmanPygame.Display import Display
-from pacmanPygame.GameLoop import GameLoop
-from pacmanPygame.Character import Character
+from Display import Display
+from GameLoop import GameLoop
+from Character import Character
 
 imgPacman = pygame.image.load("pacman.png")
 
