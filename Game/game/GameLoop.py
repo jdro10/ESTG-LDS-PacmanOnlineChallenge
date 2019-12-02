@@ -1,7 +1,7 @@
 import pygame
 from random import randint
 
-from pacmanPygame import Colors
+import Colors
 
 
 class GameLoop:
