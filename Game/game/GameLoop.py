@@ -21,21 +21,29 @@ class GameLoop:
 
         gameExit = False
 
+        direction = "right"
+
+        pacmanImage = pacman.get_img()
+
         while not gameExit:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     gameExit = True
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
+                        direction = "left"
                         lead_x_change = -10
                         lead_y_change = 0
                     if event.key == pygame.K_RIGHT:
+                        direction = "right"
                         lead_x_change = 10
                         lead_y_change = 0
                     if event.key == pygame.K_UP:
+                        direction = "up"
                         lead_y_change = -10
                         lead_x_change = 0
                     if event.key == pygame.K_DOWN:
+                        direction = "down"
                         lead_y_change = 10
                         lead_x_change = 0
 
@@ -75,8 +83,17 @@ class GameLoop:
 
             gameDisplay.fill(Colors.black)
 
+            if direction == "right":
+                pacmanHead = pacmanImage
+            if direction == "left":
+                pacmanHead = pygame.transform.rotate(pacmanImage, 180)
+            if direction == "up":
+                pacmanHead = pygame.transform.rotate(pacmanImage, 90)
+            if direction == "down":
+                pacmanHead = pygame.transform.rotate(pacmanImage, 270)
+
             gameDisplay.blit(redGhost.get_img(),(redGhost.get_x(),redGhost.get_y()))
-            gameDisplay.blit(pacman.get_img(), (pacman.get_x(), pacman.get_y()))
+            gameDisplay.blit(pacmanHead, (pacman.get_x(), pacman.get_y()))
             pygame.display.update()
 
             clock.tick(20)
