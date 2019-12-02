@@ -1,4 +1,4 @@
-.container-main {
+.container-dashboard {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 10vh 80vh 10vh;
@@ -24,7 +24,7 @@
   justify-content: center;
 }
 
-.level-container {
+.stats-container {
   grid-area: level;
   background-color: #0f1d28;
   width: 100%;
@@ -44,7 +44,7 @@
   justify-content: center;
 }
 
-.caixa {
+.cashier {
   background-color: #fff;
   height: 70%;
   width: 70%;
@@ -67,7 +67,7 @@ img {
 }
 
 @media only screen and (max-width: 600px) {
-  .container-main {
+  .container-dashboard {
     grid-template-columns: 1fr;
     grid-template-rows: 10vh 40vh 40vh 10vh;
     grid-template-areas: "header" "level" "challenges" "footer";
