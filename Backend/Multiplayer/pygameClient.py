@@ -2,15 +2,11 @@ import pygame
 import socket
 import time
 
-HOST = '172.20.130.180'
+HOST = '192.168.1.65'
 PORT = 65432
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((HOST, PORT))
-s.listen()
-conn, addr = s.accept()
-
-print('Connected by', addr)
+s.connect((HOST, PORT))
 
 pygame.init()
 
@@ -52,9 +48,13 @@ while gameExit:
     
     varx = "(" + str(x) + "/"
     vary = str(y) + ")"
-    varaux = varx + vary
+    varaux = varx + vary + "\n"
     var = bytes(varaux, "utf-8")
-    conn.sendall(var)
+    s.sendall(var)
+	
+    msg = s.recv(1024)
+    print(msg.decode('utf-8'))
+    print("\n")
 
     gamedisplay.fill((0,0,0))
     pygame.draw.rect(gamedisplay, red, [x, y, 10, 10])
@@ -64,5 +64,4 @@ while gameExit:
     clock.tick(20)
 
 pygame.quit()
-
 quit()
