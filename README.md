@@ -13,15 +13,9 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 - [Pygame](https://www.pygame.org/)
 - [mongoDB](https://www.mongodb.com/)
 
-<h3>Porquê?</h3>
-<p>A escolha da base de dados foi o mongodb pelo principal motivo de ser uma base de dados não relacional. Os pontos fortes que influenciaram fortemente esta escolha foram:
-<br>-Performance;
-<br>-Custos reduzidos por ser uma base de dados com código fonte aberto.
-<br>-Desenvolvimento simplificado e mapeamento natural para linguagens de programação orientadas a objetos.<br>
-</p>
-<p>React foi a framework que nós, enquanto grupo selecionamos, visto ser uma framework em que utilizamos a linguagem JavaScript sem adicionar muita sintaxe específica do React.
-É uma framework que domina grande parte do mercado onde está inserida sendo benéfico para o grupo aprendê-la.
-Além das caracteristicas já referidas, React é uma framework que com poucas modificações pode ser exportada para mobile.</p>
-<p>Pygame é o motor de jogo pelo qual optamos por utilizar neste projeto. A nossa decisão baseou-se no facto de queremos aprender
-melhor a linguagem Python assim como o facto desta framework ser adequada para este tipo de jogos, sendo compatível com qualquer
-sistema operativo.</p>
+<h3>Backend<h3>
+<p>Pasta que contém todo o código relativo ao backend, contendo a REST API e a parte correspondente ao multiplayer.<p>
+<h3>Frontend<h3>
+<p>Pasta com todo o código do frontend.<p>
+<h3>Game<h3>
+<p>Pasta com código relativo ao jogo singleplayer.<p>
