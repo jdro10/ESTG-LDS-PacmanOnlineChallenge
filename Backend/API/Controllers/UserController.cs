@@ -1,20 +1,66 @@
 using API.Models;
 using API.Services;
+using API.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
+using System.Text;
+using System;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly AppSettings _appSettings;
 
-        public UsersController(UserService userService)
+        public UsersController(UserService userService, IOptions<AppSettings> appSettings)
         {
             _userService = userService;
+            _appSettings = appSettings.Value;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("auth")]
+        public IActionResult Authenticate([FromBody]User userInfo)
+        {
+            var user = _userService.Authenticate(userInfo.Username, userInfo.Password);
+
+            if (user == null)
+            {
+                return BadRequest(new { ERRO = "Username ou password incorreta" });
+            }
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return Ok(new
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Token = tokenString
+            });
         }
 
         [HttpGet]
@@ -34,6 +80,7 @@ namespace API.Controllers
             return user;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult<User> Create(User user)
         {
