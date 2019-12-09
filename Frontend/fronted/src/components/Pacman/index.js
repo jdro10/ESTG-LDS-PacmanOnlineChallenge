@@ -1,7 +1,12 @@
 import React from "react";
 
-import "./styles";
+import "./styles.css";
 
 export default function Pacman() {
-  return <div />;
+  return (
+    <div className="pacman">
+      <div className="pacman__eye"></div>
+      <div class="pacman__mouth"></div>
+    </div>
+  );
 }
