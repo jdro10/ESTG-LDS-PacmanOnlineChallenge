@@ -17,9 +17,9 @@ namespace API.Services
             _users = database.GetCollection<User>(settings.UserCollectionName);
         }
 
-        public User Authenticate(string username, string password)
+        public User Authenticate(string username)
         {
-            if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if(string.IsNullOrEmpty(username))
             {
                 return null;
             }
@@ -27,11 +27,6 @@ namespace API.Services
             var user = GetByName(username);
 
             if(user == null)
-            {
-                return null;
-            }
-
-            if(password != user.Password)
             {
                 return null;
             }

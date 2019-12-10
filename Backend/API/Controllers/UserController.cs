@@ -1,6 +1,7 @@
 using API.Models;
 using API.Services;
 using API.Helpers;
+using API.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -11,6 +12,7 @@ using System.Text;
 using System;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace API.Controllers
 {
@@ -30,13 +32,13 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost("auth")]
-        public IActionResult Authenticate([FromBody]User userInfo)
+        public IActionResult Authenticate([FromBody]UserDto userInfo)
         {
-            var user = _userService.Authenticate(userInfo.Username, userInfo.Password);
+            var user = _userService.Authenticate(userInfo.Username);
 
-            if (user == null)
+            if (user == null || !(VerifyPasswordHash(userInfo.Password, user.PasswordHash, user.PasswordSalt)))
             {
-                return BadRequest(new { ERRO = "Username ou password incorreta" });
+                return BadRequest(new { error = "Username ou password incorreta" });
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -92,6 +94,11 @@ namespace API.Controllers
 
             //password must have a minimum of 8 characters, at least one number and one letter
 
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
+
+            //password must have a minimum of 8 characters, at least one number and one letter
+
             var usernameExists = _userService.GetByName(user.Username);
             var emailExists = _userService.GetByEmail(user.Email);
             var newUsernameLength = user.Username.Length;
@@ -99,6 +106,8 @@ namespace API.Controllers
             if (usernameExists == null && emailExists == null
                 && matchEmail.Success && newUsernameLength >= 3 && matchPassword.Success)
             {
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
                 _userService.Create(user);
             }
             else
@@ -107,6 +116,30 @@ namespace API.Controllers
             }
 
             return CreatedAtRoute("GetUser", new { id = user.Id.ToString() }, user);
+        }
+
+         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+         private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != storedHash[i]) return false;
+                }
+            }
+
+            return true;
         }
 
         [HttpPut("{id:length(24)}")]

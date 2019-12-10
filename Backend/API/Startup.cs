@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
 
 namespace API
 {
@@ -52,7 +53,7 @@ namespace API
                     {
                         var userService = context.HttpContext.RequestServices.GetRequiredService<UserService>();
                         var user = userService.Get(context.Principal.Identity.Name);
-                        if (user == null)   
+                        if (user == null)
                         {
                             context.Fail("Unauthorized");
                         }
@@ -73,11 +74,23 @@ namespace API
             services.AddSingleton<UserService>();
 
             services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "POC API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "POC API V1");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
