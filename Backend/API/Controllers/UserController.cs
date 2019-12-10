@@ -22,12 +22,14 @@ namespace API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly DailyChallengeService _dailyChallengeService;
         private readonly AppSettings _appSettings;
 
-        public UsersController(UserService userService, IOptions<AppSettings> appSettings)
+        public UsersController(UserService userService, IOptions<AppSettings> appSettings, DailyChallengeService dailyChallengeService)
         {
             _userService = userService;
             _appSettings = appSettings.Value;
+            _dailyChallengeService = dailyChallengeService;
         }
 
         [AllowAnonymous]
@@ -73,7 +75,7 @@ namespace API.Controllers
         public ActionResult<User> Get(string id)
         {
             var user = _userService.Get(id);
-
+        
             if (user == null)
             {
                 return NotFound();
@@ -92,6 +94,8 @@ namespace API.Controllers
             Regex regexPassword = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");
             Match matchPassword = regexPassword.Match(user.Password);
 
+            var challenge = _dailyChallengeService.GetByDescription("Play 2 games");
+
             //password must have a minimum of 8 characters, at least one number and one letter
 
             byte[] passwordHash, passwordSalt;
@@ -108,6 +112,9 @@ namespace API.Controllers
             {
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
+                user.notCompletedChallenges = challenge;
+                user.Level = 0;
+                
                 _userService.Create(user);
             }
             else

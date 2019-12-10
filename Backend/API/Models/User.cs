@@ -19,5 +19,11 @@ namespace API.Models
         public byte[] PasswordHash {get; set; }
 
         public byte[] PasswordSalt {get; set; }
+
+        public int Level {get; set; }
+
+        public string Rank {get; set; }
+
+        public DailyChallenge notCompletedChallenges {get; set;}
     }
 }

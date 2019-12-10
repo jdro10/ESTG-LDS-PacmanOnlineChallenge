@@ -73,6 +73,8 @@ namespace API
 
             services.AddSingleton<UserService>();
 
+            services.AddSingleton<DailyChallengeService>();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
