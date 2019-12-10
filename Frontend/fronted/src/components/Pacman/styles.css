@@ -48,3 +48,13 @@
     clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
   }
 }
+
+.pacmanFood {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-radius: 50%;
+  top: 40%;
+  left: 120px;
+}
