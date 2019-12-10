@@ -57,4 +57,19 @@
   border-radius: 50%;
   top: 40%;
   left: 120px;
+
+  animation-name: food;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes food {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
 }
