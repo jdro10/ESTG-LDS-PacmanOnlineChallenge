@@ -1,6 +1,7 @@
 using API.Models;
 using API.Services;
 using API.Helpers;
+using API.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -31,7 +32,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost("auth")]
-        public IActionResult Authenticate([FromBody]User userInfo)
+        public IActionResult Authenticate([FromBody]UserDto userInfo)
         {
             var user = _userService.Authenticate(userInfo.Username);
 
