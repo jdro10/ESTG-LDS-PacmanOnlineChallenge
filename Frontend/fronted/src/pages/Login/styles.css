@@ -32,10 +32,6 @@
   color: var(--color-base);
 }
 
-.login-container input::placeholder {
-  color: var(--color-base);
-}
-
 .login-container button {
   margin-top: var(--size-small);
   border: 0px;

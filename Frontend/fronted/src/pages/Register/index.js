@@ -27,7 +27,9 @@ export default function Register() {
           onChange={event => setPass(event.target.value)}
         />
 
-        <button type="submit">Register</button>
+        <button type="submit" className="glow-on-hover">
+          Register
+        </button>
       </form>
     </div>
   );
