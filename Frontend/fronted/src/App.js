@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./App.css";
-import "./setting/colors.css";
+import "./setting/index.css";
 
 import Routes from "./routes";
 

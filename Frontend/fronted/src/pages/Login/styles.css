@@ -40,7 +40,7 @@
   margin-top: 10px;
   border: 0px;
   border-radius: 4px;
-  height: 48px;
+  height: 46px;
   width: 100px;
   font-size: 16px;
   font-weight: bold;
@@ -163,25 +163,25 @@
     margin-top: 20px;
     border: 2px solid var(--color-base);
     border-radius: 4px;
-    height: 48px;
+    height: 46px;
     padding: 0 20px;
     font-size: 16px;
     color: var(--color-base);
   }
 
   .login-container input::placeholder {
-    color: #0f1d28;
+    color: var(--color-base);
   }
 
   .login-container button {
     margin-top: 10px;
     border: 0px;
     border-radius: 4px;
-    height: 48px;
+    height: 46px;
     width: 100px;
     font-size: 16px;
     font-weight: bold;
-    color: #fff;
+    color: var(--color-zero);
     cursor: pointer;
   }
 }
