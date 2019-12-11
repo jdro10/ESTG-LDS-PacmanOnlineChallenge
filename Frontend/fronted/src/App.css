@@ -22,6 +22,6 @@ button {
 
 body,
 button {
-  background: #0f1d28;
+  background: var(--color-base);
   -webkit-font-smoothing: antialiased !important;
 }
