@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import "./styles.css";
+import Pacman from "./../../components/Pacman/index";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ export default function Register() {
   return (
     <div className="container-register">
       <form className="register-container">
+        <Pacman className="register-pacman" />
         <input
           placeholder="UserName"
           value={user}
