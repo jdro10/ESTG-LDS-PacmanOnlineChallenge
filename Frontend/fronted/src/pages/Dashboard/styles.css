@@ -48,7 +48,7 @@
   background-color: var(--color-zero);
   height: 70%;
   width: 70%;
-  border-radius: 10px;
+  border-radius: var(--size-small);
 }
 
 .footer-container {
@@ -62,7 +62,7 @@
 }
 
 img {
-  height: 46px;
+  height: var(--size-medium);
   width: 46px;
 }
 
@@ -84,6 +84,7 @@ img {
   img {
     height: 26px;
     width: 26px;
-    margin: 10px 10px 10px 10px;
+    margin: var(--size-small) var(--size-small) var(--size-small)
+      var(--size-small);
   }
 }
