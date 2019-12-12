@@ -42,7 +42,7 @@ export default function ValidatedRegisterForm() {
           handleSubmit
         } = props;
         return (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="register-container">
             <input
               name="userName"
               type="text"
