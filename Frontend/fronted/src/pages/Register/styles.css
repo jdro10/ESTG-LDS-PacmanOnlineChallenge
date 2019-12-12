@@ -45,21 +45,21 @@
 }
 
 .pacmanFood {
-  background: red;
+  background: var(--color-third);
 }
 
 .pacmanMouth {
-  background: #fff;
+  background: var(--color-zero);
 }
 
 .pacman {
   margin-right: 250px;
-  animation-name: correr;
+  animation-name: run;
   animation-duration: 5s;
   animation-iteration-count: infinite;
 }
 
-@keyframes correr {
+@keyframes run {
   0% {
     transform: translateX(0px);
     opacity: 0;
