@@ -46,7 +46,7 @@ export default function ValidatedRegisterForm() {
             <input
               name="userName"
               type="text"
-              placeholder="UserName"
+              placeholder="Username"
               value={values.userName}
               onChange={handleChange}
               onBlur={handleBlur}
