@@ -8,14 +8,17 @@ import * as Yup from "yup";
 export default function ValidatedRegisterForm() {
   return (
     <Formik
-      initialValues={{ email: "", password: "" }}
+      initialValues={{ userName: "", email: "", password: "" }}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          console.log("Logging in", values);
+          console.log("values ​​test:", values);
           setSubmitting(false);
         }, 500);
       }}
       validationSchema={Yup.object().shape({
+        userName: Yup.string()
+          .required("Required")
+          .min(3, "UserName is too short - should be 3 chars minimum."),
         email: Yup.string()
           .email()
           .required("Required"),
@@ -40,6 +43,20 @@ export default function ValidatedRegisterForm() {
         } = props;
         return (
           <form onSubmit={handleSubmit}>
+            <label htmlFor="email">UserName</label>
+            <input
+              name="userName"
+              type="text"
+              placeholder="Enter your UserName"
+              value={values.userName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={errors.userName && touched.userName && "error"}
+            />
+            {errors.userName && touched.userName && (
+              <div className="input-feedback">{errors.userName}</div>
+            )}
+
             <label htmlFor="email">Email</label>
             <input
               name="email"
