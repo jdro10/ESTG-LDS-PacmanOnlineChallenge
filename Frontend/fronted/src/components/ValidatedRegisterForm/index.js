@@ -43,11 +43,10 @@ export default function ValidatedRegisterForm() {
         } = props;
         return (
           <form onSubmit={handleSubmit}>
-            <label htmlFor="email">UserName</label>
             <input
               name="userName"
               type="text"
-              placeholder="Enter your UserName"
+              placeholder="UserName"
               value={values.userName}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -57,11 +56,10 @@ export default function ValidatedRegisterForm() {
               <div className="input-feedback">{errors.userName}</div>
             )}
 
-            <label htmlFor="email">Email</label>
             <input
               name="email"
               type="text"
-              placeholder="Enter your email"
+              placeholder="Email"
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -70,11 +68,10 @@ export default function ValidatedRegisterForm() {
             {errors.email && touched.email && (
               <div className="input-feedback">{errors.email}</div>
             )}
-            <label htmlFor="email">Password</label>
             <input
               name="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Password"
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}

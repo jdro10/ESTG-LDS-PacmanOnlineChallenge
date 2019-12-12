@@ -9,7 +9,7 @@ import ValidatedRegisterForm from "./components/ValidatedRegisterForm/index";
 function App() {
   return (
     <>
-      <ValidatedRegisterForm />
+      <Routes />
     </>
   );
 }
