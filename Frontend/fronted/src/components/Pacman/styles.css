@@ -22,9 +22,8 @@
 .pacmanMouth {
   background: var(--color-base);
   position: absolute;
-  width: 100%;
+  width: 120%;
   height: 100%;
-  clip-path: polygon(100% 80%, 44% 48%, 100% 21%);
 
   animation-name: eat;
   animation-duration: 0.8s;

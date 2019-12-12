@@ -20,7 +20,7 @@ export default function ValidatedRegisterForm() {
           .required("Required")
           .min(3, "UserName is too short - should be 3 chars minimum."),
         email: Yup.string()
-          .email()
+          .email("Email must be a valid email")
           .required("Required"),
         password: Yup.string()
           .required("No password provided.")
@@ -80,7 +80,11 @@ export default function ValidatedRegisterForm() {
             {errors.password && touched.password && (
               <div className="input-feedback">{errors.password}</div>
             )}
-            <button type="submit" disabled={isSubmitting}>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="glow-on-hover"
+            >
               Register
             </button>
           </form>
