@@ -20,6 +20,11 @@ export default function Login({ history }) {
     history.push("/dashboard");
   }
 
+  function handleClickRegister(event) {
+    event.preventDefault();
+    history.push("/register");
+  }
+
   return (
     <div className="container-inicio">
       <form className="login-container" onSubmit={handleSubmit}>
@@ -39,7 +44,11 @@ export default function Login({ history }) {
         <button type="submit" className="glow-on-hover">
           Login
         </button>
-        <button type="" className="glow-on-hover">
+        <button
+          type="reset"
+          onClick={handleClickRegister}
+          className="glow-on-hover"
+        >
           Register
         </button>
       </form>
