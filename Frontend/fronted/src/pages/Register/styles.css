@@ -84,7 +84,6 @@ input.error {
 
 .input-feedback {
   color: var(--color-third);
-  margin-top: -15px;
-  font-size: 14px;
-  margin-bottom: 20px;
+  margin-top: var(--size-small);
+  font-size: var(--size-small-medium);
 }
