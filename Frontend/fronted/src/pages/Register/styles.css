@@ -13,10 +13,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   max-width: 400px;
   width: 100%;
-
   background: var(--color-zero);
   border-radius: 6px;
   padding: 30px;
@@ -86,4 +84,32 @@ input.error {
   color: var(--color-third);
   margin-top: var(--size-small);
   font-size: var(--size-small-medium);
+}
+
+@media only screen and (max-width: 600px) {
+  .pacman {
+    display: none;
+  }
+  .register-container {
+    border-radius: 0px;
+  }
+}
+
+@media only screen and (max-height: 550px) {
+  .pacman {
+    display: none;
+  }
+  .container-register {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .register-container {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .register-container {
+    border-radius: 0px;
+  }
 }
