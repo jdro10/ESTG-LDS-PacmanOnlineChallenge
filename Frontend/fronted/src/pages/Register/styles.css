@@ -87,3 +87,26 @@ input.error {
   margin-top: var(--size-small);
   font-size: var(--size-small-medium);
 }
+
+@media only screen and (max-width: 600px) {
+  .pacman {
+    display: none;
+  }
+  .register-container {
+    border-radius: 0px;
+  }
+}
+
+@media only screen and (max-height: 550px) {
+  .pacman {
+    display: none;
+  }
+  .container-register {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .register-container {
+    border-radius: 0px;
+  }
+}
