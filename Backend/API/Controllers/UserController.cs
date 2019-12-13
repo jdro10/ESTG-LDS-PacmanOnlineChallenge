@@ -42,7 +42,7 @@ namespace API.Controllers
             {
                 return BadRequest(new { error = "Username ou password incorreta" });
             }
-
+            
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -58,12 +58,19 @@ namespace API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
+            DateTime dt = DateTime.Now;
+
+            var challenges = _dailyChallengeService.GetByDay(((int) dt.DayOfWeek).ToString());
+
+            user.notCompletedChallenges = challenges;           
+
             return Ok(new
             {
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
-                Token = tokenString
+                Token = tokenString,
+                Challenges = user.notCompletedChallenges
             });
         }
 
@@ -75,7 +82,7 @@ namespace API.Controllers
         public ActionResult<User> Get(string id)
         {
             var user = _userService.Get(id);
-        
+
             if (user == null)
             {
                 return NotFound();
@@ -93,21 +100,10 @@ namespace API.Controllers
 
             Regex regexPassword = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");
             Match matchPassword = regexPassword.Match(user.Password);
-
-            var challenges = _dailyChallengeService.Get();
-
-
             //password must have a minimum of 8 characters, at least one number and one letter
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
-
-
-
-            user.notCompletedChallenges = challenges.ToArray();
-            //user.notCompletedChallenges[1] = challenge2;
-
-            //password must have a minimum of 8 characters, at least one number and one letter
 
             var usernameExists = _userService.GetByName(user.Username);
             var emailExists = _userService.GetByEmail(user.Email);
@@ -118,9 +114,7 @@ namespace API.Controllers
             {
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
-                
                 user.Level = 0;
-                
                 _userService.Create(user);
             }
             else
@@ -131,7 +125,26 @@ namespace API.Controllers
             return CreatedAtRoute("GetUser", new { id = user.Id.ToString() }, user);
         }
 
-         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        [HttpGet("update")]
+        public void UpdateAllUserChallenges()
+        {
+            DateTime dt = DateTime.Now;
+
+            var challenges = _dailyChallengeService.Get().ToArray();
+
+            var users = _userService.Get();
+            var usersToArray = users.ToArray();
+
+            for (int i = 0; i < usersToArray.Length; i++)
+            {
+                if (Int32.Parse(challenges[i].DayOfWeek) == (int)dt.DayOfWeek)
+                {
+                    usersToArray[i].notCompletedChallenges[i] = challenges[i];
+                }
+            }
+        }
+
+        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
             {
@@ -140,7 +153,7 @@ namespace API.Controllers
             }
         }
 
-         private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
+        private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
             {
