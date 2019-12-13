@@ -13,10 +13,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   max-width: 400px;
   width: 100%;
-
   background: var(--color-zero);
   border-radius: 6px;
   padding: 30px;
@@ -102,6 +100,11 @@ input.error {
     display: none;
   }
   .container-register {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .register-container {
     width: 100vw;
     height: 100vh;
   }
