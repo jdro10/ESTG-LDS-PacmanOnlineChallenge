@@ -94,12 +94,18 @@ namespace API.Controllers
             Regex regexPassword = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");
             Match matchPassword = regexPassword.Match(user.Password);
 
-            var challenge = _dailyChallengeService.GetByDescription("Play 2 games");
+            var challenges = _dailyChallengeService.Get();
+
 
             //password must have a minimum of 8 characters, at least one number and one letter
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
+
+
+
+            user.notCompletedChallenges = challenges.ToArray();
+            //user.notCompletedChallenges[1] = challenge2;
 
             //password must have a minimum of 8 characters, at least one number and one letter
 
@@ -112,7 +118,7 @@ namespace API.Controllers
             {
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
-                user.notCompletedChallenges = challenge;
+                
                 user.Level = 0;
                 
                 _userService.Create(user);

@@ -24,6 +24,6 @@ namespace API.Models
 
         public string Rank {get; set; }
 
-        public DailyChallenge notCompletedChallenges {get; set;}
+        public DailyChallenge[] notCompletedChallenges {get; set;}
     }
 }
