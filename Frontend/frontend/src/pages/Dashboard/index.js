@@ -2,7 +2,12 @@ import React from "react";
 import "./styles.css";
 import logo from "../../assets/logo.png";
 
-export default function Dashboard() {
+export default function Dashboard({ history }) {
+  function handleClickRegister(event) {
+    event.preventDefault();
+    history.push("/");
+  }
+
   return (
     <div className="container-dashboard">
       <div className="header-container">
@@ -41,7 +46,7 @@ export default function Dashboard() {
               alt="Twitter"
             />
           </a>
-          <a href="https://github.com/RAJ66">
+          <a onClick={handleClickRegister}>
             <img
               src="https://img.icons8.com/ios-filled/50/000000/exit.png"
               alt="Exit"
