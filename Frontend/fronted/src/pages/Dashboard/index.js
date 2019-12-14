@@ -24,16 +24,28 @@ export default function Dashboard() {
       <div className="footer-container">
         <div className="social">
           <a href="https://github.com/RAJ66">
-            <img src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png" />
+            <img
+              src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png"
+              alt="Facebook"
+            />
           </a>
           <a href="https://github.com/RAJ66">
-            <img src="https://img.icons8.com/material/50/000000/instagram-new--v1.png" />
+            <img
+              src="https://img.icons8.com/material/50/000000/instagram-new--v1.png"
+              alt="Instagram"
+            />
           </a>
           <a href="https://github.com/RAJ66">
-            <img src="https://img.icons8.com/ios-filled/50/000000/twitter-circled.png" />
+            <img
+              src="https://img.icons8.com/ios-filled/50/000000/twitter-circled.png"
+              alt="Twitter"
+            />
           </a>
           <a href="https://github.com/RAJ66">
-            <img src="https://img.icons8.com/ios-filled/50/000000/exit.png" />
+            <img
+              src="https://img.icons8.com/ios-filled/50/000000/exit.png"
+              alt="Exit"
+            />
           </a>
         </div>
       </div>
