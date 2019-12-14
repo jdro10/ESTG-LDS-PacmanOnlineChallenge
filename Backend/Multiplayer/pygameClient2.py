@@ -3,7 +3,7 @@ import socket
 import time
 
 HOST = '192.168.1.65'
-PORT = 8001
+PORT = 8002
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))

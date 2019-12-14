@@ -1,70 +1,109 @@
-using System;  
-using System.Net;  
-using System.Net.Sockets;  
-using System.Text;  
-  
-public class SynchronousSocketListener {  
-  
-    // Incoming data from the client.  
-    public static string data = null;  
-  
-    public static void StartListening() {  
-        // Data buffer for incoming data.  
-        byte[] bytes = new Byte[1024];  
-  
-        // Establish the local endpoint for the socket.  
-        // Dns.GetHostName returns the name of the   
-        // host running the application.  
-        IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());  
-        IPAddress ipAddress = ipHostInfo.AddressList[1];  
-        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 65432);  
-  
-        // Create a TCP/IP socket.  
-        Socket listener = new Socket(ipAddress.AddressFamily,  
-            SocketType.Stream, ProtocolType.Tcp );  
-  
-        // Bind the socket to the local endpoint and   
-        // listen for incoming connections.  
-        try {  
-            listener.Bind(localEndPoint);  
-            listener.Listen(10);  
-  
-            // Start listening for connections.  
-            while (true) {  
-                Console.WriteLine("Waiting for a connection...");  
-                // Program is suspended while waiting for an incoming connection.  
-                Socket handler = listener.Accept();  
-                data = null;  
-  
-                byte[] msg = null;
-                // An incoming connection needs to be processed.  
-                while (true) {  
-                    int bytesRec = handler.Receive(bytes);  
-                    data += Encoding.ASCII.GetString(bytes,0,bytesRec);  
-                    Console.WriteLine( "{0}", data); 
-                    msg = Encoding.ASCII.GetBytes(data);  
-  
-                    handler.Send(msg);  
-                    if (data.IndexOf("<EOF>") > -1) {  
-                        break;  
-                    }  
-                }  
-              
-                handler.Shutdown(SocketShutdown.Both);  
-                handler.Close();  
-            }  
-  
-        } catch (Exception e) {  
-            Console.WriteLine(e.ToString());  
-        }  
-  
-        Console.WriteLine("\nPress ENTER to continue...");  
-        Console.Read();  
-  
-    }  
-  
-    public static int Main(String[] args) {  
-        StartListening();  
-        return 0;  
-    }  
-}  
+using System;
+using System.Text;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
+
+namespace GameServer
+{
+    public class GameServer
+    {
+        public static void Main()
+        {
+            Thread t = new Thread(Teste);
+                    t.Start();
+            try
+            {
+                IPAddress ipAd = IPAddress.Parse("192.168.1.65");
+                // use local m/c IP address, and 
+                // use the same in the client
+
+                /* Initializes the Listener */
+                TcpListener myList = new TcpListener(ipAd, 8001);
+
+                /* Start Listeneting at the specified port */
+                myList.Start();
+
+                Console.WriteLine("The server is running at port 8001...");
+                Console.WriteLine("The local End point is  :" +
+                                  myList.LocalEndpoint);
+                Console.WriteLine("Waiting for a connection.....");
+
+                Socket so = myList.AcceptSocket();
+                Console.WriteLine("Connection accepted from " + so.RemoteEndPoint);
+
+                while (true)
+                {
+                    byte[] b = new byte[100];
+                    int k = so.Receive(b);
+
+                    for (int i = 0; i < k; i++)
+                        Console.Write(Convert.ToChar(b[i]));
+                    Console.Write("Jogador1: ");
+
+                    ASCIIEncoding asen = new ASCIIEncoding();
+                    so.Send(asen.GetBytes("The string was recieved by the server."));
+                    //Console.WriteLine("\nSent Acknowledgement");
+
+                    
+                }
+                /* clean up */
+                so.Close();
+                myList.Stop();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error..... " + e.StackTrace);
+            }
+        }
+
+        public static void Teste()
+        {
+            try
+            {
+                IPAddress ipAd = IPAddress.Parse("192.168.1.65");
+                // use local m/c IP address, and 
+                // use the same in the client
+
+                /* Initializes the Listener */
+                TcpListener myList = new TcpListener(ipAd, 8002);
+
+                /* Start Listeneting at the specified port */
+                myList.Start();
+
+                Console.WriteLine("The server is running at port 8002...");
+                Console.WriteLine("The local End point is  :" +
+                                  myList.LocalEndpoint);
+                Console.WriteLine("Waiting for a connection.....");
+
+                Socket s = myList.AcceptSocket();
+                Console.WriteLine("Connection accepted from " + s.RemoteEndPoint);
+
+                while (true)
+                {
+                    byte[] b = new byte[100];
+                    int k = s.Receive(b);
+
+                    for (int i = 0; i < k; i++)
+                        Console.Write(Convert.ToChar(b[i]));
+                    Console.Write("Jogador2: ");
+
+
+                    ASCIIEncoding asen = new ASCIIEncoding();
+                    s.Send(asen.GetBytes("Enviado do jogador 1 para o 2"));
+                    //Console.WriteLine("\nSent Acknowledgement");
+                }
+                /* clean up */
+                s.Close();
+                myList.Stop();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error..... " + e.StackTrace);
+            }
+        }
+
+    }
+}
