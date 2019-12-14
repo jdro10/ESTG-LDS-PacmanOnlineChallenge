@@ -1,10 +1,9 @@
 import React from "react";
-import { Formik } from "formik";
-import * as EmailValidator from "email-validator";
-import * as Yup from "yup";
-import api from "../../services/api";
 
-// import { Container } from './styles';
+import { Formik } from "formik";
+import * as Yup from "yup";
+
+import api from "../../services/api";
 
 export default function ValidatedRegisterForm({ history }) {
   return (
