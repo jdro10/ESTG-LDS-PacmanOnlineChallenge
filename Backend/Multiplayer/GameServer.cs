@@ -11,7 +11,7 @@ namespace GameServer
         public static void Main()
         {
             Thread t = new Thread(Teste);
-                    t.Start();
+            t.Start();
             try
             {
                 IPAddress ipAd = IPAddress.Parse("192.168.1.65");
