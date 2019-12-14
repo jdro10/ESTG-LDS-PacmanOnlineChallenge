@@ -22,19 +22,26 @@ namespace API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly DailyChallengeService _dailyChallengeService;
         private readonly AppSettings _appSettings;
 
-        public UsersController(UserService userService, IOptions<AppSettings> appSettings)
+        public UsersController(UserService userService, IOptions<AppSettings> appSettings, DailyChallengeService dailyChallengeService)
         {
             _userService = userService;
             _appSettings = appSettings.Value;
+            _dailyChallengeService = dailyChallengeService;
         }
 
         [AllowAnonymous]
         [HttpPost("auth")]
         public IActionResult Authenticate([FromBody]UserDto userInfo)
         {
+            DateTime dt = DateTime.Now;
+
+            var challenges = _dailyChallengeService.GetByDay(((int) dt.DayOfWeek).ToString());
             var user = _userService.Authenticate(userInfo.Username);
+            LevelController c = new LevelController();
+             
 
             if (user == null || !(VerifyPasswordHash(userInfo.Password, user.PasswordHash, user.PasswordSalt)))
             {
@@ -55,13 +62,18 @@ namespace API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
+            
+            user.dailyChallenges = challenges;
+            user.Level = c.setLevel(user);
 
             return Ok(new
             {
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
-                Token = tokenString
+                Token = tokenString,
+                Level = user.Level,
+                Challenges = user.dailyChallenges
             });
         }
 
@@ -91,34 +103,47 @@ namespace API.Controllers
 
             Regex regexPassword = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");
             Match matchPassword = regexPassword.Match(user.Password);
-
             //password must have a minimum of 8 characters, at least one number and one letter
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
 
-            //password must have a minimum of 8 characters, at least one number and one letter
-
             var usernameExists = _userService.GetByName(user.Username);
             var emailExists = _userService.GetByEmail(user.Email);
             var newUsernameLength = user.Username.Length;
+
+            DateTime dt = DateTime.Now;
+
+            var challenges = _dailyChallengeService.GetByDay(((int)dt.DayOfWeek).ToString());
+
+            user.dailyChallenges = challenges;
 
             if (usernameExists == null && emailExists == null
                 && matchEmail.Success && newUsernameLength >= 3 && matchPassword.Success)
             {
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
+                user.Level = 0;
+                user.Score = 0;
                 _userService.Create(user);
             }
             else
             {
-                return NoContent();
+                return BadRequest(new
+                {
+                    success = "false",
+                    error = "Username ou email já existente"
+                });
             }
 
-            return CreatedAtRoute("GetUser", new { id = user.Id.ToString() }, user);
+            return Ok(new
+            {
+                success = "true",
+                error = ""
+            });
         }
 
-         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
             {
@@ -127,7 +152,7 @@ namespace API.Controllers
             }
         }
 
-         private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
+        private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
             {

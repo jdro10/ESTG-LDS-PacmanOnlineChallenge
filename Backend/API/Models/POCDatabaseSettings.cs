@@ -4,6 +4,8 @@ namespace API.Models
     {
         public string UserCollectionName { get; set; }
 
+        public string ChallengeCollectionName {get; set; }
+
         public string ConnectionString { get; set; }
 
         public string DatabaseName { get; set; }
@@ -12,6 +14,8 @@ namespace API.Models
     public interface IPOCDatabaseSettings
     {
         string UserCollectionName { get; set; }
+
+        public string ChallengeCollectionName {get; set; }
 
         string ConnectionString { get; set; }
 
