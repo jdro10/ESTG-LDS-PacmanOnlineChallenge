@@ -10,13 +10,10 @@ export default function ValidatedRegisterForm({ history }) {
     <Formik
       initialValues={{ userName: "", email: "", password: "" }}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          console.log(values.userName);
-          console.log(values.email);
-          console.log(values.password);
+        console.log(values.userName);
+        console.log(values.email);
+        console.log(values.password);
 
-          setSubmitting(false);
-        }, 500);
         api.post("/api/users", {
           Username: values.userName,
           Email: values.email,
