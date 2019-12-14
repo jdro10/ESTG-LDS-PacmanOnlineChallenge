@@ -16,14 +16,16 @@ namespace API.Models
 
         public string Password { get; set; }
 
-        public byte[] PasswordHash {get; set; }
+        public byte[] PasswordHash { get; set; }
 
-        public byte[] PasswordSalt {get; set; }
+        public byte[] PasswordSalt { get; set; }
 
-        public int Level {get; set; }
+        public int Level { get; set; }
 
-        public string Rank {get; set; }
+        public int Score { get; set; }
 
-        public DailyChallenge[] notCompletedChallenges {get; set;}
+        public string Rank { get; set; }
+
+        public DailyChallenge[] dailyChallenges { get; set; }
     }
 }

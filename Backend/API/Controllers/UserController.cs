@@ -36,13 +36,18 @@ namespace API.Controllers
         [HttpPost("auth")]
         public IActionResult Authenticate([FromBody]UserDto userInfo)
         {
+            DateTime dt = DateTime.Now;
+
+            var challenges = _dailyChallengeService.GetByDay(((int) dt.DayOfWeek).ToString());
             var user = _userService.Authenticate(userInfo.Username);
+            LevelController c = new LevelController();
+             
 
             if (user == null || !(VerifyPasswordHash(userInfo.Password, user.PasswordHash, user.PasswordSalt)))
             {
                 return BadRequest(new { error = "Username ou password incorreta" });
             }
-            
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -57,12 +62,9 @@ namespace API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-
-            DateTime dt = DateTime.Now;
-
-            var challenges = _dailyChallengeService.GetByDay(((int) dt.DayOfWeek).ToString());
-
-            user.notCompletedChallenges = challenges;           
+            
+            user.dailyChallenges = challenges;
+            user.Level = c.setLevel(user);
 
             return Ok(new
             {
@@ -70,7 +72,8 @@ namespace API.Controllers
                 Username = user.Username,
                 Email = user.Email,
                 Token = tokenString,
-                Challenges = user.notCompletedChallenges
+                Level = user.Level,
+                Challenges = user.dailyChallenges
             });
         }
 
@@ -109,39 +112,35 @@ namespace API.Controllers
             var emailExists = _userService.GetByEmail(user.Email);
             var newUsernameLength = user.Username.Length;
 
+            DateTime dt = DateTime.Now;
+
+            var challenges = _dailyChallengeService.GetByDay(((int)dt.DayOfWeek).ToString());
+
+            user.dailyChallenges = challenges;
+
             if (usernameExists == null && emailExists == null
                 && matchEmail.Success && newUsernameLength >= 3 && matchPassword.Success)
             {
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
                 user.Level = 0;
+                user.Score = 0;
                 _userService.Create(user);
             }
             else
             {
-                return NoContent();
-            }
-
-            return CreatedAtRoute("GetUser", new { id = user.Id.ToString() }, user);
-        }
-
-        [HttpGet("update")]
-        public void UpdateAllUserChallenges()
-        {
-            DateTime dt = DateTime.Now;
-
-            var challenges = _dailyChallengeService.Get().ToArray();
-
-            var users = _userService.Get();
-            var usersToArray = users.ToArray();
-
-            for (int i = 0; i < usersToArray.Length; i++)
-            {
-                if (Int32.Parse(challenges[i].DayOfWeek) == (int)dt.DayOfWeek)
+                return BadRequest(new
                 {
-                    usersToArray[i].notCompletedChallenges[i] = challenges[i];
-                }
+                    success = "false",
+                    error = "Username ou email já existente"
+                });
             }
+
+            return Ok(new
+            {
+                success = "true",
+                error = ""
+            });
         }
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

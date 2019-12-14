@@ -1,19 +1,10 @@
 using API.Models;
 using API.Services;
 using API.Helpers;
-using API.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authorization;
-using System.Text;
-using System;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
-using System.Security.Cryptography;
-
 
 namespace API.Controllers
 {
@@ -36,7 +27,7 @@ namespace API.Controllers
         {
             _dailyChallengeService.Create(challenge);
 
-            return CreatedAtRoute("GetUser", new { id = challenge.Id.ToString() }, challenge);            
+            return CreatedAtRoute("GetChallenges", new { id = challenge.Id.ToString() }, challenge);            
         }
 
         [HttpGet]
