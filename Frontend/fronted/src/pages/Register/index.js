@@ -7,10 +7,10 @@ import ValidatedRegisterForm from "../../components/ValidatedRegisterForm/index"
 export default function Register({ history }) {
   return (
     <div className="container-register">
-      <form className="register-container">
+      <div className="register-container">
         <Pacman className="register-pacman" />
         <ValidatedRegisterForm history={history} />
-      </form>
+      </div>
     </div>
   );
 }
