@@ -46,10 +46,8 @@ while gameExit:
     x += lead_x_change
     y += lead_y_change
     
-    varx = "(" + str(x) + "/"
-    vary = str(y) + ")"
-    varaux = varx + vary + "\n"
-    var = bytes(varaux, "utf-8")
+    varx = str(x) + "/" + str(y)
+    var = bytes(varx, "utf-8")
     s.sendall(var)
 	
     msg = s.recv(1024)

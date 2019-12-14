@@ -53,11 +53,14 @@ while gameExit:
     s.sendall(var)
 	
     msg = s.recv(1024)
-    print(msg.decode('utf-8'))
+    msg2= msg.decode('utf-8').split("/");
+    msg3 = int(msg2[0])
     print("\n")
+    msg4 = int(msg2[1])
+    print("(", msg3, "/", msg4, ")")
 
     gamedisplay.fill((0,0,0))
-    pygame.draw.rect(gamedisplay, red, [x, y, 10, 10])
+    pygame.draw.rect(gamedisplay, red, [int(msg3), int(msg4), 10, 10])
 
     pygame.display.update()
 

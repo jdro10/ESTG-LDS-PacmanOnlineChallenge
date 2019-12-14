@@ -8,6 +8,10 @@ namespace GameServer
 {
     public class GameServer
     {
+        static string coordenadasJog1 = "-";
+        static string coordenadasJog2 = "-";
+
+        static string data = null;
         public static void Main()
         {
             Thread t = new Thread(Teste);
@@ -15,13 +19,9 @@ namespace GameServer
             try
             {
                 IPAddress ipAd = IPAddress.Parse("192.168.1.65");
-                // use local m/c IP address, and 
-                // use the same in the client
 
-                /* Initializes the Listener */
                 TcpListener myList = new TcpListener(ipAd, 8001);
 
-                /* Start Listeneting at the specified port */
                 myList.Start();
 
                 Console.WriteLine("The server is running at port 8001...");
@@ -32,22 +32,22 @@ namespace GameServer
                 Socket so = myList.AcceptSocket();
                 Console.WriteLine("Connection accepted from " + so.RemoteEndPoint);
 
+                data = null;
+
+                byte[] b = new byte[100];
+                
                 while (true)
                 {
-                    byte[] b = new byte[100];
-                    int k = so.Receive(b);
 
-                    for (int i = 0; i < k; i++)
-                        Console.Write(Convert.ToChar(b[i]));
-                    Console.Write("Jogador1: ");
-
+                    int bytesRec = so.Receive(b);  
+                    data = Encoding.ASCII.GetString(b,0,bytesRec);  
+                    Console.WriteLine( "Jogador1: " + data); 
+                    coordenadasJog1 = data;
+                                    
                     ASCIIEncoding asen = new ASCIIEncoding();
-                    so.Send(asen.GetBytes("The string was recieved by the server."));
-                    //Console.WriteLine("\nSent Acknowledgement");
-
-                    
+                    so.Send(asen.GetBytes(coordenadasJog2));               
                 }
-                /* clean up */
+
                 so.Close();
                 myList.Stop();
 
@@ -63,13 +63,9 @@ namespace GameServer
             try
             {
                 IPAddress ipAd = IPAddress.Parse("192.168.1.65");
-                // use local m/c IP address, and 
-                // use the same in the client
 
-                /* Initializes the Listener */
                 TcpListener myList = new TcpListener(ipAd, 8002);
 
-                /* Start Listeneting at the specified port */
                 myList.Start();
 
                 Console.WriteLine("The server is running at port 8002...");
@@ -80,21 +76,20 @@ namespace GameServer
                 Socket s = myList.AcceptSocket();
                 Console.WriteLine("Connection accepted from " + s.RemoteEndPoint);
 
+                data = null;
+
+                byte[] b = new byte[100];
+                
                 while (true)
                 {
-                    byte[] b = new byte[100];
-                    int k = s.Receive(b);
-
-                    for (int i = 0; i < k; i++)
-                        Console.Write(Convert.ToChar(b[i]));
-                    Console.Write("Jogador2: ");
-
-
+                    int bytesRec = s.Receive(b);  
+                    data = Encoding.ASCII.GetString(b,0,bytesRec);  
+                    Console.WriteLine( "Jogador2:" + data); 
+                    coordenadasJog2 = data;
+                                    
                     ASCIIEncoding asen = new ASCIIEncoding();
-                    s.Send(asen.GetBytes("Enviado do jogador 1 para o 2"));
-                    //Console.WriteLine("\nSent Acknowledgement");
+                    s.Send(asen.GetBytes(coordenadasJog1));                    
                 }
-                /* clean up */
                 s.Close();
                 myList.Stop();
 
