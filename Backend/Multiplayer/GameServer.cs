@@ -8,8 +8,8 @@ namespace GameServer
 {
     public class GameServer
     {
-        static string coordenadasJog1 = "-";
-        static string coordenadasJog2 = "-";
+        static string coordenadasJog1 = "255/255";
+        static string coordenadasJog2 = "355/255";
 
         static string data = null;
         public static void Main()
@@ -45,7 +45,8 @@ namespace GameServer
                     coordenadasJog1 = data;
                                     
                     ASCIIEncoding asen = new ASCIIEncoding();
-                    so.Send(asen.GetBytes(coordenadasJog2));               
+                    so.Send(asen.GetBytes(coordenadasJog2));
+                    detectCollision();           
                 }
 
                 so.Close();
@@ -88,7 +89,8 @@ namespace GameServer
                     coordenadasJog2 = data;
                                     
                     ASCIIEncoding asen = new ASCIIEncoding();
-                    s.Send(asen.GetBytes(coordenadasJog1));                    
+                    s.Send(asen.GetBytes(coordenadasJog1));
+                    detectCollision();                    
                 }
                 s.Close();
                 myList.Stop();
@@ -97,6 +99,14 @@ namespace GameServer
             catch (Exception e)
             {
                 Console.WriteLine("Error..... " + e.StackTrace);
+            }
+        }
+
+        public static void detectCollision()
+        {
+            if(coordenadasJog1.Equals(coordenadasJog2))
+            {
+                Console.WriteLine("COLLISION DETECTED");
             }
         }
 

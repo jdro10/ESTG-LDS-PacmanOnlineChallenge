@@ -13,14 +13,15 @@ pygame.init()
 gamedisplay = pygame.display.set_mode((640, 480))
 
 red = (255, 0, 0)
+white = (255, 255, 255)
 
 pygame.display.set_caption('Multiplayer')
 
 clock = pygame.time.Clock()
 
 gameExit = True
-x = 250
-y = 250
+x = 355
+y = 255
 lead_x_change = 0
 lead_y_change = 0
 
@@ -46,10 +47,8 @@ while gameExit:
     x += lead_x_change
     y += lead_y_change
     
-    varx = "(" + str(x) + "/"
-    vary = str(y) + ")"
-    varaux = varx + vary + "\n"
-    var = bytes(varaux, "utf-8")
+    varx = str(x) + "/" + str(y)
+    var = bytes(varx, "utf-8")
     s.sendall(var)
 	
     msg = s.recv(1024)
@@ -60,7 +59,12 @@ while gameExit:
     print("(", msg3, "/", msg4, ")")
 
     gamedisplay.fill((0,0,0))
+    pygame.draw.rect(gamedisplay, white, [x, y, 10, 10])
     pygame.draw.rect(gamedisplay, red, [int(msg3), int(msg4), 10, 10])
+
+    lead_x_change = 0
+    lead_y_change = 0
+    
 
     pygame.display.update()
 
