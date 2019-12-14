@@ -9,17 +9,15 @@ export default function ValidatedRegisterForm({ history }) {
   return (
     <Formik
       initialValues={{ userName: "", email: "", password: "" }}
-      onSubmit={(values, { setSubmitting }) => {
-        console.log(values.userName);
-        console.log(values.email);
-        console.log(values.password);
+      onSubmit={values => {
+        console.log("sent");
 
         api.post("/api/users", {
           Username: values.userName,
           Email: values.email,
           Password: values.password
         });
-        history.push("/dashboard");
+        history.push("/");
       }}
       validationSchema={Yup.object().shape({
         userName: Yup.string()
