@@ -18,7 +18,7 @@ namespace GameServer
             t.Start();
             try
             {
-                IPAddress ipAd = IPAddress.Parse("192.168.1.65");
+                IPAddress ipAd = IPAddress.Parse("127.0.0.1");
 
                 TcpListener myList = new TcpListener(ipAd, 8001);
 
@@ -63,7 +63,7 @@ namespace GameServer
         {
             try
             {
-                IPAddress ipAd = IPAddress.Parse("192.168.1.65");
+                IPAddress ipAd = IPAddress.Parse("127.0.0.1");
 
                 TcpListener myList = new TcpListener(ipAd, 8002);
 
