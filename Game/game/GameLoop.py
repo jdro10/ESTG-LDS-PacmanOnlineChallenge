@@ -86,7 +86,7 @@ class GameLoop:
             if direction == "right":
                 pacmanHead = pacmanImage
             if direction == "left":
-                pacmanHead = pygame.transform.rotate(pacmanImage, 180)
+                pacmanHead = pygame.transform.flip(pacmanImage, True,False)
             if direction == "up":
                 pacmanHead = pygame.transform.rotate(pacmanImage, 90)
             if direction == "down":
