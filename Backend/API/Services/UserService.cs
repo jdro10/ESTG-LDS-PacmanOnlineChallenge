@@ -51,6 +51,9 @@ namespace API.Services
             return user;
         }
 
+        public void UpdatePassword(string email, User userIn) =>
+            _users.ReplaceOne(user => user.Email == email, userIn);
+
         public void Update(string id, User userIn) =>
             _users.ReplaceOne(user => user.Id == id, userIn);
 

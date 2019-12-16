@@ -32,7 +32,7 @@ namespace API.Controllers
             _appSettings = appSettings.Value;
             _dailyChallengeService = dailyChallengeService;
             _emailService = emailService;
-        }      
+        }
 
         [AllowAnonymous]
         [HttpPost("auth")]
@@ -165,8 +165,9 @@ namespace API.Controllers
             return true;
         }
 
+        [AllowAnonymous]
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, User userIn)
+        public IActionResult ForgotPassword(string id)
         {
             var user = _userService.Get(id);
 
@@ -175,9 +176,39 @@ namespace API.Controllers
                 return NotFound();
             }
 
-            _userService.Update(id, userIn);
+            var newPassword = NewRandomPassword();
 
-            return NoContent();
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(newPassword, out passwordHash, out passwordSalt);
+
+            user.Password = newPassword;
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+
+            _userService.Update(id, user);
+
+            _emailService.newPasswordRequest(user.Email, user.Username, user.Password);
+
+            return Ok(new
+            {
+                success = "true",
+            });
+        }
+
+        private static string NewRandomPassword()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[8];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            return finalString;
         }
 
         [HttpDelete("{id:length(24)}")]
