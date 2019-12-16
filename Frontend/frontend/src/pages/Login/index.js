@@ -28,7 +28,7 @@ export default function Login({ history }) {
   return (
     <div className="container-inicio">
       <form className="login-container" onSubmit={handleSubmit}>
-        <img src={logo} alt="It a match" />
+        <img src={logo} className="logo" alt="It a match" />
         <input
           placeholder="Email"
           value={email}
