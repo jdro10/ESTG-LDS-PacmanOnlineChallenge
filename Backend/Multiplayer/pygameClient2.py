@@ -3,7 +3,7 @@ import socket
 import time
 
 HOST = '127.0.0.1'
-PORT = 8001
+PORT = 8002
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
@@ -20,7 +20,7 @@ pygame.display.set_caption('Multiplayer')
 clock = pygame.time.Clock()
 
 gameExit = True
-x = 255
+x = 355
 y = 255
 lead_x_change = 0
 lead_y_change = 0
@@ -59,11 +59,12 @@ while gameExit:
     print("(", msg3, "/", msg4, ")")
 
     gamedisplay.fill((0,0,0))
-    pygame.draw.rect(gamedisplay, red, [x, y, 10, 10])
-    pygame.draw.rect(gamedisplay, white, [int(msg3), int(msg4), 10, 10])
+    pygame.draw.rect(gamedisplay, white, [x, y, 10, 10])
+    pygame.draw.rect(gamedisplay, red, [int(msg3), int(msg4), 10, 10])
 
     lead_x_change = 0
     lead_y_change = 0
+    
 
     pygame.display.update()
 

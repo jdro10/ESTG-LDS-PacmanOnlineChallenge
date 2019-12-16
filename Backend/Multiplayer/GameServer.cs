@@ -1,70 +1,114 @@
-using System;  
-using System.Net;  
-using System.Net.Sockets;  
-using System.Text;  
-  
-public class SynchronousSocketListener {  
-  
-    // Incoming data from the client.  
-    public static string data = null;  
-  
-    public static void StartListening() {  
-        // Data buffer for incoming data.  
-        byte[] bytes = new Byte[1024];  
-  
-        // Establish the local endpoint for the socket.  
-        // Dns.GetHostName returns the name of the   
-        // host running the application.  
-        IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());  
-        IPAddress ipAddress = ipHostInfo.AddressList[1];  
-        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 65432);  
-  
-        // Create a TCP/IP socket.  
-        Socket listener = new Socket(ipAddress.AddressFamily,  
-            SocketType.Stream, ProtocolType.Tcp );  
-  
-        // Bind the socket to the local endpoint and   
-        // listen for incoming connections.  
-        try {  
-            listener.Bind(localEndPoint);  
-            listener.Listen(10);  
-  
-            // Start listening for connections.  
-            while (true) {  
-                Console.WriteLine("Waiting for a connection...");  
-                // Program is suspended while waiting for an incoming connection.  
-                Socket handler = listener.Accept();  
-                data = null;  
-  
-                byte[] msg = null;
-                // An incoming connection needs to be processed.  
-                while (true) {  
-                    int bytesRec = handler.Receive(bytes);  
-                    data += Encoding.ASCII.GetString(bytes,0,bytesRec);  
-                    Console.WriteLine( "{0}", data); 
-                    msg = Encoding.ASCII.GetBytes(data);  
-  
-                    handler.Send(msg);  
-                    if (data.IndexOf("<EOF>") > -1) {  
-                        break;  
-                    }  
-                }  
-              
-                handler.Shutdown(SocketShutdown.Both);  
-                handler.Close();  
-            }  
-  
-        } catch (Exception e) {  
-            Console.WriteLine(e.ToString());  
-        }  
-  
-        Console.WriteLine("\nPress ENTER to continue...");  
-        Console.Read();  
-  
-    }  
-  
-    public static int Main(String[] args) {  
-        StartListening();  
-        return 0;  
-    }  
-}  
+using System;
+using System.Text;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
+
+namespace GameServer
+{
+    public class GameServer
+    {
+        static string coordenadasJog1 = "255/255";
+        static string coordenadasJog2 = "355/255";
+
+        static string data = null;
+        public static void Main()
+        {
+            Thread t = new Thread(Teste);
+            t.Start();
+            try
+            {
+                IPAddress ipAd = IPAddress.Parse("127.0.0.1");
+
+                TcpListener myList = new TcpListener(ipAd, 8001);
+
+                myList.Start();
+
+                Console.WriteLine("The server is running at port 8001...");
+                Console.WriteLine("The local End point is  :" +
+                                  myList.LocalEndpoint);
+                Console.WriteLine("Waiting for a connection.....");
+
+                Socket so = myList.AcceptSocket();
+                Console.WriteLine("Connection accepted from " + so.RemoteEndPoint);
+
+                data = null;
+
+                byte[] b = new byte[100];
+                
+                while (true)
+                {
+
+                    int bytesRec = so.Receive(b);  
+                    data = Encoding.ASCII.GetString(b,0,bytesRec);  
+                    Console.WriteLine( "Jogador1: " + data); 
+                    coordenadasJog1 = data;
+                                    
+                    ASCIIEncoding asen = new ASCIIEncoding();
+                    so.Send(asen.GetBytes(coordenadasJog2));
+                    detectCollision();           
+                }
+
+                so.Close();
+                myList.Stop();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error..... " + e.StackTrace);
+            }
+        }
+
+        public static void Teste()
+        {
+            try
+            {
+                IPAddress ipAd = IPAddress.Parse("127.0.0.1");
+
+                TcpListener myList = new TcpListener(ipAd, 8002);
+
+                myList.Start();
+
+                Console.WriteLine("The server is running at port 8002...");
+                Console.WriteLine("The local End point is  :" +
+                                  myList.LocalEndpoint);
+                Console.WriteLine("Waiting for a connection.....");
+
+                Socket s = myList.AcceptSocket();
+                Console.WriteLine("Connection accepted from " + s.RemoteEndPoint);
+
+                data = null;
+
+                byte[] b = new byte[100];
+                
+                while (true)
+                {
+                    int bytesRec = s.Receive(b);  
+                    data = Encoding.ASCII.GetString(b,0,bytesRec);  
+                    Console.WriteLine( "Jogador2:" + data); 
+                    coordenadasJog2 = data;
+                                    
+                    ASCIIEncoding asen = new ASCIIEncoding();
+                    s.Send(asen.GetBytes(coordenadasJog1));
+                    detectCollision();                    
+                }
+                s.Close();
+                myList.Stop();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error..... " + e.StackTrace);
+            }
+        }
+
+        public static void detectCollision()
+        {
+            if(coordenadasJog1.Equals(coordenadasJog2))
+            {
+                Console.WriteLine("COLLISION DETECTED");
+            }
+        }
+
+    }
+}
