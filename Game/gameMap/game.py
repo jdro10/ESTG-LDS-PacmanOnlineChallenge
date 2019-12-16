@@ -16,6 +16,7 @@ class Game:
         self.cell_height = MAP_HEIGHT//30
         self.pacman = Pacman(self,START_POS)
         self.walls = []
+        self.coins = []
 
         self.load()
 
@@ -72,13 +73,13 @@ class Game:
             if event.type == pygame.QUIT:
                 self.gameLoop = False
             if event.type == pygame.KEYDOWN:
-                if  event.key == pygame.K_LEFT:
+                if event.key == pygame.K_LEFT:
                     self.pacman.move(vec(-1,0))
-                elif event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT:
                     self.pacman.move(vec(1, 0))
-                elif event.key == pygame.K_DOWN:
+                if event.key == pygame.K_DOWN:
                     self.pacman.move(vec(0, 1))
-                elif event.key == pygame.K_UP:
+                if event.key == pygame.K_UP:
                     self.pacman.move(vec(0, -1))
 
     def playsingle_update(self):
@@ -87,21 +88,26 @@ class Game:
     def playsingle_draw(self):
         self.screen.fill(BLACK)
         self.screen.blit(self.background,(TOP_BOTTOM_SPACE//2,TOP_BOTTOM_SPACE//2))
-        #self.draw_grid()
+        self.draw_coins()
+        #self.draw_grid() #REDE
         self.draw_text('CURRENT SCORE : 0', self.screen, [100,0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('TIME : 0', self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH//2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.pacman.draw()
         pygame.display.update()
+        #self.coins.pop()
+
+    def draw_coins(self):
+        for coin in self.coins:
+            pygame.draw.circle(self.screen,LIGHT_YELLOW , (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_SPACE//2,int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_SPACE//2),4)
 
     def draw_grid(self):
         for x in range (WIDTH//self.cell_width):
             pygame.draw.line(self.background, WHITE , (x*self.cell_width,0), (x*self.cell_width, HEIGHT))
         for x in range (HEIGHT//self.cell_height):
             pygame.draw.line(self.background, WHITE , (0 , x*self.cell_height), (WIDTH, x*self.cell_height))
-
-        #for wall in self.walls:
-            #pygame.draw.rect(self.background,GREEN,(wall.x*self.cell_width,wall.y*self.cell_height,self.cell_width,self.cell_height))
+        for coin in self.coins:
+            pygame.draw.rect(self.background, GREEN, (coin.x*self.cell_width,coin.y*self.cell_height,self.cell_width,self.cell_height))
 
 
     def load(self):
@@ -113,5 +119,5 @@ class Game:
                 for xindex,char in enumerate(line):
                     if char == "1":
                         self.walls.append(vec(xindex,yindex))
-
-#9
+                    elif char == "C":
+                        self.coins.append(vec(xindex,yindex))
