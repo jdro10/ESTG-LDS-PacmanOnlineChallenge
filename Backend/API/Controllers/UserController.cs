@@ -23,22 +23,21 @@ namespace API.Controllers
     {
         private readonly UserService _userService;
         private readonly DailyChallengeService _dailyChallengeService;
+        private readonly EmailService _emailService;
         private readonly AppSettings _appSettings;
 
-        public UsersController(UserService userService, IOptions<AppSettings> appSettings, DailyChallengeService dailyChallengeService)
+        public UsersController(UserService userService, IOptions<AppSettings> appSettings, DailyChallengeService dailyChallengeService, EmailService emailService)
         {
             _userService = userService;
             _appSettings = appSettings.Value;
             _dailyChallengeService = dailyChallengeService;
-        }
+            _emailService = emailService;
+        }      
 
         [AllowAnonymous]
         [HttpPost("auth")]
         public IActionResult Authenticate([FromBody]UserDto userInfo)
         {
-            DateTime dt = DateTime.Now;
-
-            var challenges = _dailyChallengeService.GetByDay(((int)dt.DayOfWeek).ToString());
             var user = _userService.Authenticate(userInfo.Username);
 
             if (user == null || !(VerifyPasswordHash(userInfo.Password, user.PasswordHash, user.PasswordSalt)))
@@ -61,6 +60,7 @@ namespace API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
+            SetUserChallengeDaily(user);
 
             return Ok(new
             {
@@ -71,6 +71,14 @@ namespace API.Controllers
                 Level = user.Level,
                 Challenges = user.dailyChallenges
             });
+        }
+
+        private void SetUserChallengeDaily(User user)
+        {
+            DateTime dt = DateTime.Now;
+            var challenges = _dailyChallengeService.GetByDay(((int)dt.DayOfWeek).ToString());
+
+            user.dailyChallenges = challenges;
         }
 
         [HttpGet]
@@ -103,7 +111,6 @@ namespace API.Controllers
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
 
-            DateTime dt = DateTime.Now;
             var usernameExists = _userService.GetByName(user.Username);
             var emailExists = _userService.GetByEmail(user.Email);
             var newUsernameLength = user.Username.Length;
@@ -115,6 +122,7 @@ namespace API.Controllers
                 user.PasswordSalt = passwordSalt;
                 user.Level = 0;
                 user.Score = 0;
+                _emailService.sendSignupMail(user.Email, user.Username, user.Password);
                 _userService.Create(user);
             }
             else
