@@ -1,19 +1,23 @@
 import React from "react";
+
 import { Formik } from "formik";
-import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
 
-// import { Container } from './styles';
+import api from "../../services/api";
 
-export default function ValidatedRegisterForm() {
+export default function ValidatedRegisterForm({ history }) {
   return (
     <Formik
       initialValues={{ userName: "", email: "", password: "" }}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          console.log("values ​​test:", values);
-          setSubmitting(false);
-        }, 500);
+      onSubmit={values => {
+        console.log("sent");
+
+        api.post("/api/users", {
+          Username: values.userName,
+          Email: values.email,
+          Password: values.password
+        });
+        history.push("/");
       }}
       validationSchema={Yup.object().shape({
         userName: Yup.string()
