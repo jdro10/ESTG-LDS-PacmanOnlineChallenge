@@ -145,9 +145,6 @@
   .login-container {
     width: 100vw;
     height: 100vh;
-  }
-
-  .login-container {
     border-radius: 0px;
   }
 }

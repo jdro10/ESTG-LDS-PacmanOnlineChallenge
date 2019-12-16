@@ -107,9 +107,6 @@ input.error {
   .register-container {
     width: 100vw;
     height: 100vh;
-  }
-
-  .register-container {
     border-radius: 0px;
   }
 }
