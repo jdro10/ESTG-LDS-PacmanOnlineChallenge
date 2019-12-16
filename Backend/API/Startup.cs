@@ -75,6 +75,8 @@ namespace API
 
             services.AddSingleton<DailyChallengeService>();
 
+            services.AddSingleton<EmailService>();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>

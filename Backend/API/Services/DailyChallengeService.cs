@@ -26,14 +26,10 @@ namespace API.Services
 
         public List<DailyChallenge> Get() => _challenges.Find(challenge => true).ToList();
 
-        public DailyChallenge GetByDescription(string description) =>
-            _challenges.Find<DailyChallenge>(challenge => challenge.Description == description).FirstOrDefault();
-
         public DailyChallenge[] GetByDay(string day) {
-            var challengesList = _challenges.Find<DailyChallenge>(challenge => challenge.DayOfWeek == day).ToList();
-            var challengeArray = challengesList.ToArray();
+            var challengesArray = _challenges.Find<DailyChallenge>(challenge => challenge.DayOfWeek == day).ToList().ToArray();
 
-            return challengeArray;
+            return challengesArray;
         }
     }
 }

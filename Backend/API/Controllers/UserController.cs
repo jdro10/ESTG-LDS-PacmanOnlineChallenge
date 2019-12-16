@@ -17,35 +17,32 @@ using System.Security.Cryptography;
 namespace API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
         private readonly DailyChallengeService _dailyChallengeService;
+        private readonly EmailService _emailService;
         private readonly AppSettings _appSettings;
 
-        public UsersController(UserService userService, IOptions<AppSettings> appSettings, DailyChallengeService dailyChallengeService)
+        public UsersController(UserService userService, IOptions<AppSettings> appSettings, DailyChallengeService dailyChallengeService, EmailService emailService)
         {
             _userService = userService;
             _appSettings = appSettings.Value;
             _dailyChallengeService = dailyChallengeService;
+            _emailService = emailService;
         }
 
         [AllowAnonymous]
         [HttpPost("auth")]
         public IActionResult Authenticate([FromBody]UserDto userInfo)
         {
-            DateTime dt = DateTime.Now;
-
-            var challenges = _dailyChallengeService.GetByDay(((int) dt.DayOfWeek).ToString());
             var user = _userService.Authenticate(userInfo.Username);
-            LevelController c = new LevelController();
-             
 
             if (user == null || !(VerifyPasswordHash(userInfo.Password, user.PasswordHash, user.PasswordSalt)))
             {
-                return BadRequest(new { error = "Username ou password incorreta" });
+                return BadRequest(new { error = "Username ou password incorreta!" });
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -62,9 +59,8 @@ namespace API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-            
-            user.dailyChallenges = challenges;
-            user.Level = c.setLevel(user);
+
+            SetUserChallengeDaily(user);
 
             return Ok(new
             {
@@ -75,6 +71,14 @@ namespace API.Controllers
                 Level = user.Level,
                 Challenges = user.dailyChallenges
             });
+        }
+
+        private void SetUserChallengeDaily(User user)
+        {
+            DateTime dt = DateTime.Now;
+            var challenges = _dailyChallengeService.GetByDay(((int)dt.DayOfWeek).ToString());
+
+            user.dailyChallenges = challenges;
         }
 
         [HttpGet]
@@ -103,7 +107,6 @@ namespace API.Controllers
 
             Regex regexPassword = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");
             Match matchPassword = regexPassword.Match(user.Password);
-            //password must have a minimum of 8 characters, at least one number and one letter
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
@@ -112,12 +115,6 @@ namespace API.Controllers
             var emailExists = _userService.GetByEmail(user.Email);
             var newUsernameLength = user.Username.Length;
 
-            DateTime dt = DateTime.Now;
-
-            var challenges = _dailyChallengeService.GetByDay(((int)dt.DayOfWeek).ToString());
-
-            user.dailyChallenges = challenges;
-
             if (usernameExists == null && emailExists == null
                 && matchEmail.Success && newUsernameLength >= 3 && matchPassword.Success)
             {
@@ -125,6 +122,7 @@ namespace API.Controllers
                 user.PasswordSalt = passwordSalt;
                 user.Level = 0;
                 user.Score = 0;
+                _emailService.sendSignupMail(user.Email, user.Username, user.Password);
                 _userService.Create(user);
             }
             else
@@ -132,7 +130,7 @@ namespace API.Controllers
                 return BadRequest(new
                 {
                     success = "false",
-                    error = "Username ou email já existente"
+                    error = "Username/email já existente ou password inválida"
                 });
             }
 
@@ -167,8 +165,9 @@ namespace API.Controllers
             return true;
         }
 
+        [AllowAnonymous]
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, User userIn)
+        public IActionResult ForgotPassword(string id)
         {
             var user = _userService.Get(id);
 
@@ -177,9 +176,39 @@ namespace API.Controllers
                 return NotFound();
             }
 
-            _userService.Update(id, userIn);
+            var newPassword = NewRandomPassword();
 
-            return NoContent();
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(newPassword, out passwordHash, out passwordSalt);
+
+            user.Password = newPassword;
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+
+            _userService.Update(id, user);
+
+            _emailService.newPasswordRequest(user.Email, user.Username, user.Password);
+
+            return Ok(new
+            {
+                success = "true",
+            });
+        }
+
+        private static string NewRandomPassword()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[8];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            return finalString;
         }
 
         [HttpDelete("{id:length(24)}")]
