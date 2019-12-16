@@ -14,12 +14,12 @@ class Game:
         self.state = 'menu'
         self.cell_width = MAP_WIDTH//28
         self.cell_height = MAP_HEIGHT//30
-        self.pacman = Pacman(self,START_POS)
+        self.pacman_position = None
         self.walls = []
         self.coins = []
 
         self.load()
-
+        self.pacman = Pacman(self, self.pacman_position)
 
 
     #### GAME LOOP ####
@@ -121,4 +121,6 @@ class Game:
                         self.walls.append(vec(xindex,yindex))
                     elif char == "C":
                         self.coins.append(vec(xindex,yindex))
+                    elif char == "P":
+                        self.pacman_position = vec(xindex,yindex)
 

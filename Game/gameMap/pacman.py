@@ -33,9 +33,12 @@ class Pacman:
     #verifica se estou em cima da moeda
     def on_Coin(self):
         if self.grid_pos in self.app.coins:
-            return True
-        else:
-            return False
+            if self.time_to_move_x():
+                return True
+            if self.time_to_move_y():
+                return True
+
+        return False
 
     def smash_coin(self):
         self.app.coins.remove(self.grid_pos)

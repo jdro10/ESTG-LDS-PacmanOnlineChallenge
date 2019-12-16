@@ -2,7 +2,7 @@ import pygame
 import socket
 import time
 
-HOST = '127.0.0.1'
+HOST = '192.168.1.65'
 PORT = 8001
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
