@@ -10,6 +10,7 @@ class Pacman:
         self.direction = vec(1,0)
         self.buffer_direction = None
         self.can_move = True
+        self.score = 0
 
     def update(self):
         if self.can_move:
@@ -23,8 +24,22 @@ class Pacman:
             if self.buffer_direction != None:
                 self.direction = self.buffer_direction
 
-        self.grid_pos[0] = (self.pixel_pos[0]-TOP_BOTTOM_SPACE+self.app.cell_width//2)//self.app.cell_width + 1 #AQUI
+        self.grid_pos[0] = (self.pixel_pos[0]-TOP_BOTTOM_SPACE+self.app.cell_width//2)//self.app.cell_width + 1
         self.grid_pos[1] = (self.pixel_pos[1] - TOP_BOTTOM_SPACE+self.app.cell_height//2) // self.app.cell_height + 1
+
+        if self.on_Coin():
+            self.smash_coin()
+
+    #verifica se estou em cima da moeda
+    def on_Coin(self):
+        if self.grid_pos in self.app.coins:
+            return True
+        else:
+            return False
+
+    def smash_coin(self):
+        self.app.coins.remove(self.grid_pos)
+        self.score += 10
 
     def draw(self):
         pygame.draw.circle(self.app.screen, YELLOW, (int(self.pixel_pos.x), int(self.pixel_pos.y)),self.app.cell_width//2-2)

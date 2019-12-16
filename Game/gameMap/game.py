@@ -90,7 +90,7 @@ class Game:
         self.screen.blit(self.background,(TOP_BOTTOM_SPACE//2,TOP_BOTTOM_SPACE//2))
         self.draw_coins()
         #self.draw_grid() #REDE
-        self.draw_text('CURRENT SCORE : 0', self.screen, [100,0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
+        self.draw_text('CURRENT SCORE : {}'.format(self.pacman.score), self.screen, [100,0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('TIME : 0', self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH//2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.pacman.draw()
@@ -121,3 +121,4 @@ class Game:
                         self.walls.append(vec(xindex,yindex))
                     elif char == "C":
                         self.coins.append(vec(xindex,yindex))
+
