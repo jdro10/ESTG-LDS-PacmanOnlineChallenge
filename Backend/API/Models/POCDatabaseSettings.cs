@@ -15,7 +15,7 @@ namespace API.Models
     {
         string UserCollectionName { get; set; }
 
-        public string ChallengeCollectionName {get; set; }
+        string ChallengeCollectionName {get; set; }
 
         string ConnectionString { get; set; }
 

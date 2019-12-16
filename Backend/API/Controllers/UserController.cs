@@ -17,7 +17,7 @@ using System.Security.Cryptography;
 namespace API.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -38,14 +38,12 @@ namespace API.Controllers
         {
             DateTime dt = DateTime.Now;
 
-            var challenges = _dailyChallengeService.GetByDay(((int) dt.DayOfWeek).ToString());
+            var challenges = _dailyChallengeService.GetByDay(((int)dt.DayOfWeek).ToString());
             var user = _userService.Authenticate(userInfo.Username);
-            LevelController c = new LevelController();
-             
 
             if (user == null || !(VerifyPasswordHash(userInfo.Password, user.PasswordHash, user.PasswordSalt)))
             {
-                return BadRequest(new { error = "Username ou password incorreta" });
+                return BadRequest(new { error = "Username ou password incorreta!" });
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -62,9 +60,7 @@ namespace API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-            
-            user.dailyChallenges = challenges;
-            user.Level = c.setLevel(user);
+
 
             return Ok(new
             {
@@ -103,20 +99,14 @@ namespace API.Controllers
 
             Regex regexPassword = new Regex(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$");
             Match matchPassword = regexPassword.Match(user.Password);
-            //password must have a minimum of 8 characters, at least one number and one letter
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
 
+            DateTime dt = DateTime.Now;
             var usernameExists = _userService.GetByName(user.Username);
             var emailExists = _userService.GetByEmail(user.Email);
             var newUsernameLength = user.Username.Length;
-
-            DateTime dt = DateTime.Now;
-
-            var challenges = _dailyChallengeService.GetByDay(((int)dt.DayOfWeek).ToString());
-
-            user.dailyChallenges = challenges;
 
             if (usernameExists == null && emailExists == null
                 && matchEmail.Success && newUsernameLength >= 3 && matchPassword.Success)
@@ -132,7 +122,7 @@ namespace API.Controllers
                 return BadRequest(new
                 {
                     success = "false",
-                    error = "Username ou email já existente"
+                    error = "Username/email já existente ou password inválida"
                 });
             }
 

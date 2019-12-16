@@ -9,7 +9,7 @@ namespace API.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [BsonElement("Username")]
+        [BsonElement("DayOfWeek")]
         public string DayOfWeek { get; set; }
 
         public string Description { get; set; }
