@@ -1,0 +1,11 @@
+/Users/hugocorreia/Desktop/mail/bin/Debug/netcoreapp3.0/mail
+/Users/hugocorreia/Desktop/mail/bin/Debug/netcoreapp3.0/mail.deps.json
+/Users/hugocorreia/Desktop/mail/bin/Debug/netcoreapp3.0/mail.runtimeconfig.json
+/Users/hugocorreia/Desktop/mail/bin/Debug/netcoreapp3.0/mail.runtimeconfig.dev.json
+/Users/hugocorreia/Desktop/mail/bin/Debug/netcoreapp3.0/mail.dll
+/Users/hugocorreia/Desktop/mail/bin/Debug/netcoreapp3.0/mail.pdb
+/Users/hugocorreia/Desktop/mail/obj/Debug/netcoreapp3.0/mail.csprojAssemblyReference.cache
+/Users/hugocorreia/Desktop/mail/obj/Debug/netcoreapp3.0/mail.AssemblyInfoInputs.cache
+/Users/hugocorreia/Desktop/mail/obj/Debug/netcoreapp3.0/mail.AssemblyInfo.cs
+/Users/hugocorreia/Desktop/mail/obj/Debug/netcoreapp3.0/mail.dll
+/Users/hugocorreia/Desktop/mail/obj/Debug/netcoreapp3.0/mail.pdb
