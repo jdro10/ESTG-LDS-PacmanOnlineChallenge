@@ -22,6 +22,10 @@ class Game:
         self.pacman = Pacman(self, self.pacman_position)
 
 
+
+
+
+
     #### GAME LOOP ####
     def run(self):
         while self.gameLoop:
@@ -69,18 +73,41 @@ class Game:
         pygame.display.update()
 
     def playsingle_events(self):
+
+        j = pygame.joystick.Joystick(0)
+        j.init()
+
+
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.gameLoop = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.pacman.move(vec(-1,0))
-                if event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_RIGHT:
                     self.pacman.move(vec(1, 0))
-                if event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN:
                     self.pacman.move(vec(0, 1))
-                if event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP:
                     self.pacman.move(vec(0, -1))
+            elif event.type == pygame.JOYAXISMOTION:
+                if j.get_axis(0) > 0.2:
+                    self.pacman.move(vec(1,0))
+                elif j.get_axis(0) < -0.2:
+                    self.pacman.move(vec(-1,0))
+                elif j.get_axis(1) > 0.2:
+                    self.pacman.move(vec(0,1))
+                elif j.get_axis(1) < -0.2:
+                    self.pacman.move(vec(0,-1))
+                elif j.get_hat(0) == (0 , 1):
+                    self.pacman.move(vec(0,-1))
+                elif j.get_hat(0) == (0 , -1):
+                    self.pacman.move(vec(0,1))
+                elif j.get_hat(0) == (1 , 0):
+                    self.pacman.move(vec(1,0))
+                elif j.get_hat(0) == (-1 , 0):
+                    self.pacman.move(vec(-1,0))
 
     def playsingle_update(self):
         self.pacman.update()
