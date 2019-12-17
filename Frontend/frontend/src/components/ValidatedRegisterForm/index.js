@@ -8,8 +8,15 @@ import api from "../../services/api";
 export default function ValidatedRegisterForm({ history }) {
   async function handleSubmmit(values) {
     //event.preventDefault();
-
+    console.log("sent2");
     console.log(values);
+
+    const response = await api.post("/api/user", {
+      Username: values.userName,
+      Email: values.email,
+      Password: values.password
+    });
+    console.log(response);
   }
 
   return (
