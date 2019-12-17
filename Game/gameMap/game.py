@@ -1,6 +1,7 @@
 import pygame , sys
 from settings import *
 from pacman import *
+from  enemy import *
 
 pygame.init()
 
@@ -17,10 +18,11 @@ class Game:
         self.pacman_position = None
         self.walls = []
         self.coins = []
-
+        self.enemies = []
+        self.e_pos = []
         self.load()
         self.pacman = Pacman(self, self.pacman_position)
-
+        self.make_enemies()
 
 
 
@@ -111,6 +113,8 @@ class Game:
 
     def playsingle_update(self):
         self.pacman.update()
+        for enemy in self.enemies:
+            enemy.update()
 
     def playsingle_draw(self):
         self.screen.fill(BLACK)
@@ -121,6 +125,8 @@ class Game:
         self.draw_text('TIME : 0', self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH//2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.pacman.draw()
+        for enemy in self.enemies:
+            enemy.draw()
         pygame.display.update()
         #self.coins.pop()
 
@@ -140,7 +146,7 @@ class Game:
     def load(self):
         self.background = pygame.image.load('maze.png')
         self.background = pygame.transform.scale(self.background, (MAP_WIDTH, MAP_HEIGHT))
-        #settings wall while opening
+        #settings wall while opening and characters / coins
         with open("walls.txt",'r') as fp:
             for yindex,line in enumerate(fp):
                 for xindex,char in enumerate(line):
@@ -150,4 +156,13 @@ class Game:
                         self.coins.append(vec(xindex,yindex))
                     elif char == "P":
                         self.pacman_position = vec(xindex,yindex)
+                    elif char  in ["2","3","4","5"]:
+                        self.e_pos.append(vec(xindex,yindex))
+                    elif char == "B":
+                        pygame.draw.rect(self.background,BLACK , (xindex*self.cell_width,yindex*self.cell_height,self.cell_width,self.cell_height))
 
+
+
+    def make_enemies(self):
+        for xindex ,pos in enumerate(self.e_pos):
+            self.enemies.append(Enemy(self,pos,xindex))
