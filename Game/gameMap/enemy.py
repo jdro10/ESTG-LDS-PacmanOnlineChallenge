@@ -12,8 +12,18 @@ class Enemy:
         self.radius = 8
         self.number = number
         self.color = self.set_color()
+        self.direction = vec(1,0)  #POR A MOVER LOGO
+        self.type = set.type()
 
     def update(self):
+        self.pix_pos += self.direction
+        if self.can_move:
+            self.move()
+
+    def can_move(self):
+        pass
+
+    def move(self):
         pass
 
     def draw(self):
@@ -32,3 +42,13 @@ class Enemy:
             return GREEN
         elif self.number == 3:
             return WHITE
+
+    def set_type(self):
+        if self.number == 0:
+            return "speedy"
+        elif self.number == 1:
+            return "slow"
+        elif self.number == 2:
+            return "random"
+        else:
+            return "top"
