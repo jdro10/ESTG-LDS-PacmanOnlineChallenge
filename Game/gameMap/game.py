@@ -13,8 +13,8 @@ class Game:
         self.clock  = pygame.time.Clock()
         self.gameLoop = True
         self.state = 'menu'
-        self.cell_width = MAP_WIDTH//28
-        self.cell_height = MAP_HEIGHT//30
+        self.cell_width = MAP_WIDTH//NUMBER_CELLS_WIDTH
+        self.cell_height = MAP_HEIGHT//NUMBER_CELLS_HEIGHT
         self.pacman_position = None
         self.walls = []
         self.coins = []

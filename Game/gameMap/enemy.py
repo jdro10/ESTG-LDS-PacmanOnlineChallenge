@@ -1,3 +1,4 @@
+
 import pygame, random
 
 from settings import *
@@ -44,13 +45,13 @@ class Enemy:
 
     def set_type(self):
         if self.number == 0:
-            return "speedy"
+            return "fast chaser"
         elif self.number == 1:
-            return "slow"
+            return "slow chaser"
         elif self.number == 2:
-            return "random"
+            return "fast random"
         else:
-            return "top"
+            return "slow random"
 
     def set_color(self):
         if self.number == 0:
@@ -76,9 +77,58 @@ class Enemy:
                 return True
 
     def move(self):
-        if self.type == "random":
+        if self.type == "slow random":
             self.direction = self.get_random_direction()
+        elif self.type == "slow chaser":
+            self.direction = self.get_pacman_direction()
+        elif self.type == "fast random":
+            self.direction = self.get_random_direction()
+        else :
+            self.direction = self.get_pacman_direction()
 
+
+    def get_pacman_direction(self):
+        next_cell = self.find_next_cell()
+        x_dir = next_cell[0] - self.grid_pos[0]
+        y_dir = next_cell[1] - self.grid_pos[1]
+        return vec(x_dir,y_dir)
+
+    def find_next_cell(self):
+        path = self.get_pacman_path([int(self.grid_pos.x), int(self.grid_pos.y)],[int(self.app.pacman.grid_pos.x), int(self.app.pacman.grid_pos.y)])
+        return path[1]
+
+
+    def get_pacman_path(self,start,target):
+        grid = [[0 for x in range(NUMBER_CELLS_WIDTH)] for x in range(NUMBER_CELLS_HEIGHT)]
+        for cell in self.app.walls:
+            if cell.x < NUMBER_CELLS_WIDTH and cell.y < NUMBER_CELLS_HEIGHT:
+                grid[int(cell.y)][int(cell.x)] = 1
+        queue = [start]
+        path = []
+        visited = []
+        while queue:
+            current = queue[0]
+            queue.remove(queue[0])
+            visited.append(current)
+            if current == target:
+                break
+            else:
+                neighbours = [[0, -1], [1, 0], [0, 1], [-1, 0]]
+                for neighbour in neighbours:
+                    if neighbour[0] + current[0] >= 0 and neighbour[0] + current[0] < len(grid[0]):
+                        if neighbour[1] + current[1] >= 0 and neighbour[1] + current[1] < len(grid):
+                            next_cell = [neighbour[0] + current[0], neighbour[1] + current[1]]
+                            if next_cell not in visited:
+                                if grid[next_cell[1]][next_cell[0]] != 1:
+                                    queue.append(next_cell)
+                                    path.append({"Current": current, "Next": next_cell})
+        shortest = [target]
+        while target != start:
+            for step in path:
+                if step["Next"] == target:
+                    target = step["Current"]
+                    shortest.insert(0, step["Current"])
+        return shortest
 
     def get_random_direction(self):
         while True:
@@ -91,9 +141,8 @@ class Enemy:
                 x_dir, y_dir = -1, 0
             else:
                 x_dir, y_dir = 0, -1
-            break
-            direction = vec(x_dir,y_dir)
-            #if vec(direction.x+x_dir,direction.y+y_dir) in self.app.walls:
-                #break
+            next_pos = vec(self.grid_pos.x +  x_dir , self .grid_pos.y + y_dir)
+            if next_pos not in self.app.walls:
+                break
 
         return vec(x_dir,y_dir)
