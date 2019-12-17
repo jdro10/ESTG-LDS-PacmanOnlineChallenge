@@ -45,10 +45,11 @@
 }
 
 .forgotButton {
-  color: red;
+  color: var(--color-base);
   background-color: var(--color-zero);
   border: 0px;
   cursor: pointer;
+  margin-top: var(--size-small);
 }
 
 .glow-on-hover {
