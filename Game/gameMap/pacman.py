@@ -23,7 +23,7 @@ class Pacman:
         if self.time_to_move_y():
             if self.buffer_direction != None:
                 self.direction = self.buffer_direction
-            self.can_move = self.let_move()
+            self.can_move = self.let_move() #bug fix ?
 
         self.grid_pos[0] = (self.pixel_pos[0]-TOP_BOTTOM_SPACE+self.app.cell_width//2)//self.app.cell_width + 1
         self.grid_pos[1] = (self.pixel_pos[1] - TOP_BOTTOM_SPACE+self.app.cell_height//2) // self.app.cell_height + 1
