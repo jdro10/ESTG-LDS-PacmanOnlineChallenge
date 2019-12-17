@@ -127,7 +127,7 @@ namespace API.Controllers
             }
             else
             {
-                return BadRequest(new
+                return Ok(new
                 {
                     success = "false",
                     error = "Username/email já existente ou password inválida"
