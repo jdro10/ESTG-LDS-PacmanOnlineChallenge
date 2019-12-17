@@ -2,7 +2,7 @@ import pygame
 import socket
 import time
 
-HOST = '192.168.1.65'
+HOST = '172.20.131.117'
 PORT = 8001
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -54,7 +54,6 @@ while gameExit:
     msg = s.recv(1024)
     msg2= msg.decode('utf-8').split("/");
     msg3 = int(msg2[0])
-    print("\n")
     msg4 = int(msg2[1])
     print("(", msg3, "/", msg4, ")")
 
