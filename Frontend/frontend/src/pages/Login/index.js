@@ -25,6 +25,12 @@ export default function Login({ history }) {
     history.push("/register");
   }
 
+  function handleClickForgot(event) {
+    event.preventDefault();
+    alert("Email send");
+    history.push("/");
+  }
+
   return (
     <div className="container-inicio">
       <form className="login-container" onSubmit={handleSubmit}>
@@ -52,7 +58,7 @@ export default function Login({ history }) {
           Register
         </button>
 
-        <button type="reset" className="forgotButton ">
+        <button onClick={handleClickForgot} className="forgotButton ">
           Forgot account?
         </button>
       </form>
