@@ -41,15 +41,19 @@ export default function Login({ history }) {
           onChange={event => setPass(event.target.value)}
         />
 
-        <button type="submit" className="glow-on-hover">
+        <button type="submit" className="glow-on-hover basebutton">
           Login
         </button>
         <button
           type="reset"
           onClick={handleClickRegister}
-          className="glow-on-hover"
+          className="glow-on-hover basebutton"
         >
           Register
+        </button>
+
+        <button type="reset" className="forgotButton ">
+          Forgot account?
         </button>
       </form>
     </div>
