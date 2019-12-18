@@ -17,6 +17,12 @@ export default function ValidatedRegisterForm({ history }) {
       Password: values.password
     });
     console.log(response);
+
+    const { success } = response.data;
+    const { error } = response.data;
+
+    console.log(success);
+    console.log(error);
   }
 
   return (
