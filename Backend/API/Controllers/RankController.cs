@@ -22,5 +22,10 @@ namespace API.Controllers
         [HttpGet]
         public ActionResult<List<User>> Get() =>
             _rankService.GetAllUserScore();
+
+        [HttpGet("teste")]
+        public ActionResult<List<User>> GetRank() =>
+            _rankService.UserPosition();
+        
     }
 }

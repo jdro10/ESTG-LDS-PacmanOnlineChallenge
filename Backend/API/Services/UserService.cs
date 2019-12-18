@@ -54,6 +54,9 @@ namespace API.Services
         public void UpdateLevel(string id, User userIn) =>
             _users.ReplaceOne(user => user.Id == id, userIn);
 
+        public void UpdateRankPosition(string id, User userIn) =>
+            _users.ReplaceOne(user => user.Id == id, userIn);
+
         public void Update(string id, User userIn) =>
             _users.ReplaceOne(user => user.Id == id, userIn);
 

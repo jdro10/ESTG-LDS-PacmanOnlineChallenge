@@ -27,5 +27,18 @@ namespace API.Services
 
             return _userRank;
         }
+
+        public List<User> UserPosition()
+        {
+            var userRanks = GetAllUserScore().ToArray();
+
+            for(int i = 0; i < userRanks.Length; i++)
+            {
+                userRanks[i].Rank = "" + i;
+                _userService.UpdateRankPosition(userRanks[i].Id, userRanks[i]);
+            }
+
+            return _userService.Get();
+        }
     }
 }
