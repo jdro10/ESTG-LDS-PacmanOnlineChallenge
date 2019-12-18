@@ -23,6 +23,13 @@ export default function ValidatedRegisterForm({ history }) {
 
     console.log(success);
     console.log(error);
+
+    if (success === "false") {
+      alert(error);
+      history.push("/register");
+    } else {
+      history.push("/");
+    }
   }
 
   return (
