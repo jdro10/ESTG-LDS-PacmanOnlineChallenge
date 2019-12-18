@@ -65,8 +65,8 @@ namespace API.Controllers
             var tokenString = tokenHandler.WriteToken(token);
 
             SetUserChallengeDaily(user);
-            _levelService.setUserLevel(user);        
-
+            _levelService.setUserLevel(user);
+            
             return Ok(new
             {
                 Id = user.Id,
