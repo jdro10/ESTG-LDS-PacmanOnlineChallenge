@@ -46,12 +46,12 @@ export default function Dashboard({ history }) {
               alt="Twitter"
             />
           </a>
-          <a onClick={handleClickRegister}>
+          <button onClick={handleClickRegister} className="link-button ">
             <img
               src="https://img.icons8.com/ios-filled/50/000000/exit.png"
               alt="Exit"
             />
-          </a>
+          </button>
         </div>
       </div>
     </div>
