@@ -127,7 +127,7 @@ namespace API.Controllers
                 user.PasswordSalt = passwordSalt;
                 user.Level = 0;
                 user.Score = 0;
-                _emailService.sendSignupMail(user.Email, user.Username, user.Password);
+                //_emailService.sendSignupMail(user.Email, user.Username, user.Password);
                 _userService.Create(user);
             }
             else
