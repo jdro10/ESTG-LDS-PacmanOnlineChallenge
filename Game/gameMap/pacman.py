@@ -11,10 +11,11 @@ class Pacman:
         self.buffer_direction = None
         self.can_move = True
         self.score = 0
+        self.speed = 2
 
     def update(self):
         if self.can_move:
-            self.pixel_pos += self.direction
+            self.pixel_pos += self.direction*self.speed
 
         if self.time_to_move_x():
             if self.buffer_direction != None:

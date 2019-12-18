@@ -13,11 +13,16 @@ class Enemy:
         self.radius = 8
         self.number = number
         self.color = self.set_color()
-        self.direction = vec(1,0)  #POR A MOVER LOGO
+        self.direction = vec(0,0)  #POR A MOVER LOGO
         self.type = self.set_type()
+        self.target = None
+        self.speed = self.set_speed()
+
 
     def update(self):
-        self.pix_pos += self.direction
+        self.target = self.set_target()
+        if self.target != self.grid_pos:
+            self.pix_pos += self.direction*self.speed
         if self.can_move():
             self.move()
 
@@ -35,6 +40,26 @@ class Enemy:
 
         return False
 
+    def set_speed(self):
+        if self.type in ["fast chaser","fast random"]:
+            speed = 2
+        else:
+            speed = 1
+
+        return speed
+
+    def set_target(self):
+        if self.type == "slow chaser" or self.type == "fast chaser":
+            return self.app.pacman.grid_pos
+        else:
+            if self.app.pacman.grid_pos.x > NUMBER_CELLS_WIDTH // 2 and self.app.pacman.grid_pos.y > NUMBER_CELLS_HEIGHT // 2:
+                return vec(1,1)
+            if self.app.pacman.grid_pos.x > NUMBER_CELLS_WIDTH // 2 and self.app.pacman.grid_pos.y < NUMBER_CELLS_HEIGHT // 2:
+                return vec(1,NUMBER_CELLS_HEIGHT-2)
+            if self.app.pacman.grid_pos.x < NUMBER_CELLS_WIDTH // 2 and self.app.pacman.grid_pos.y > NUMBER_CELLS_HEIGHT // 2:
+                return vec(NUMBER_CELLS_WIDTH-2,1)
+            else:
+                return vec(NUMBER_CELLS_WIDTH-2,NUMBER_CELLS_HEIGHT-2)
 
     def draw(self):
         pygame.draw.circle(self.app.screen,self.color,(int(self.pix_pos.x),int(self.pix_pos.y)),self.radius)
@@ -63,41 +88,39 @@ class Enemy:
         elif self.number == 3:
             return WHITE
 
-
-
-
     def time_to_move_x(self):
         if int(self.pix_pos.x+TOP_BOTTOM_SPACE//2)%self.app.cell_width==0:
-            if self.direction == vec(1,0) or self.direction == vec(-1,0):
+            if self.direction == vec(1,0) or self.direction == vec(-1,0) or self.direction == vec(0,0):
                 return True
 
     def time_to_move_y(self):
         if int(self.pix_pos.y+TOP_BOTTOM_SPACE//2)%self.app.cell_height==0:
-            if self.direction == vec(0,1) or self.direction == vec(0,-1):
+            if self.direction == vec(0,1) or self.direction == vec(0,-1) or self.direction == vec(0,0):
                 return True
 
     def move(self):
         if self.type == "slow random":
             self.direction = self.get_random_direction()
         elif self.type == "slow chaser":
-            self.direction = self.get_pacman_direction()
+            self.direction = self.get_pacman_direction(self.target)
         elif self.type == "fast random":
-            self.direction = self.get_random_direction()
+            self.direction = self.get_pacman_direction(self.target)
         else :
-            self.direction = self.get_pacman_direction()
+            self.direction = self.get_pacman_direction(self.target)
 
 
-    def get_pacman_direction(self):
-        next_cell = self.find_next_cell()
+    def get_pacman_direction(self,target):
+        next_cell = self.find_next_cell(target)
         x_dir = next_cell[0] - self.grid_pos[0]
         y_dir = next_cell[1] - self.grid_pos[1]
         return vec(x_dir,y_dir)
 
-    def find_next_cell(self):
-        path = self.get_pacman_path([int(self.grid_pos.x), int(self.grid_pos.y)],[int(self.app.pacman.grid_pos.x), int(self.app.pacman.grid_pos.y)])
+    def find_next_cell(self,target):
+        path = self.get_pacman_path([int(self.grid_pos.x), int(self.grid_pos.y)],[int(target.x),int(target.y)])
         return path[1]
 
 
+    #buscarposiçaopacman
     def get_pacman_path(self,start,target):
         grid = [[0 for x in range(NUMBER_CELLS_WIDTH)] for x in range(NUMBER_CELLS_HEIGHT)]
         for cell in self.app.walls:
