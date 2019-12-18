@@ -5,13 +5,14 @@ from settings import *
 class Pacman:
     def __init__(self, app, pos):
         self.app = app
-        self.grid_pos = pos
+        self.grid_pos = vec(pos[0],pos[1])
         self.pixel_pos = self.get_pix_pos()
         self.direction = vec(1,0)
         self.buffer_direction = None
         self.can_move = True
         self.score = 0
         self.speed = 2
+        self.lives = 3
 
     def update(self):
         if self.can_move:
@@ -49,6 +50,8 @@ class Pacman:
     def draw(self):
         pygame.draw.circle(self.app.screen, YELLOW, (int(self.pixel_pos.x), int(self.pixel_pos.y)),self.app.cell_width//2-2)
 
+        for x in range(self.lives):
+            pygame.draw.circle(self.app.screen, YELLOW , (35 + 20*x, HEIGHT - 15),6)
         #DESENHA gajo atras
         #pygame.draw.rect(self.app.screen,RED,
                         # (self.grid_pos[0]*self.app.cell_width+TOP_BOTTOM_SPACE//2,
@@ -65,12 +68,12 @@ class Pacman:
 
     def time_to_move_x(self):
         if int(self.pixel_pos.x+TOP_BOTTOM_SPACE//2)%self.app.cell_width==0:
-            if self.direction == vec(1,0) or self.direction == vec(-1,0):
+            if self.direction == vec(1,0) or self.direction == vec(-1,0) or self.direction == vec(0,0):
                 return True
 
     def time_to_move_y(self):
         if int(self.pixel_pos.y+TOP_BOTTOM_SPACE//2)%self.app.cell_height==0:
-            if self.direction == vec(0,1) or self.direction == vec(0,-1):
+            if self.direction == vec(0,1) or self.direction == vec(0,-1) or self.direction == vec(0,0):
                 return True
 
     def let_move(self):

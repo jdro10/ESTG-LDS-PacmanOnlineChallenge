@@ -1,3 +1,5 @@
+import copy
+
 import pygame , sys
 from settings import *
 from pacman import *
@@ -21,7 +23,7 @@ class Game:
         self.enemies = []
         self.e_pos = []
         self.load()
-        self.pacman = Pacman(self, self.pacman_position)
+        self.pacman = Pacman(self, copy.copy(self.pacman_position))
         self.make_enemies()
 
 
@@ -115,6 +117,10 @@ class Game:
         for enemy in self.enemies:
             enemy.update()
 
+        for enemy in self.enemies:
+            if enemy.grid_pos == self.pacman.grid_pos:
+                self.remove_life()
+
     def playsingle_draw(self):
         self.screen.fill(BLACK)
         self.screen.blit(self.background,(TOP_BOTTOM_SPACE//2,TOP_BOTTOM_SPACE//2))
@@ -128,6 +134,15 @@ class Game:
             enemy.draw()
         pygame.display.update()
         #self.coins.pop()
+
+    def remove_life(self):
+        self.pacman.lives -= 1
+        if self.pacman.lives == 0:
+            self.state == "game over"
+        else:
+            self.pacman.grid_pos = vec(self.pacman_position)
+            self.pacman.pixel_pos = self.pacman.get_pix_pos()
+            self.pacman.direction *= 0
 
     def draw_coins(self):
         for coin in self.coins:
@@ -154,7 +169,7 @@ class Game:
                     elif char == "C":
                         self.coins.append(vec(xindex,yindex))
                     elif char == "P":
-                        self.pacman_position = vec(xindex,yindex)
+                        self.pacman_position = [xindex,yindex]
                     elif char  in ["2","3","4","5"]:
                         self.e_pos.append(vec(xindex,yindex))
                     elif char == "B":

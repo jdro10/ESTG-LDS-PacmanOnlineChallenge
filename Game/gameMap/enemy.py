@@ -52,11 +52,11 @@ class Enemy:
         if self.type == "slow chaser" or self.type == "fast chaser":
             return self.app.pacman.grid_pos
         else:
-            if self.app.pacman.grid_pos.x > NUMBER_CELLS_WIDTH // 2 and self.app.pacman.grid_pos.y > NUMBER_CELLS_HEIGHT // 2:
+            if self.app.pacman.grid_pos[0] > NUMBER_CELLS_WIDTH // 2 and self.app.pacman.grid_pos[1] > NUMBER_CELLS_HEIGHT // 2:
                 return vec(1,1)
-            if self.app.pacman.grid_pos.x > NUMBER_CELLS_WIDTH // 2 and self.app.pacman.grid_pos.y < NUMBER_CELLS_HEIGHT // 2:
+            if self.app.pacman.grid_pos[0] > NUMBER_CELLS_WIDTH // 2 and self.app.pacman.grid_pos[1] < NUMBER_CELLS_HEIGHT // 2:
                 return vec(1,NUMBER_CELLS_HEIGHT-2)
-            if self.app.pacman.grid_pos.x < NUMBER_CELLS_WIDTH // 2 and self.app.pacman.grid_pos.y > NUMBER_CELLS_HEIGHT // 2:
+            if self.app.pacman.grid_pos[0] < NUMBER_CELLS_WIDTH // 2 and self.app.pacman.grid_pos[1] > NUMBER_CELLS_HEIGHT // 2:
                 return vec(NUMBER_CELLS_WIDTH-2,1)
             else:
                 return vec(NUMBER_CELLS_WIDTH-2,NUMBER_CELLS_HEIGHT-2)
@@ -116,7 +116,7 @@ class Enemy:
         return vec(x_dir,y_dir)
 
     def find_next_cell(self,target):
-        path = self.get_pacman_path([int(self.grid_pos.x), int(self.grid_pos.y)],[int(target.x),int(target.y)])
+        path = self.get_pacman_path([int(self.grid_pos.x), int(self.grid_pos.y)],[int(target[0]),int(target[1])])
         return path[1]
 
 
