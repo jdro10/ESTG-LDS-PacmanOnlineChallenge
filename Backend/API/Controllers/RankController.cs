@@ -18,14 +18,14 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-
         [HttpGet]
         public ActionResult<List<User>> Get() =>
             _rankService.GetAllUserScore();
 
+        [AllowAnonymous]
         [HttpGet("teste")]
         public ActionResult<List<User>> GetRank() =>
-            _rankService.UserPosition();
+            _rankService.SetUserPosition();
         
     }
 }

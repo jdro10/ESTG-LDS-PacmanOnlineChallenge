@@ -28,13 +28,13 @@ namespace API.Services
             return _userRank;
         }
 
-        public List<User> UserPosition()
+        public List<User> SetUserPosition()
         {
             var userRanks = GetAllUserScore().ToArray();
 
             for(int i = 0; i < userRanks.Length; i++)
             {
-                userRanks[i].Rank = "" + i;
+                userRanks[i].Rank = i;
                 _userService.UpdateRankPosition(userRanks[i].Id, userRanks[i]);
             }
 

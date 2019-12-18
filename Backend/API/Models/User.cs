@@ -24,7 +24,7 @@ namespace API.Models
 
         public int Score { get; set; }
 
-        public string Rank { get; set; }
+        public int Rank { get; set; }
 
         public DailyChallenge[] dailyChallenges { get; set; }
     }
