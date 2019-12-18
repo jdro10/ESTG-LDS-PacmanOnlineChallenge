@@ -26,9 +26,10 @@ export default function ValidatedRegisterForm({ history }) {
 
     if (success === "false") {
       alert(error);
-      history.push("/register");
+      window.location.reload();
     } else {
       history.push("/");
+      alert("User created. Check your email box.");
     }
   }
 
