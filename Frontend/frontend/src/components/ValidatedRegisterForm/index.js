@@ -6,18 +6,30 @@ import * as Yup from "yup";
 import api from "../../services/api";
 
 export default function ValidatedRegisterForm({ history }) {
+  async function handleSubmmit(values) {
+    const response = await api.post("/api/user", {
+      Username: values.userName,
+      Email: values.email,
+      Password: values.password
+    });
+
+    const { success } = response.data;
+    const { error } = response.data;
+
+    if (success === "false") {
+      alert(error);
+      window.location.reload();
+    } else {
+      history.push("/");
+      alert("User created. Check your email box.");
+    }
+  }
+
   return (
     <Formik
       initialValues={{ userName: "", email: "", password: "" }}
       onSubmit={values => {
-        console.log("sent");
-
-        api.post("/api/users", {
-          Username: values.userName,
-          Email: values.email,
-          Password: values.password
-        });
-        history.push("/");
+        handleSubmmit(values);
       }}
       validationSchema={Yup.object().shape({
         userName: Yup.string()
