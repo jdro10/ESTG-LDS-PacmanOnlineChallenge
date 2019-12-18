@@ -23,15 +23,17 @@ namespace API.Controllers
     {
         private readonly UserService _userService;
         private readonly DailyChallengeService _dailyChallengeService;
+        private readonly LevelService _levelService;
         private readonly EmailService _emailService;
         private readonly AppSettings _appSettings;
 
-        public UsersController(UserService userService, IOptions<AppSettings> appSettings, DailyChallengeService dailyChallengeService, EmailService emailService)
+        public UsersController(UserService userService, IOptions<AppSettings> appSettings, DailyChallengeService dailyChallengeService, EmailService emailService, LevelService levelService)
         {
             _userService = userService;
             _appSettings = appSettings.Value;
             _dailyChallengeService = dailyChallengeService;
             _emailService = emailService;
+            _levelService = levelService;
         }
 
         [AllowAnonymous]
@@ -61,6 +63,7 @@ namespace API.Controllers
             var tokenString = tokenHandler.WriteToken(token);
 
             SetUserChallengeDaily(user);
+            _levelService.setUserLevel(user);            
 
             return Ok(new
             {
@@ -127,7 +130,7 @@ namespace API.Controllers
             }
             else
             {
-                return BadRequest(new
+                return Ok(new
                 {
                     success = "false",
                     error = "Username/email já existente ou password inválida"

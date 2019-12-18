@@ -77,6 +77,8 @@ namespace API
 
             services.AddSingleton<EmailService>();
 
+            services.AddSingleton<LevelService>();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
