@@ -72,12 +72,10 @@ namespace API
             });
 
             services.AddSingleton<UserService>();
-
             services.AddSingleton<DailyChallengeService>();
-
             services.AddSingleton<EmailService>();
-
             services.AddSingleton<LevelService>();
+            services.AddSingleton<RankService>();
 
             services.AddControllers();
 
