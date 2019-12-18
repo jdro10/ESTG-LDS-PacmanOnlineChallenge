@@ -7,38 +7,17 @@ namespace API.Services
     public class RankService
     {
         private readonly UserService _userService;
-        private List<User> _userRank;
-
+        
         public RankService(UserService userService)
         {
             _userService = userService;
-            _userRank = new List<User>();
         }
 
-        public List<User> GetAllUserScore()
+        public User[] GetAllUserScore()
         {
             var users = _userService.Get().ToArray();
 
-            for(int i = 0; i < users.Length; i++){
-                _userRank.Add(users[i]);
-            }
-
-            _userRank.Sort((x, y) => y.Score.CompareTo(x.Score));
-
-            return _userRank;
-        }
-
-        public List<User> SetUserPosition()
-        {
-            var userRanks = GetAllUserScore().ToArray();
-
-            for(int i = 0; i < userRanks.Length; i++)
-            {
-                userRanks[i].Rank = i;
-                _userService.UpdateRankPosition(userRanks[i].Id, userRanks[i]);
-            }
-
-            return _userService.Get();
+            return users;
         }
     }
 }
