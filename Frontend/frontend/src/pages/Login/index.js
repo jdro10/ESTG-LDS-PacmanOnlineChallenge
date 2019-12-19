@@ -18,13 +18,20 @@ export default function Login({ history }) {
     });
 
     var token = response.data.token;
-    var _id = response.data._id;
+    var id = response.data.id;
 
     console.log(token);
-    console.log(_id);
+    console.log(id);
+    console.log(response);
 
-    localStorage.setItem("userId", _id);
+    localStorage.setItem("userId", id);
     localStorage.setItem("userToken", token);
+
+    if (id) {
+      history.push("/dashboard");
+    } else {
+      alert("teste");
+    }
   }
 
   function handleClickRegister(event) {
