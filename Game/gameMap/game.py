@@ -22,8 +22,9 @@ class Game:
         self.coins = []
         self.enemies = []
         self.e_pos = []
+        self.pacman_position = None
         self.load()
-        self.pacman = Pacman(self, copy.copy(self.pacman_position))
+        self.pacman = Pacman(self, vec(self.pacman_position))
         self.make_enemies()
 
 
@@ -42,6 +43,10 @@ class Game:
                 self.playsingle_events()
                 self.playsingle_update()
                 self.playsingle_draw()
+            elif self.state == 'game over':
+                self.gameover_events()
+                self.gameover_update()
+                self.gameover_draw()
             else:
                 self.gameLoop = False
             self.clock.tick(FPS)
@@ -138,11 +143,15 @@ class Game:
     def remove_life(self):
         self.pacman.lives -= 1
         if self.pacman.lives == 0:
-            self.state == "game over"
+            self.state = "game over"
         else:
-            self.pacman.grid_pos = vec(self.pacman_position)
+            self.pacman.grid_pos = vec(self.pacman.starting_position)
             self.pacman.pixel_pos = self.pacman.get_pix_pos()
             self.pacman.direction *= 0
+            for enemy in self.enemies:
+                enemy.grid_pos = vec(enemy.starting_pos)
+                enemy.pix_pos = enemy.get_pix_pos()
+                enemy.direction *= 0
 
     def draw_coins(self):
         for coin in self.coins:
@@ -171,7 +180,7 @@ class Game:
                     elif char == "P":
                         self.pacman_position = [xindex,yindex]
                     elif char  in ["2","3","4","5"]:
-                        self.e_pos.append(vec(xindex,yindex))
+                        self.e_pos.append([xindex,yindex])
                     elif char == "B":
                         pygame.draw.rect(self.background,BLACK , (xindex*self.cell_width,yindex*self.cell_height,self.cell_width,self.cell_height))
 
@@ -179,4 +188,42 @@ class Game:
 
     def make_enemies(self):
         for xindex ,pos in enumerate(self.e_pos):
-            self.enemies.append(Enemy(self,pos,xindex))
+            self.enemies.append(Enemy(self,vec(pos),xindex))
+
+############################# GAME OVER ############################################
+
+    def gameover_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                self.reset()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                self.running = False
+
+    def gameover_update(self):
+        pass
+
+    def gameover_draw(self):
+        self.screen.fill(BLACK)
+        self.draw_text("GAME OVER",self.screen,[WIDTH//2,100],36,FONT_MENU,RED)
+        pygame.display.update()
+
+
+    def reset(self):
+        self.pacman.lives = 3
+        self.coins = [] ## por a zero
+        self.pacman.score = 0
+        self.pacman.grid_pos = vec (self.pacman.starting_position)
+        self.pacman.pix_pos = self.pacman.get_pix_pos()
+        self.pacman.direction *= 0
+        for enemy in self.enemies:
+            enemy.grid_pos = vec(enemy.starting_pos)
+            enemy.pix_pos = enemy.get_pix_pos()
+            enemy.direction *= 0
+        with open("walls.txt",'r') as fp:
+            for yindex,line in enumerate(fp):
+                for xindex,char in enumerate(line):
+                    if char == "C":
+                        self.coins.append(vec(xindex,yindex))
+        self.state = "playsingle"

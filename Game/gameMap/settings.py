@@ -1,5 +1,3 @@
-from pygame.math import Vector2 as vec
-
 #screen
 WIDTH , HEIGHT = 610 , 670
 TOP_BOTTOM_SPACE = 50
@@ -24,4 +22,4 @@ TEXT_SIZE_GAME = 13
 FONT_GAME = 'arial black'
 
 #other settings
-FPS = 120
+FPS = 60

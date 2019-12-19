@@ -5,6 +5,7 @@ from settings import *
 class Pacman:
     def __init__(self, app, pos):
         self.app = app
+        self.starting_position = [pos[0],pos[1]]
         self.grid_pos = vec(pos[0],pos[1])
         self.pixel_pos = self.get_pix_pos()
         self.direction = vec(1,0)
@@ -13,6 +14,7 @@ class Pacman:
         self.score = 0
         self.speed = 2
         self.lives = 3
+
 
     def update(self):
         if self.can_move:
