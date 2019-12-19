@@ -12,12 +12,10 @@ export default function Login({ history }) {
     console.log(email);
     console.log(pass);
 
-    api.post("/api/users", {
-      UserEmail: email,
-      Password: pass
+    api.post("/api/user/auth", {
+      username: email,
+      password: pass
     });
-
-    history.push("/dashboard");
   }
 
   function handleClickRegister(event) {
