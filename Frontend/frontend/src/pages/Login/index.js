@@ -4,16 +4,16 @@ import logo from "../../assets/logo.png";
 import "./styles.css";
 
 export default function Login({ history }) {
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(email);
+    console.log(user);
     console.log(pass);
 
     const response = await api.post("/api/user/auth", {
-      username: email,
+      username: user,
       password: pass
     });
 
@@ -28,6 +28,7 @@ export default function Login({ history }) {
     localStorage.setItem("userToken", token);
 
     if (id) {
+      console.log("connect");
       history.push("/dashboard");
     } else {
       alert("teste");
@@ -50,9 +51,9 @@ export default function Login({ history }) {
       <form className="login-container" onSubmit={handleSubmit}>
         <img src={logo} className="logo" alt="It a match" />
         <input
-          placeholder="Email"
-          value={email}
-          onChange={event => setEmail(event.target.value)}
+          placeholder="Username"
+          value={user}
+          onChange={event => setUser(event.target.value)}
         />
         <input
           placeholder="Password"
