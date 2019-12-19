@@ -1,4 +1,5 @@
 import pygame
+from MenuInstrucoes import start_draw1
 
 pygame.init()
 
@@ -69,7 +70,7 @@ def select_menu(pos_y_pacman):
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 50):
         print("2")
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 100):
-        print("3")
+        start_draw1()
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 150):
         print("4")
 
