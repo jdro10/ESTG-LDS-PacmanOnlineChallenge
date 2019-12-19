@@ -12,12 +12,13 @@ export default function Login({ history }) {
     console.log(email);
     console.log(pass);
 
-    const response = api.post("/api/user/auth", {
+    const response = await api.post("/api/user/auth", {
       username: email,
       password: pass
     });
 
-    console.log(response);
+    var token = response.data.token;
+    console.log(token);
   }
 
   function handleClickRegister(event) {
