@@ -7,15 +7,17 @@ export default function Login({ history }) {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     console.log(email);
     console.log(pass);
 
-    api.post("/api/user/auth", {
+    const response = api.post("/api/user/auth", {
       username: email,
       password: pass
     });
+
+    console.log(response);
   }
 
   function handleClickRegister(event) {
