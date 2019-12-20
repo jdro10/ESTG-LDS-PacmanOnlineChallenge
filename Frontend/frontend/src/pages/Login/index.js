@@ -4,20 +4,35 @@ import logo from "../../assets/logo.png";
 import "./styles.css";
 
 export default function Login({ history }) {
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log(email);
+    console.log(user);
     console.log(pass);
 
-    api.post("/api/users", {
-      UserEmail: email,
-      Password: pass
+    const response = await api.post("/api/user/auth", {
+      username: user,
+      password: pass
     });
 
-    history.push("/dashboard");
+    var token = response.data.token;
+    var id = response.data.id;
+
+    console.log(token);
+    console.log(id);
+    console.log(response);
+
+    localStorage.setItem("userId", id);
+    localStorage.setItem("userToken", token);
+
+    if (id) {
+      console.log("connect");
+      history.push("/dashboard");
+    } else {
+      alert("teste");
+    }
   }
 
   function handleClickRegister(event) {
@@ -36,9 +51,9 @@ export default function Login({ history }) {
       <form className="login-container" onSubmit={handleSubmit}>
         <img src={logo} className="logo" alt="It a match" />
         <input
-          placeholder="Email"
-          value={email}
-          onChange={event => setEmail(event.target.value)}
+          placeholder="Username"
+          value={user}
+          onChange={event => setUser(event.target.value)}
         />
         <input
           placeholder="Password"
