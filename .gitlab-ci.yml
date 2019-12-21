@@ -1,0 +1,13 @@
+image: node:latest
+
+stages:
+  - build
+cache:
+  paths:
+    - Frontend/frontend/node_modules/
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run-script build
