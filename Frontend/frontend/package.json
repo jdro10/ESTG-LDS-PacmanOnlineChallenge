@@ -100,8 +100,8 @@
     ],
     "setupFilesAfterEnv": [],
     "testMatch": [
-      "<rootDir>/__tests__/**/?(*.)(spec|test).js?(x)",
-      "<rootDir>/__tests__/App.test.js"
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
     ],
     "testEnvironment": "jest-environment-jsdom-fourteen",
     "transform": {
