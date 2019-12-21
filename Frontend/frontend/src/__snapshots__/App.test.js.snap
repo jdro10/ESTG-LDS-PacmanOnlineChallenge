@@ -1,3 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing Login Component should render correctly 1`] = `ShallowWrapper {}`;
+exports[`Testing Login Component should render correctly 1`] = `
+<div
+  className="my-component"
+>
+  <strong>
+    ola World!
+  </strong>
+</div>
+`;
