@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Pacman Component should render correctly 1`] = `
+<Login>
+  <div
+    className="container-inicio"
+  >
+    <form
+      className="login-container"
+      onSubmit={[Function]}
+    >
+      <img
+        alt="It a match"
+        className="logo"
+        src="logo.png"
+      />
+      <input
+        onChange={[Function]}
+        placeholder="Username"
+        value=""
+      />
+      <input
+        onChange={[Function]}
+        placeholder="Password"
+        type="password"
+        value=""
+      />
+      <button
+        className="glow-on-hover basebutton"
+        type="submit"
+      >
+        Login
+      </button>
+      <button
+        className="glow-on-hover basebutton"
+        onClick={[Function]}
+        type="reset"
+      >
+        Register
+      </button>
+      <button
+        className="forgotButton "
+        onClick={[Function]}
+      >
+        Forgot account?
+      </button>
+    </form>
+  </div>
+</Login>
+`;

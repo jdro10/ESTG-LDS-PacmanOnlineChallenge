@@ -1,11 +1,11 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import toJson from "enzyme-to-json";
-import Pacman from "../components/Pacman/index";
+import Login from "./../pages/Login/index";
 
 describe("Testing Pacman Component", () => {
   it("should render correctly", () => {
-    const wrapper = shallow(<Pacman />);
+    const wrapper = mount(<Login />);
 
     expect(toJson(wrapper)).toMatchSnapshot();
   });
