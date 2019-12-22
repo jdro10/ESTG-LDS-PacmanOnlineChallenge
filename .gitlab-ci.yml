@@ -15,7 +15,7 @@ buildFrontend:
     - npm run-script build
 
 buildBackend:
-  starge: build
+  stage: build
   script:
     - cd Backend/API/
     - dotnet build
