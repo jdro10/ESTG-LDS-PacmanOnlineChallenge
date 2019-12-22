@@ -1,5 +1,4 @@
 image: node:latest
-image: microsoft/dotnet:latest
 
 stages:
   - build
@@ -14,8 +13,10 @@ buildFrontend:
     - npm install
     - npm run-script build
 
+image: microsoft/dotnet:latest
+
 buildBackend:
   stage: build
   script:
     - cd Backend/API/
-    - dotnet build
+    - "dotnet build"
