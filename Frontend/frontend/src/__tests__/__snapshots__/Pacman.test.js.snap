@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Pacman Component should render correctly 1`] = `
+<div
+  className="pacman"
+>
+  <div
+    className="pacmanEye"
+  />
+  <div
+    className="pacmanMouth"
+  />
+  <div
+    className="pacmanFood"
+  />
+</div>
+`;
