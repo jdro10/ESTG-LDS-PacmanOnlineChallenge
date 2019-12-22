@@ -1,5 +1,3 @@
-image: node:latest
-
 stages:
   - build
 cache:
@@ -7,15 +5,17 @@ cache:
     - Frontend/frontend/node_modules/
 
 buildFrontend:
+  image: node:latest
   stage: build
   script:
     - cd Frontend/frontend/
     - npm install
     - npm run-script build
 
-image: microsoft/dotnet:latest
+
 
 buildBackend:
+  image: microsoft/dotnet:latest
   stage: build
   script:
     - cd Backend/API/
