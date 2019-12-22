@@ -1,4 +1,5 @@
 image: node:latest
+image: microsoft/dotnet:latest
 
 stages:
   - build
@@ -6,9 +7,15 @@ cache:
   paths:
     - Frontend/frontend/node_modules/
 
-build:
+buildFrontend:
   stage: build
   script:
     - cd Frontend/frontend/
     - npm install
     - npm run-script build
+
+buildBackend:
+  starge: build
+  script:
+    - cd Backend/API/
+    - dotnet build
