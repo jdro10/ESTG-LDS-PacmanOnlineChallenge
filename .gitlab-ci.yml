@@ -1,16 +1,22 @@
-image: node:latest
-
-before_script:
-  - cd Frontend/frontend/
-
 stages:
   - build
 cache:
   paths:
     - Frontend/frontend/node_modules/
 
-build:
+buildFrontend:
+  image: node:latest
   stage: build
   script:
+    - cd Frontend/frontend/
     - npm install
     - npm run-script build
+
+
+
+buildBackend:
+  image: mcr.microsoft.com/dotnet/core/sdk:3.0
+  stage: build
+  script:
+    - cd Backend/API/
+    - "dotnet build"
