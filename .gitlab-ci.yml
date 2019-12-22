@@ -1,8 +1,5 @@
 image: node:latest
 
-before_script:
-  - cd Frontend/frontend/
-
 stages:
   - build
 cache:
@@ -12,5 +9,6 @@ cache:
 build:
   stage: build
   script:
+    - cd Frontend/frontend/
     - npm install
     - npm run-script build
