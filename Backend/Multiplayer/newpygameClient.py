@@ -1,6 +1,11 @@
 import pygame
 import socket
 import time
+import requests
+
+r = requests.get('https://localhost:5001/api/ranks', verify=False)
+
+print(r.text)
 
 HOST = '127.0.0.1'
 PORT = 8001
