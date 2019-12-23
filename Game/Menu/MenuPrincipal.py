@@ -1,9 +1,12 @@
 import pygame
 from MenuInstrucoes import start_draw1
 
+clock = pygame.time.Clock()
+clock.tick(5)
 pygame.init()
 
-WIDTH, HEIGHT = 610, 670
+
+WIDTH, HEIGHT = 600, 1100
 TOP_BOTTOM_SPACE = 50
 MAP_WIDTH, MAP_HEIGHT = WIDTH - TOP_BOTTOM_SPACE, HEIGHT - TOP_BOTTOM_SPACE
 
@@ -16,8 +19,8 @@ GREEN = (0, 255, 0)
 WHITE = (255, 255, 255)
 
 # text type
-TEXT_SIZE_MENU = 18
-FONT_MENU = 'elephant'
+TEXT_SIZE_MENU = 30
+FONT_MENU = 'PacFont'
 TITLE_SIZE = 26
 TEXT_SIZE_GAME = 13
 FONT_GAME = 'arial black'
@@ -47,7 +50,9 @@ def start_draw():
         draw_text('MULTIPLAYER', screen, [WIDTH // 2, HEIGHT // 2 + 100], TEXT_SIZE_MENU, FONT_MENU, RED)
         draw_text('INSTRUCTIONS', screen, [WIDTH // 2, HEIGHT // 2 + 150], TEXT_SIZE_MENU, FONT_MENU, GREEN)
         draw_text('STATS', screen, [WIDTH // 2, HEIGHT // 2 + 200], TEXT_SIZE_MENU, FONT_MENU, BLUE)
-        screen.blit(pygame.transform.scale(img, (50, 50)), (WIDTH // 2 - 130, pos_y_pacman))
+        screen.blit(pygame.transform.scale(img, (70, 70)), (WIDTH // 3 - 130, pos_y_pacman))
+        #pygame.mixer.music.load('song.flac')
+        #pygame.mixer.music.play(0)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.QUIT()
@@ -76,3 +81,4 @@ def select_menu(pos_y_pacman):
 
 
 start_draw()
+

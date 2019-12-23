@@ -10,6 +10,7 @@ FONT = pg.font.Font(None, 32)
 
 class InputBox:
 
+
     def __init__(self, x, y, w, h, text=''):
         self.rect = pg.Rect(x, y, w, h)
         self.color = COLOR_INACTIVE
@@ -18,7 +19,9 @@ class InputBox:
         self.active = False
         self.font = pg.font.SysFont('Arial', 25)
 
+
     def handle_event(self, event):
+
         if event.type == pg.MOUSEBUTTONDOWN:
             # If the user clicked on the input_box rect.
             if self.rect.collidepoint(event.pos):
@@ -29,13 +32,16 @@ class InputBox:
             # Change the current color of the input box.
             self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
         if event.type == pg.KEYDOWN:
+            password = ''
             if self.active:
                 if event.key == pg.K_RETURN:
-                    print(self.text)
                     self.text = ''
+                    print("123")
+                    print(password)
                 elif event.key == pg.K_BACKSPACE:
                     self.text = self.text[:-1]
                 else:
+                    password += '*'
                     self.text += event.unicode
                 # Re-render the text.
                 self.txt_surface = FONT.render(self.text, True, self.color)
