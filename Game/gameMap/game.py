@@ -1,6 +1,9 @@
+import copy
+
 import pygame , sys
 from settings import *
 from pacman import *
+from  enemy import *
 
 pygame.init()
 
@@ -12,12 +15,20 @@ class Game:
         self.clock  = pygame.time.Clock()
         self.gameLoop = True
         self.state = 'menu'
-        self.cell_width = MAP_WIDTH//28
-        self.cell_height = MAP_HEIGHT//30
-        self.pacman = Pacman(self,START_POS)
+        self.cell_width = MAP_WIDTH//NUMBER_CELLS_WIDTH
+        self.cell_height = MAP_HEIGHT//NUMBER_CELLS_HEIGHT
+        self.pacman_position = None
         self.walls = []
-
+        self.coins = []
+        self.enemies = []
+        self.e_pos = []
+        self.pacman_position = None
         self.load()
+        self.pacman = Pacman(self, vec(self.pacman_position))
+        self.make_enemies()
+
+
+
 
 
 
@@ -32,6 +43,10 @@ class Game:
                 self.playsingle_events()
                 self.playsingle_update()
                 self.playsingle_draw()
+            elif self.state == 'game over':
+                self.gameover_events()
+                self.gameover_update()
+                self.gameover_draw()
             else:
                 self.gameLoop = False
             self.clock.tick(FPS)
@@ -68,50 +83,154 @@ class Game:
         pygame.display.update()
 
     def playsingle_events(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.gameLoop = False
-            if event.type == pygame.KEYDOWN:
-                if  event.key == pygame.K_LEFT:
-                    self.pacman.move(vec(-1,0))
-                elif event.key == pygame.K_RIGHT:
-                    self.pacman.move(vec(1, 0))
-                elif event.key == pygame.K_DOWN:
-                    self.pacman.move(vec(0, 1))
-                elif event.key == pygame.K_UP:
-                    self.pacman.move(vec(0, -1))
+
+        try:
+            j = pygame.joystick.Joystick(0)
+            j.init()
+
+        except:
+            pass
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.gameLoop = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_LEFT:
+                        self.pacman.move(vec(-1,0))
+                    elif event.key == pygame.K_RIGHT:
+                        self.pacman.move(vec(1, 0))
+                    elif event.key == pygame.K_DOWN:
+                        self.pacman.move(vec(0, 1))
+                    elif event.key == pygame.K_UP:
+                        self.pacman.move(vec(0, -1))
+                elif event.type == pygame.JOYAXISMOTION:
+                    if j.get_axis(0) > 0.2:
+                        self.pacman.move(vec(1,0))
+                    elif j.get_axis(0) < -0.2:
+                        self.pacman.move(vec(-1,0))
+                    elif j.get_axis(1) > 0.2:
+                        self.pacman.move(vec(0,1))
+                    elif j.get_axis(1) < -0.2:
+                        self.pacman.move(vec(0,-1))
+                    elif j.get_hat(0) == (0 , 1):
+                        self.pacman.move(vec(0,-1))
+                    elif j.get_hat(0) == (0 , -1):
+                        self.pacman.move(vec(0,1))
+                    elif j.get_hat(0) == (1 , 0):
+                        self.pacman.move(vec(1,0))
+                    elif j.get_hat(0) == (-1 , 0):
+                        self.pacman.move(vec(-1,0))
+
+
+
 
     def playsingle_update(self):
         self.pacman.update()
+        for enemy in self.enemies:
+            enemy.update()
+
+        for enemy in self.enemies:
+            if enemy.grid_pos == self.pacman.grid_pos:
+                self.remove_life()
 
     def playsingle_draw(self):
         self.screen.fill(BLACK)
         self.screen.blit(self.background,(TOP_BOTTOM_SPACE//2,TOP_BOTTOM_SPACE//2))
-        #self.draw_grid()
-        self.draw_text('CURRENT SCORE : 0', self.screen, [100,0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
+        self.draw_coins()
+        #self.draw_grid() #REDE
+        self.draw_text('CURRENT SCORE : {}'.format(self.pacman.score), self.screen, [100,0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('TIME : 0', self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH//2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.pacman.draw()
+        for enemy in self.enemies:
+            enemy.draw()
         pygame.display.update()
+        #self.coins.pop()
+
+    def remove_life(self):
+        self.pacman.lives -= 1
+        if self.pacman.lives == 0:
+            self.state = "game over"
+        else:
+            self.pacman.grid_pos = vec(self.pacman.starting_position)
+            self.pacman.pixel_pos = self.pacman.get_pix_pos()
+            self.pacman.direction *= 0
+            for enemy in self.enemies:
+                enemy.grid_pos = vec(enemy.starting_pos)
+                enemy.pix_pos = enemy.get_pix_pos()
+                enemy.direction *= 0
+
+    def draw_coins(self):
+        for coin in self.coins:
+            pygame.draw.circle(self.screen,LIGHT_YELLOW , (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_SPACE//2,int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_SPACE//2),4)
 
     def draw_grid(self):
         for x in range (WIDTH//self.cell_width):
             pygame.draw.line(self.background, WHITE , (x*self.cell_width,0), (x*self.cell_width, HEIGHT))
         for x in range (HEIGHT//self.cell_height):
             pygame.draw.line(self.background, WHITE , (0 , x*self.cell_height), (WIDTH, x*self.cell_height))
-
-        #for wall in self.walls:
-            #pygame.draw.rect(self.background,GREEN,(wall.x*self.cell_width,wall.y*self.cell_height,self.cell_width,self.cell_height))
+        for coin in self.coins:
+            pygame.draw.rect(self.background, GREEN, (coin.x*self.cell_width,coin.y*self.cell_height,self.cell_width,self.cell_height))
 
 
     def load(self):
         self.background = pygame.image.load('maze.png')
         self.background = pygame.transform.scale(self.background, (MAP_WIDTH, MAP_HEIGHT))
-        #settings wall while opening
+        #settings wall while opening and characters / coins
         with open("walls.txt",'r') as fp:
             for yindex,line in enumerate(fp):
                 for xindex,char in enumerate(line):
                     if char == "1":
                         self.walls.append(vec(xindex,yindex))
+                    elif char == "C":
+                        self.coins.append(vec(xindex,yindex))
+                    elif char == "P":
+                        self.pacman_position = [xindex,yindex]
+                    elif char  in ["2","3","4","5"]:
+                        self.e_pos.append([xindex,yindex])
+                    elif char == "B":
+                        pygame.draw.rect(self.background,BLACK , (xindex*self.cell_width,yindex*self.cell_height,self.cell_width,self.cell_height))
 
-#9
+
+
+    def make_enemies(self):
+        for xindex ,pos in enumerate(self.e_pos):
+            self.enemies.append(Enemy(self,vec(pos),xindex))
+
+############################# GAME OVER ############################################
+
+    def gameover_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                self.reset()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                self.running = False
+
+    def gameover_update(self):
+        pass
+
+    def gameover_draw(self):
+        self.screen.fill(BLACK)
+        self.draw_text("GAME OVER",self.screen,[WIDTH//2,100],36,FONT_MENU,RED)
+        pygame.display.update()
+
+
+    def reset(self):
+        self.pacman.lives = 3
+        self.coins = [] ## por a zero
+        self.pacman.score = 0
+        self.pacman.grid_pos = vec (self.pacman.starting_position)
+        self.pacman.pix_pos = self.pacman.get_pix_pos()
+        self.pacman.direction *= 0
+        for enemy in self.enemies:
+            enemy.grid_pos = vec(enemy.starting_pos)
+            enemy.pix_pos = enemy.get_pix_pos()
+            enemy.direction *= 0
+        with open("walls.txt",'r') as fp:
+            for yindex,line in enumerate(fp):
+                for xindex,char in enumerate(line):
+                    if char == "C":
+                        self.coins.append(vec(xindex,yindex))
+        self.state = "playsingle"
