@@ -14,7 +14,7 @@ namespace API.Controllers
         private List<User> _userRank;
         private readonly UserService _userService;
         private readonly LevelService _levelService;
-        
+
         public RankController(RankService rankService, UserService userService, LevelService levelService)
         {
             _rankService = rankService;
@@ -36,7 +36,9 @@ namespace API.Controllers
             return _userRank;
         }
 
-        public void UpdateUserRanks()
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult<List<User>> UsersInfo()
         {
             var userRanks = OrderByScore().ToArray();
             List<User> userList = new List<User>();
@@ -48,13 +50,6 @@ namespace API.Controllers
                 _levelService.setUserLevel(userRanks[i]);
                 userList.Add(userRanks[i]);
             }
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public ActionResult<List<User>> UsersInfo()
-        {
-            this.UpdateUserRanks();
             return _userService.Get();
         }
 
@@ -64,7 +59,7 @@ namespace API.Controllers
         {
             var user = _userService.Get(id);
 
-            if(user == null)
+            if (user == null)
             {
                 return BadRequest();
             }
