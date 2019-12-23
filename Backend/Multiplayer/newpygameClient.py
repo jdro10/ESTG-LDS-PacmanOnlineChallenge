@@ -3,7 +3,7 @@ import socket
 import time
 
 HOST = '127.0.0.1'
-PORT = 8002
+PORT = 8001
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
@@ -20,13 +20,23 @@ pygame.display.set_caption('Multiplayer')
 clock = pygame.time.Clock()
 
 gameExit = True
-x = 355
-y = 255
 lead_x_change = 0
 lead_y_change = 0
 
-while gameExit:
+playerNumber = 0
 
+personagem = input()
+
+if personagem == 'PACMAN':
+    s.sendall(b'255/255')
+    x = 255
+    y = 255
+elif personagem == 'GHOST':
+    s.sendall(b'355/355')
+    x = 355
+    y = 355
+
+while gameExit:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             gameExit = False
@@ -44,27 +54,27 @@ while gameExit:
                 lead_y_change = 10
                 lead_x_change = 0
 
+    myCoord = bytes(str(x)+ "/" + str(y), 'utf-8')
+    s.sendall(myCoord)
+
+    otherPlayerCoord = s.recv(1024)
+    decode = otherPlayerCoord.decode('utf-8').split("/")
+    print(decode)
+
     x += lead_x_change
     y += lead_y_change
-    
-    varx = str(x) + "/" + str(y)
-    var = bytes(varx, "utf-8")
-    s.sendall(var)
-	
-    msg = s.recv(1024)
-    msg2= msg.decode('utf-8').split("/");
-    msg3 = int(msg2[0])
-    print("\n")
-    msg4 = int(msg2[1])
-    print("(", msg3, "/", msg4, ")")
 
-    gamedisplay.fill((0,0,0))
-    pygame.draw.rect(gamedisplay, white, [x, y, 10, 10])
-    pygame.draw.rect(gamedisplay, red, [int(msg3), int(msg4), 10, 10])
+    gamedisplay.fill((0, 0, 0))
+
+    if personagem == 'PACMAN':
+        pygame.draw.rect(gamedisplay, red, [x, y, 10, 10])
+        pygame.draw.rect(gamedisplay, white, [int(decode[0]), int(decode[1]), 10, 10])
+    else:
+        pygame.draw.rect(gamedisplay, red, [int(decode[0]), int(decode[1]), 10, 10])
+        pygame.draw.rect(gamedisplay, white, [x, y, 10, 10])
 
     lead_x_change = 0
     lead_y_change = 0
-    
 
     pygame.display.update()
 

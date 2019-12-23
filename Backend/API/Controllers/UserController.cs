@@ -23,18 +23,16 @@ namespace API.Controllers
     {
         private readonly UserService _userService;
         private readonly DailyChallengeService _dailyChallengeService;
-        private readonly LevelService _levelService;
         private readonly EmailService _emailService;
         private readonly AppSettings _appSettings;
         private readonly RankService _rankService;
 
-        public UsersController(UserService userService, IOptions<AppSettings> appSettings, DailyChallengeService dailyChallengeService, EmailService emailService, LevelService levelService, RankService rankService)
+        public UsersController(UserService userService, IOptions<AppSettings> appSettings, DailyChallengeService dailyChallengeService, EmailService emailService, RankService rankService)
         {
             _userService = userService;
             _appSettings = appSettings.Value;
             _dailyChallengeService = dailyChallengeService;
             _emailService = emailService;
-            _levelService = levelService;
             _rankService = rankService;
         }
 
@@ -65,8 +63,7 @@ namespace API.Controllers
             var tokenString = tokenHandler.WriteToken(token);
 
             SetUserChallengeDaily(user);
-            _levelService.setUserLevel(user);
-            
+
             return Ok(new
             {
                 Id = user.Id,
