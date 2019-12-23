@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Pacman Component should render correctly 1`] = `
+<Register>
+  <div
+    className="container-register"
+  >
+    <div
+      className="register-container"
+    >
+      <Pacman
+        className="register-pacman"
+      >
+        <div
+          className="pacman"
+        >
+          <div
+            className="pacmanEye"
+          />
+          <div
+            className="pacmanMouth"
+          />
+          <div
+            className="pacmanFood"
+          />
+        </div>
+      </Pacman>
+      <ValidatedRegisterForm>
+        <Formik
+          initialValues={
+            Object {
+              "email": "",
+              "password": "",
+              "userName": "",
+            }
+          }
+          onSubmit={[Function]}
+          validationSchema={
+            ObjectSchema {
+              "_blacklist": RefSet {
+                "list": Set {},
+                "refs": Map {},
+              },
+              "_conditions": Array [],
+              "_defaultDefault": [Function],
+              "_deps": Array [],
+              "_excludedEdges": Array [],
+              "_exclusive": Object {},
+              "_mutate": undefined,
+              "_nodes": Array [
+                "password",
+                "email",
+                "userName",
+              ],
+              "_options": Object {
+                "abortEarly": true,
+                "recursive": true,
+              },
+              "_type": "object",
+              "_typeError": [Function],
+              "_whitelist": RefSet {
+                "list": Set {},
+                "refs": Map {},
+              },
+              "fields": Object {
+                "email": StringSchema {
+                  "_blacklist": RefSet {
+                    "list": Set {},
+                    "refs": Map {},
+                  },
+                  "_conditions": Array [],
+                  "_deps": Array [],
+                  "_exclusive": Object {
+                    "required": true,
+                    "undefined": false,
+                  },
+                  "_mutate": undefined,
+                  "_options": Object {
+                    "abortEarly": true,
+                    "recursive": true,
+                  },
+                  "_type": "string",
+                  "_typeError": [Function],
+                  "_whitelist": RefSet {
+                    "list": Set {},
+                    "refs": Map {},
+                  },
+                  "tests": Array [
+                    [Function],
+                    [Function],
+                  ],
+                  "transforms": Array [
+                    [Function],
+                  ],
+                },
+                "password": StringSchema {
+                  "_blacklist": RefSet {
+                    "list": Set {},
+                    "refs": Map {},
+                  },
+                  "_conditions": Array [],
+                  "_deps": Array [],
+                  "_exclusive": Object {
+                    "min": true,
+                    "required": true,
+                    "undefined": false,
+                  },
+                  "_mutate": undefined,
+                  "_options": Object {
+                    "abortEarly": true,
+                    "recursive": true,
+                  },
+                  "_type": "string",
+                  "_typeError": [Function],
+                  "_whitelist": RefSet {
+                    "list": Set {},
+                    "refs": Map {},
+                  },
+                  "tests": Array [
+                    [Function],
+                    [Function],
+                    [Function],
+                  ],
+                  "transforms": Array [
+                    [Function],
+                  ],
+                },
+                "userName": StringSchema {
+                  "_blacklist": RefSet {
+                    "list": Set {},
+                    "refs": Map {},
+                  },
+                  "_conditions": Array [],
+                  "_deps": Array [],
+                  "_exclusive": Object {
+                    "min": true,
+                    "required": true,
+                  },
+                  "_mutate": undefined,
+                  "_options": Object {
+                    "abortEarly": true,
+                    "recursive": true,
+                  },
+                  "_type": "string",
+                  "_typeError": [Function],
+                  "_whitelist": RefSet {
+                    "list": Set {},
+                    "refs": Map {},
+                  },
+                  "tests": Array [
+                    [Function],
+                    [Function],
+                  ],
+                  "transforms": Array [
+                    [Function],
+                  ],
+                },
+              },
+              "tests": Array [],
+              "transforms": Array [
+                [Function],
+              ],
+            }
+          }
+        >
+          <form
+            className="register-container"
+            onSubmit={[Function]}
+          >
+            <input
+              name="userName"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Username"
+              type="text"
+              value=""
+            />
+            <input
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Email"
+              type="text"
+              value=""
+            />
+            <input
+              name="password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              placeholder="Password"
+              type="password"
+              value=""
+            />
+            <button
+              className="glow-on-hover"
+              disabled={false}
+              type="submit"
+            >
+              Register
+            </button>
+          </form>
+        </Formik>
+      </ValidatedRegisterForm>
+    </div>
+  </div>
+</Register>
+`;
