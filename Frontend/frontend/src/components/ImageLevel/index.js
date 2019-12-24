@@ -82,7 +82,7 @@ export default function ImageLevel({ nivel }) {
 
   return (
     <div>
-      <img src={imagem} />
+      <img src={imagem} alt="Level" />
     </div>
   );
 }
