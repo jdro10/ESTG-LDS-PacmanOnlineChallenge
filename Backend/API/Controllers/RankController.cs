@@ -3,6 +3,7 @@ using API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace API.Controllers
 {
@@ -37,7 +38,7 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("allusers")]
         public ActionResult<List<User>> UsersInfo()
         {
             var userRanks = OrderByScore().ToArray();
@@ -53,11 +54,12 @@ namespace API.Controllers
             return _userService.Get();
         }
 
-        [AllowAnonymous]
-        [HttpGet("{id:length(24)}")]
-        public IActionResult UserStats(string id)
+        [HttpGet]
+        public IActionResult UserStats()
         {
-            var user = _userService.Get(id);
+            var headerId = Request.Headers["id"];
+
+            var user = _userService.Get(headerId);
 
             if (user == null)
             {
