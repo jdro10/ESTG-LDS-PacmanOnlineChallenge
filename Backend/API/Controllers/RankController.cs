@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using API.Dtos;
-using System.Linq;
 
 namespace API.Controllers
 {
@@ -88,10 +87,10 @@ namespace API.Controllers
 
             var listToReturn = this.OrderByScore2(userRanksDto);
 
-
             return listToReturn;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult UserStats()
         {
@@ -99,20 +98,24 @@ namespace API.Controllers
 
             var user = _userService.Get(headerId);
 
-            if (user == null)
+            _levelService.setUserLevel(user);
+
+            var user2 = _userService.Get(user.Id);
+
+            if (user2 == null)
             {
                 return BadRequest();
             }
 
             return Ok(new
             {
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                Level = user.Level,
-                Score = user.Score,
-                Rank = user.Rank,
-                DailyChallenge = user.dailyChallenges
+                Id = user2.Id,
+                Username = user2.Username,
+                Email = user2.Email,
+                Level = user2.Level,
+                Score = user2.Score,
+                Rank = user2.Rank,
+                DailyChallenge = user2.dailyChallenges
             });
         }
     }
