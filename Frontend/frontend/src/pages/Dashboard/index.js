@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import logo from "../../assets/logo.png";
+import ImageLevel from "./../../components/ImageLevel/index";
 
 export default function Dashboard({ history }) {
   const user_id = localStorage.getItem("userId");
@@ -25,6 +26,7 @@ export default function Dashboard({ history }) {
       <div className="stats-container">
         <div className="cashier">
           <h1>Stats</h1>
+          <ImageLevel></ImageLevel>
         </div>
       </div>
       <div className="challenges-container">
