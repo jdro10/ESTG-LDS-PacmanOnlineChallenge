@@ -18,17 +18,44 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
-        public ActionResult<DailyChallenge> Create(DailyChallenge challenge)
+        [HttpGet("create")]
+        public ActionResult<DailyChallenge> Create()
         {
-            _dailyChallengeService.Create(challenge);
+            DailyChallenge[] dc1 = new DailyChallenge[7];
+            DailyChallenge[] dc2 = new DailyChallenge[7];
+            DailyChallenge[] dc3 = new DailyChallenge[7];
+
+            for (int i = 0; i < 7; i++)
+            {
+                dc1[i] = new DailyChallenge();
+                dc2[i] = new DailyChallenge();
+                dc3[i] = new DailyChallenge();
+                
+                dc1[i].DayOfWeek = i.ToString();
+                dc2[i].DayOfWeek = i.ToString();
+                dc3[i].DayOfWeek = i.ToString();
+
+                dc1[i].Description = "Play 1 game";
+                dc1[i].Points = 500;
+
+                dc2[i].Description = "Score 1000 points in a game";
+                dc2[i].Points = 750;
+
+                dc3[i].Description = "Win a multiplayer game";
+                dc3[i].Points = 1000;
+            }
+
+            for (int i = 0; i < 7; i++)
+            {
+                _dailyChallengeService.Create(dc1[i]);
+                _dailyChallengeService.Create(dc2[i]);
+                _dailyChallengeService.Create(dc3[i]);
+            }
 
             return Ok(new
             {
-                DayOfWeek = challenge.DayOfWeek,
-                Description = challenge.Description,
-                Points = challenge.Points
-            });       
+                result = "desafios criados"
+            });
         }
 
         [HttpGet]
