@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using API.Dtos;
-using System;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -87,6 +87,7 @@ namespace API.Controllers
             }
 
             var listToReturn = this.OrderByScore2(userRanksDto);
+
 
             return listToReturn;
         }
