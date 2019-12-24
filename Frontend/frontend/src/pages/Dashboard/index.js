@@ -3,6 +3,12 @@ import "./styles.css";
 import logo from "../../assets/logo.png";
 
 export default function Dashboard({ history }) {
+  const user_id = localStorage.getItem("userId");
+  const token = localStorage.getItem("userToken");
+
+  console.log(user_id);
+  console.log(token);
+
   function handleClickRegister(event) {
     event.preventDefault();
     history.push("/");
