@@ -2,11 +2,11 @@ import React from "react";
 import { mount } from "enzyme";
 import toJson from "enzyme-to-json";
 
-import Login from "./../pages/Login/index";
+import Dashboard from "./../pages/Dashboard/index";
 
 describe("Testing Pacman Component", () => {
   it("should render correctly", () => {
-    const wrapper = mount(<Login />);
+    const wrapper = mount(<Dashboard />);
 
     expect(toJson(wrapper)).toMatchSnapshot();
   });
