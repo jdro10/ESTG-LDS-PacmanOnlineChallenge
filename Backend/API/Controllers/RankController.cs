@@ -52,6 +52,7 @@ namespace API.Controllers
                 _levelService.setUserLevel(userRanks[i]);
                 userList.Add(userRanks[i]);
             }
+            
             return _userService.Get();
         }
 
@@ -69,7 +70,7 @@ namespace API.Controllers
 
             return Ok(new
             {
-                UserId = user.Id,
+                Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
                 Level = user.Level,
