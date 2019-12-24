@@ -81,6 +81,8 @@ namespace API.Controllers
             var challenges = _dailyChallengeService.GetByDay(((int)dt.DayOfWeek).ToString());
 
             user.dailyChallenges = challenges;
+            
+            _userService.Update(user.Id, user);
         }
 
         [HttpGet]

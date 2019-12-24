@@ -2,6 +2,7 @@ import React from "react";
 import "./styles.css";
 import logo from "../../assets/logo.png";
 import ImageLevel from "./../../components/ImageLevel/index";
+import api from "../../services/api";
 
 export default function Dashboard({ history }) {
   const user_id = localStorage.getItem("userId");
@@ -10,10 +11,21 @@ export default function Dashboard({ history }) {
   console.log(user_id);
   console.log(token);
 
+  async function load() {
+    const response = await api.get("/api/ranks", {
+      headers: { id: user_id, Authorization: `Bearer ${token}` }
+    });
+
+    console.log(response);
+  }
+
+  load();
   function handleClickRegister(event) {
     event.preventDefault();
     history.push("/");
   }
+
+  let nivel = 100;
 
   return (
     <div className="container-dashboard">
@@ -26,7 +38,7 @@ export default function Dashboard({ history }) {
       <div className="stats-container">
         <div className="cashier">
           <h1>Stats</h1>
-          <ImageLevel></ImageLevel>
+          <ImageLevel nivel={nivel} />
         </div>
       </div>
       <div className="challenges-container">
