@@ -3,7 +3,7 @@ using API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
-using System;
+using API.Dtos;
 
 namespace API.Controllers
 {
@@ -14,6 +14,7 @@ namespace API.Controllers
     {
         private readonly RankService _rankService;
         private List<User> _userRank;
+        private List<UserStatsDto> _userStatsDto;
         private readonly UserService _userService;
         private readonly LevelService _levelService;
 
@@ -21,6 +22,7 @@ namespace API.Controllers
         {
             _rankService = rankService;
             _userRank = new List<User>();
+            _userStatsDto = new List<UserStatsDto>();
             _userService = userService;
             _levelService = levelService;
         }
@@ -38,9 +40,23 @@ namespace API.Controllers
             return _userRank;
         }
 
+        private List<UserStatsDto> OrderByScore2(UserStatsDto[] usdto)
+        {
+            var users = usdto;
+
+            for (int i = 0; i < users.Length; i++)
+            {
+                _userStatsDto.Add(users[i]);
+            }
+
+            _userStatsDto.Sort((x, y) => y.Score.CompareTo(x.Score));
+
+            return _userStatsDto;
+        }
+
         [AllowAnonymous]
         [HttpGet("allusers")]
-        public ActionResult<List<User>> UsersInfo()
+        public ActionResult<UserStatsDto[]> UsersInfo()
         {
             var userRanks = OrderByScore().ToArray();
             List<User> userList = new List<User>();
@@ -52,9 +68,36 @@ namespace API.Controllers
                 _levelService.setUserLevel(userRanks[i]);
                 userList.Add(userRanks[i]);
             }
-            return _userService.Get();
+            
+            var userRanks2 =  _userService.Get().ToArray();
+
+            UserStatsDto[] userRanksDto = new UserStatsDto[userRanks2.Length];
+
+            for(int i = 0; i < userRanks2.Length; i++)
+            {
+                userRanksDto[i] = new UserStatsDto();
+                userRanksDto[i].Id = userRanks2[i].Id;
+                userRanksDto[i].Username =userRanks2[i].Username;
+                userRanksDto[i].Email = userRanks2[i].Email;
+                userRanksDto[i].Level = userRanks2[i].Level;
+                userRanksDto[i].Score = userRanks2[i].Score;
+                userRanksDto[i].Rank = userRanks2[i].Rank;
+                userRanksDto[i].dailyChallenges = userRanks2[i].dailyChallenges;
+            }
+
+            var listArray = this.OrderByScore2(userRanksDto).ToArray();
+
+            UserStatsDto[] usdto = new UserStatsDto[10];
+
+            for(int i = 0; i < 10; i++)
+            {
+                usdto[i] = listArray[i];
+            }
+
+            return usdto;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult UserStats()
         {
@@ -62,20 +105,24 @@ namespace API.Controllers
 
             var user = _userService.Get(headerId);
 
-            if (user == null)
+            _levelService.setUserLevel(user);
+
+            var user2 = _userService.Get(user.Id);
+
+            if (user2 == null)
             {
                 return BadRequest();
             }
 
             return Ok(new
             {
-                UserId = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                Level = user.Level,
-                Score = user.Score,
-                Rank = user.Rank,
-                DailyChallenge = user.dailyChallenges
+                Id = user2.Id,
+                Username = user2.Username,
+                Email = user2.Email,
+                Level = user2.Level,
+                Score = user2.Score,
+                Rank = user2.Rank,
+                DailyChallenge = user2.dailyChallenges
             });
         }
     }

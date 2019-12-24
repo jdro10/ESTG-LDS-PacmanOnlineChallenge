@@ -19,14 +19,14 @@ namespace API.Services
 
         public User Authenticate(string username)
         {
-            if(string.IsNullOrEmpty(username))
+            if (string.IsNullOrEmpty(username))
             {
                 return null;
             }
 
             var user = GetByName(username);
 
-            if(user == null)
+            if (user == null)
             {
                 return null;
             }
