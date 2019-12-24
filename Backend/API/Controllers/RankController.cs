@@ -7,6 +7,7 @@ using System;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/ranks")]
     [ApiController]
     public class RankController : ControllerBase
