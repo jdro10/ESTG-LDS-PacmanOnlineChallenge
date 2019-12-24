@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 import logo from "../../assets/logo.png";
 import ImageLevel from "./../../components/ImageLevel/index";
@@ -8,6 +8,10 @@ export default function Dashboard({ history }) {
   const user_id = localStorage.getItem("userId");
   const token = localStorage.getItem("userToken");
 
+  const [level, setLevel] = useState();
+  const [score, setScore] = useState();
+  const [rank, setRank] = useState();
+
   console.log(user_id);
   console.log(token);
 
@@ -16,16 +20,20 @@ export default function Dashboard({ history }) {
       headers: { id: user_id, Authorization: `Bearer ${token}` }
     });
 
-    console.log(response);
+    setLevel(response.data.level);
+    setScore(response.data.level);
+    setRank(response.data.rank);
   }
+
+  console.log(level);
+  console.log(score);
+  console.log(rank);
 
   load();
   function handleClickRegister(event) {
     event.preventDefault();
     history.push("/");
   }
-
-  let nivel = 100;
 
   return (
     <div className="container-dashboard">
@@ -38,7 +46,7 @@ export default function Dashboard({ history }) {
       <div className="stats-container">
         <div className="cashier">
           <h1>Stats</h1>
-          <ImageLevel nivel={nivel} />
+          <ImageLevel nivel={level} />
         </div>
       </div>
       <div className="challenges-container">
