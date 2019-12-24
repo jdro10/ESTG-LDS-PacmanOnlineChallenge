@@ -40,7 +40,7 @@ namespace API.Controllers
             return _userRank;
         }
 
-        private ActionResult<List<UserStatsDto>> OrderByScore2(UserStatsDto[] usdto)
+        private List<UserStatsDto> OrderByScore2(UserStatsDto[] usdto)
         {
             var users = usdto;
 
@@ -56,7 +56,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpGet("allusers")]
-        public ActionResult<List<UserStatsDto>> UsersInfo()
+        public ActionResult<UserStatsDto[]> UsersInfo()
         {
             var userRanks = OrderByScore().ToArray();
             List<User> userList = new List<User>();
@@ -85,9 +85,16 @@ namespace API.Controllers
                 userRanksDto[i].dailyChallenges = userRanks2[i].dailyChallenges;
             }
 
-            var listToReturn = this.OrderByScore2(userRanksDto);
+            var listArray = this.OrderByScore2(userRanksDto).ToArray();
 
-            return listToReturn;
+            UserStatsDto[] usdto = new UserStatsDto[10];
+
+            for(int i = 0; i < 10; i++)
+            {
+                usdto[i] = listArray[i];
+            }
+
+            return usdto;
         }
 
         [AllowAnonymous]
