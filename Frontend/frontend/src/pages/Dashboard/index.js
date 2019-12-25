@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./styles.css";
 import logo from "../../assets/logo.png";
-import ImageLevel from "./../../components/ImageLevel/index";
 import api from "../../services/api";
+import Stats from "../../components/Stats";
 
 export default function Dashboard({ history }) {
   const user_id = localStorage.getItem("userId");
@@ -21,7 +21,7 @@ export default function Dashboard({ history }) {
     });
 
     setLevel(response.data.level);
-    setScore(response.data.level);
+    setScore(response.data.score);
     setRank(response.data.rank);
   }
 
@@ -46,7 +46,7 @@ export default function Dashboard({ history }) {
       <div className="stats-container">
         <div className="cashier">
           <h1>Stats</h1>
-          <ImageLevel nivel={level} />
+          <Stats nivel={level} score={score} rank={rank} />
         </div>
       </div>
       <div className="challenges-container">
