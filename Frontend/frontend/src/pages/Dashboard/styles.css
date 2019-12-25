@@ -49,6 +49,10 @@
   height: 70%;
   width: 70%;
   border-radius: var(--size-small);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .footer-container {

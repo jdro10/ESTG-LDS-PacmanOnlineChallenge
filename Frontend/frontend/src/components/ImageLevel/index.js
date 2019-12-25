@@ -20,6 +20,8 @@ import img16 from "../../assets/16.png";
 import img17 from "../../assets/17.png";
 import img18 from "../../assets/18.png";
 
+import "./styles.css";
+
 export default function ImageLevel({ nivel }) {
   var imagem;
   if (nivel >= 0 && nivel < 5) {
@@ -82,7 +84,7 @@ export default function ImageLevel({ nivel }) {
 
   return (
     <div>
-      <img src={imagem} alt="Level" />
+      <img src={imagem} alt="Level" className="imgLevel" />
     </div>
   );
 }
