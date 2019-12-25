@@ -79,15 +79,34 @@ namespace API.Controllers
         {
             DateTime dt = DateTime.Now;
             var challenges = _dailyChallengeService.GetByDay(((int)dt.DayOfWeek).ToString());
-            
+
             user.dailyChallenges = challenges;
-            
+
             _userService.Update(user.Id, user);
         }
 
+        [AllowAnonymous]
         [HttpGet]
-        public ActionResult<List<User>> Get() =>
-            _userService.Get();
+        public ActionResult<UserStatsDto[]> Get()
+        {
+            var allUsers = _userService.Get().ToArray();
+
+            UserStatsDto[] userRanksDto = new UserStatsDto[allUsers.Length];
+
+            for (int i = 0; i < allUsers.Length; i++)
+            {
+                userRanksDto[i] = new UserStatsDto();
+                userRanksDto[i].Id = allUsers[i].Id;
+                userRanksDto[i].Username = allUsers[i].Username;
+                userRanksDto[i].Email = allUsers[i].Email;
+                userRanksDto[i].Level = allUsers[i].Level;
+                userRanksDto[i].Score = allUsers[i].Score;
+                userRanksDto[i].Rank = allUsers[i].Rank;
+                userRanksDto[i].dailyChallenges = allUsers[i].dailyChallenges;
+            }
+
+            return userRanksDto;
+        }
 
         [HttpGet("{id:length(24)}", Name = "GetUser")]
         public ActionResult<User> Get(string id)
