@@ -3,6 +3,7 @@ import "./styles.css";
 import logo from "../../assets/logo.png";
 import api from "../../services/api";
 import Stats from "../../components/Stats";
+import ImageLevel from "./../../components/ImageLevel/index";
 
 export default function Dashboard({ history }) {
   const user_id = localStorage.getItem("userId");
@@ -45,6 +46,7 @@ export default function Dashboard({ history }) {
       </div>
       <div className="stats-container">
         <div className="cashier">
+          <ImageLevel nivel={level} />
           <h1>Stats</h1>
           <Stats nivel={level} score={score} rank={rank} />
         </div>
