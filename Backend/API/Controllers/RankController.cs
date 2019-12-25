@@ -54,6 +54,17 @@ namespace API.Controllers
             return _userStatsDto;
         }
 
+        private void updateUserRanks()
+        {
+            var userRanks = OrderByScore().ToArray();
+
+            for (int i = 0; i < userRanks.Length; i++)
+            {
+                userRanks[i].Rank = i + 1;
+                _userService.UpdateRankPosition(userRanks[i].Id, userRanks[i]);
+            }
+        }
+
         [AllowAnonymous]
         [HttpGet("allusers")]
         public ActionResult<UserStatsDto[]> UsersInfo()
@@ -101,6 +112,8 @@ namespace API.Controllers
         [HttpGet]
         public IActionResult UserStats()
         {
+            this.updateUserRanks();
+
             var headerId = Request.Headers["id"];
 
             var user = _userService.Get(headerId);
