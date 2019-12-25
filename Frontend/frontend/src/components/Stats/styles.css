@@ -4,3 +4,9 @@
   justify-content: center;
   align-items: center;
 }
+
+p {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px;
+}
