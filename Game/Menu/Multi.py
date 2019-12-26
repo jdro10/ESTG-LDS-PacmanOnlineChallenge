@@ -32,7 +32,9 @@ Running = True
 #images
 pacman = pygame.image.load('pacman.png')
 ghost = pygame.image.load('vermelho.png')
+seta = pygame.image.load('seta.png')
 ghost = pygame.transform.scale(ghost, (180, 180))
+seta = pygame.transform.scale(seta, (180, 150))
 
 
 
@@ -44,6 +46,11 @@ ypslon = (display_height * 0.38)
 
 x =  (display_width * 0.1)
 y = (display_height * 0.35)
+
+x_seta = (display_width * 0.13)
+y_seta = (display_height * 0.67)
+
+
 
 
 def draw_text(message, screen, position, size, font_type, color):
@@ -62,6 +69,7 @@ while Running:
     gameDisplay.fill(black)
     gameDisplay.blit(pacman, (x, y))
     gameDisplay.blit(ghost, (xis, ypslon))
+    gameDisplay.blit(seta, (x_seta, y_seta))
     draw_text('CHOOSE YOUR CHARACTER !', gameDisplay, [display_width // 2, display_height // 2 - 140], TITLE_SIZE, FONT_MENU, white)
 
 
