@@ -4,6 +4,7 @@ import logo from "../../assets/logo.png";
 import api from "../../services/api";
 import Stats from "../../components/Stats";
 import ImageLevel from "./../../components/ImageLevel/index";
+import Challenges from "./../../components/Challenges/index";
 
 export default function Dashboard({ history }) {
   const user_id = localStorage.getItem("userId");
@@ -42,19 +43,8 @@ export default function Dashboard({ history }) {
     setPointCha3(response.data.dailyChallenge[2].points);
   }
 
-  console.log(level);
-  console.log(score);
-  console.log(rank);
-
-  console.log("_" + nameCha1);
-  console.log("_" + nameCha2);
-  console.log("_" + nameCha3);
-
-  console.log("_" + pointCha1);
-  console.log("_" + pointCha2);
-  console.log("_" + pointCha3);
-
   load();
+
   function handleClickRegister(event) {
     event.preventDefault();
     history.push("/");
@@ -78,6 +68,14 @@ export default function Dashboard({ history }) {
       <div className="challenges-container">
         <div className="cashier">
           <h1>Challenges</h1>
+          <Challenges
+            nameCha1={nameCha1}
+            nameCha2={nameCha2}
+            nameCha3={nameCha3}
+            pointCha1={pointCha1}
+            pointCha2={pointCha2}
+            pointCha3={pointCha3}
+          />
         </div>
       </div>
       <div className="footer-container">
