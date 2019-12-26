@@ -1,0 +1,25 @@
+.imgLevel {
+  height: 150px;
+  width: 150px;
+
+  margin-bottom: 20px;
+  margin-top: -270px;
+}
+
+@media only screen and (max-width: 600px) {
+  .imgLevel {
+    height: 60px;
+    width: 60px;
+
+    margin-bottom: 3px;
+  }
+}
+
+@media only screen and (max-height: 550px) {
+  .imgLevel {
+    height: 60px;
+    width: 60px;
+
+    margin-bottom: 3px;
+  }
+}

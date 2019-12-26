@@ -49,6 +49,10 @@
   height: 70%;
   width: 70%;
   border-radius: var(--size-small);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .footer-container {
@@ -64,6 +68,12 @@
 img {
   height: var(--size-medium);
   width: 46px;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .link-button {
@@ -86,6 +96,12 @@ img {
     grid-template-columns: 1fr;
     grid-template-rows: 10vh 40vh 40vh 10vh;
     grid-template-areas: "header" "level" "challenges" "footer";
+    width: 100vw;
+    height: 100vh;
+  }
+
+  h1 {
+    font-size: 25px;
   }
 
   body,
@@ -101,5 +117,8 @@ img {
     width: 26px;
     margin: var(--size-small) var(--size-small) var(--size-small)
       var(--size-small);
+  }
+  h1 {
+    font-size: 25px;
   }
 }
