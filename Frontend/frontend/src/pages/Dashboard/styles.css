@@ -96,6 +96,12 @@ h1 {
     grid-template-columns: 1fr;
     grid-template-rows: 10vh 40vh 40vh 10vh;
     grid-template-areas: "header" "level" "challenges" "footer";
+    width: 100vw;
+    height: 100vh;
+  }
+
+  h1 {
+    font-size: 25px;
   }
 
   body,

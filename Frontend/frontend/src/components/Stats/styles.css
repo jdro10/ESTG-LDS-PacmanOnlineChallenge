@@ -10,3 +10,19 @@ p {
   font-weight: bold;
   margin: 15px;
 }
+
+@media only screen and (max-width: 600px) {
+  p {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 3px;
+  }
+}
+
+@media only screen and (max-height: 550px) {
+  p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px;
+  }
+}
