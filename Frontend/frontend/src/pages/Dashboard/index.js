@@ -13,6 +13,14 @@ export default function Dashboard({ history }) {
   const [score, setScore] = useState();
   const [rank, setRank] = useState();
 
+  const [nameCha1, setNameCha1] = useState("");
+  const [nameCha2, setNameCha2] = useState("");
+  const [nameCha3, setNameCha3] = useState("");
+
+  const [pointCha1, setPointCha1] = useState();
+  const [pointCha2, setPointCha2] = useState();
+  const [pointCha3, setPointCha3] = useState();
+
   console.log(user_id);
   console.log(token);
 
@@ -24,11 +32,27 @@ export default function Dashboard({ history }) {
     setLevel(response.data.level);
     setScore(response.data.score);
     setRank(response.data.rank);
+
+    setNameCha1(response.data.dailyChallenge[0].description);
+    setNameCha2(response.data.dailyChallenge[1].description);
+    setNameCha3(response.data.dailyChallenge[2].description);
+
+    setPointCha1(response.data.dailyChallenge[0].points);
+    setPointCha2(response.data.dailyChallenge[1].points);
+    setPointCha3(response.data.dailyChallenge[2].points);
   }
 
   console.log(level);
   console.log(score);
   console.log(rank);
+
+  console.log("_" + nameCha1);
+  console.log("_" + nameCha2);
+  console.log("_" + nameCha3);
+
+  console.log("_" + pointCha1);
+  console.log("_" + pointCha2);
+  console.log("_" + pointCha3);
 
   load();
   function handleClickRegister(event) {
