@@ -11,3 +11,30 @@ hr {
   width: 15px;
   margin-right: 0px;
 }
+
+@media only screen and (max-width: 600px) {
+  hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .logo {
+    height: 10px;
+    width: 10px;
+  }
+}
+
+@media only screen and (max-height: 550px) {
+  hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .logo {
+    height: 10px;
+    width: 10px;
+  }
+  h3 {
+    font-size: 12px;
+  }
+}

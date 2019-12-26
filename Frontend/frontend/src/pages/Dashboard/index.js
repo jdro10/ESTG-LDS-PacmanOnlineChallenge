@@ -41,6 +41,8 @@ export default function Dashboard({ history }) {
     setPointCha1(response.data.dailyChallenge[0].points);
     setPointCha2(response.data.dailyChallenge[1].points);
     setPointCha3(response.data.dailyChallenge[2].points);
+
+    console.log(response);
   }
 
   load();
