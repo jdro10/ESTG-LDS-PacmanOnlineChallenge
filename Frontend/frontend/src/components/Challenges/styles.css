@@ -31,8 +31,9 @@ hr {
   }
 
   .logo {
-    height: 10px;
-    width: 10px;
+    height: 12px;
+    width: 12px;
+    margin: 0px;
   }
   h3 {
     font-size: 12px;
