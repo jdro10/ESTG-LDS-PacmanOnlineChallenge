@@ -127,7 +127,7 @@
   }
 }
 
-.logo {
+.logoLogin {
   height: var(--size-big);
   width: 150px;
 }
@@ -139,7 +139,7 @@
 }
 
 @media only screen and (max-height: 550px) {
-  .logo {
+  .logoLogin {
     height: 75px;
     width: 125px;
   }
