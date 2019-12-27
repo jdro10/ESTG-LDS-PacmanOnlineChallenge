@@ -1,0 +1,41 @@
+hr {
+  border-color: #aaa;
+  box-sizing: border-box;
+  width: 80%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  height: 15px;
+  width: 15px;
+  margin-right: 0px;
+}
+
+@media only screen and (max-width: 600px) {
+  hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .logo {
+    height: 10px;
+    width: 10px;
+  }
+}
+
+@media only screen and (max-height: 550px) {
+  hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .logo {
+    height: 12px;
+    width: 12px;
+    margin: 0px;
+  }
+  h3 {
+    font-size: 12px;
+  }
+}
