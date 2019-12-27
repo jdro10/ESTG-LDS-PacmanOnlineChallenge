@@ -18,6 +18,7 @@ class Enemy:
         self.type = self.set_type()
         self.target = None
         self.speed = self.set_speed()
+        self.image = self.set_image()
 
 
     def update(self):
@@ -63,11 +64,27 @@ class Enemy:
                 return vec(NUMBER_CELLS_WIDTH-2,NUMBER_CELLS_HEIGHT-2)
 
     def draw(self):
-        pygame.draw.circle(self.app.screen,self.color,(int(self.pix_pos.x),int(self.pix_pos.y)),self.radius)
+        #pygame.draw.circle(self.app.screen,self.color,(int(self.pix_pos.x),int(self.pix_pos.y)),self.radius) #BEM
+
+        if (self.number == 0):
+            self.app.screen.blit(self.app.redGhost, (int(self.pix_pos.x - 8), int(self.pix_pos.y - 8)))
+        elif (self.number == 1):
+            self.app.screen.blit(self.app.blueGhost, (int(self.pix_pos.x - 8), int(self.pix_pos.y - 8)))
+        elif (self.number == 2):
+            self.app.screen.blit(self.app.greenGhost, (int(self.pix_pos.x - 8), int(self.pix_pos.y - 8)))
+        elif (self.number == 3):
+            self.app.screen.blit(self.app.pinkGhost, (int(self.pix_pos.x - 8), int(self.pix_pos.y - 8)))
+
+        #pygame.draw.(self.app.screen,self.image,(int(self.pix_pos.x)),int(self.pix_pos.y))
+        #self.app.screen.blit(self.get_img(),(10,10))
 
     def get_pix_pos(self):
-        return  vec((self.grid_pos.x*self.app.cell_width)+TOP_BOTTOM_SPACE//2+self.app.cell_width//2,
-                             (self.grid_pos.y*self.app.cell_height)+TOP_BOTTOM_SPACE//2+self.app.cell_height//2)
+        return  vec(((self.grid_pos.x*self.app.cell_width)+TOP_BOTTOM_SPACE//2+self.app.cell_width//2),
+                    ((self.grid_pos.y*self.app.cell_height)+TOP_BOTTOM_SPACE//2+self.app.cell_height//2))
+
+
+    def get_img(self):
+        return self.image
 
     def set_type(self):
         if self.number == 0:
@@ -79,6 +96,9 @@ class Enemy:
         else:
             return "slow random"
 
+    #def get_type(self):
+        #return self.type
+
     def set_color(self):
         if self.number == 0:
             return BLUE
@@ -88,6 +108,25 @@ class Enemy:
             return GREEN
         elif self.number == 3:
             return WHITE
+
+    def set_image(self):
+        if self.number == 0:
+            image = pygame.image.load("verde.png")
+            image = pygame.transform.scale(image,(8,6))
+            self.image = image
+        elif self.number == 1:
+            image = pygame.image.load("vermelho.png")
+            image = pygame.transform.scale(image, (8, 6))
+            self.image = image
+        elif self.number == 2:
+            image = pygame.image.load("rosa.png")
+            image = pygame.transform.scale(image, (8, 6))
+            self.image = image
+        elif self.number == 3:
+            image = pygame.image.load("azul.png")
+            image = pygame.transform.scale(image, (8, 6))
+            self.image = image
+
 
     def time_to_move_x(self):
         if int(self.pix_pos.x+TOP_BOTTOM_SPACE//2)%self.app.cell_width==0:

@@ -46,14 +46,27 @@ class Pacman:
         return False
 
     def smash_coin(self):
+        #pygame.mixer.Sound.stop(self.app.coin_sound)
         self.app.coins.remove(self.grid_pos)
+        pygame.mixer.Sound.play(self.app.coin_sound)
         self.score += 10
 
     def draw(self):
-        pygame.draw.circle(self.app.screen, YELLOW, (int(self.pixel_pos.x), int(self.pixel_pos.y)),self.app.cell_width//2-2)
+        #pygame.draw.circle(self.app.screen, YELLOW, (int(self.pixel_pos.x), int(self.pixel_pos.y)),self.app.cell_width//2-2)
+
+        if(self.direction == vec(1,0)):
+            self.app.screen.blit(self.app.yellowPacman, (int(self.pixel_pos.x - 8), int(self.pixel_pos.y - 8)))
+        elif (self.direction == vec(-1, 0)):
+            self.app.screen.blit(pygame.transform.flip(self.app.yellowPacman,True, False), (int(self.pixel_pos.x - 8), int(self.pixel_pos.y - 8)))
+        elif (self.direction == vec(0, 1)):
+            self.app.screen.blit(pygame.transform.rotate(self.app.yellowPacman, 270), (int(self.pixel_pos.x - 8), int(self.pixel_pos.y - 8)))
+        elif (self.direction == vec( 0 ,-1)):
+            self.app.screen.blit(pygame.transform.rotate(self.app.yellowPacman, 90), (int(self.pixel_pos.x - 8), int(self.pixel_pos.y - 8)))
+
 
         for x in range(self.lives):
-            pygame.draw.circle(self.app.screen, YELLOW , (35 + 20*x, HEIGHT - 15),6)
+            self.app.screen.blit(self.app.yellowPacman,(35 + 20*x, HEIGHT - 25))
+            #pygame.draw.circle(self.app.screen, YELLOW , (35 + 20*x, HEIGHT - 15),6)
         #DESENHA gajo atras
         #pygame.draw.rect(self.app.screen,RED,
                         # (self.grid_pos[0]*self.app.cell_width+TOP_BOTTOM_SPACE//2,

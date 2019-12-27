@@ -1,7 +1,4 @@
-import copy
-
 import pygame , sys
-from settings import *
 from pacman import *
 from  enemy import *
 
@@ -26,6 +23,7 @@ class Game:
         self.load()
         self.pacman = Pacman(self, vec(self.pacman_position))
         self.make_enemies()
+        self.gameOverLoop = True
 
 
 
@@ -88,22 +86,8 @@ class Game:
             j = pygame.joystick.Joystick(0)
             j.init()
 
-        except:
-            pass
-
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.gameLoop = False
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:
-                        self.pacman.move(vec(-1,0))
-                    elif event.key == pygame.K_RIGHT:
-                        self.pacman.move(vec(1, 0))
-                    elif event.key == pygame.K_DOWN:
-                        self.pacman.move(vec(0, 1))
-                    elif event.key == pygame.K_UP:
-                        self.pacman.move(vec(0, -1))
-                elif event.type == pygame.JOYAXISMOTION:
+                if event.type == pygame.JOYAXISMOTION:
                     if j.get_axis(0) > 0.2:
                         self.pacman.move(vec(1,0))
                     elif j.get_axis(0) < -0.2:
@@ -121,7 +105,19 @@ class Game:
                     elif j.get_hat(0) == (-1 , 0):
                         self.pacman.move(vec(-1,0))
 
-
+        except:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.gameLoop = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_LEFT:
+                        self.pacman.move(vec(-1,0))
+                    elif event.key == pygame.K_RIGHT:
+                        self.pacman.move(vec(1, 0))
+                    elif event.key == pygame.K_DOWN:
+                        self.pacman.move(vec(0, 1))
+                    elif event.key == pygame.K_UP:
+                        self.pacman.move(vec(0, -1))
 
 
     def playsingle_update(self):
@@ -142,8 +138,11 @@ class Game:
         self.draw_text('TIME : 0', self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH//2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.pacman.draw()
+        #self.screen.blit(self.yellowPacman,self.pacman.get_pix_pos())
         for enemy in self.enemies:
             enemy.draw()
+
+
         pygame.display.update()
         #self.coins.pop()
 
@@ -162,7 +161,9 @@ class Game:
 
     def draw_coins(self):
         for coin in self.coins:
-            pygame.draw.circle(self.screen,LIGHT_YELLOW , (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_SPACE//2,int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_SPACE//2),4)
+            #pygame.draw.circle(self.screen,LIGHT_YELLOW, (int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_SPACE//2,int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_SPACE//2),4)
+            self.screen.blit(self.coin, ((int(coin.x*self.cell_width)+self.cell_width//2+TOP_BOTTOM_SPACE//2)-8,
+                                         (int(coin.y*self.cell_height)+self.cell_height//2+TOP_BOTTOM_SPACE//2)-8))
 
     def draw_grid(self):
         for x in range (WIDTH//self.cell_width):
@@ -173,8 +174,28 @@ class Game:
             pygame.draw.rect(self.background, GREEN, (coin.x*self.cell_width,coin.y*self.cell_height,self.cell_width,self.cell_height))
 
 
+    #def coin_sound(self):
+        #pygame.mixer.Sound.play(self.coin_sound)
+
+
     def load(self):
         self.background = pygame.image.load('maze.png')
+        self.redGhost = pygame.image.load('vermelho.png')
+        self.redGhost = pygame.transform.scale(self.redGhost,(14,14))
+        self.blueGhost = pygame.image.load('azul.png')
+        self.blueGhost = pygame.transform.scale(self.blueGhost,(14, 14))
+        self.greenGhost = pygame.image.load('verde.png')
+        self.greenGhost = pygame.transform.scale(self.greenGhost,(14, 14))
+        self.pinkGhost = pygame.image.load('rosa.png')
+        self.pinkGhost = pygame.transform.scale(self.pinkGhost,(14, 14))
+        self.yellowPacman = pygame.image.load('pacman.png')
+        self.yellowPacman = pygame.transform.scale(self.yellowPacman,(20,20))
+        self.coin = pygame.image.load('coin.png')
+        self.coin = pygame.transform.scale(self.coin,(13,10))
+        self.coin_sound = pygame.mixer.Sound('coin.wav')
+        self.gameover_sound = pygame.mixer.Sound('gameover.wav')
+
+        #HA FALTA DE MELHOR VAI TER QUE SER ASSIM com a string
         self.background = pygame.transform.scale(self.background, (MAP_WIDTH, MAP_HEIGHT))
         #settings wall while opening and characters / coins
         with open("walls.txt",'r') as fp:
@@ -212,6 +233,9 @@ class Game:
         pass
 
     def gameover_draw(self):
+        if self.gameOverLoop:
+            pygame.mixer.Sound.play(self.gameover_sound)
+            self.gameOverLoop = False
         self.screen.fill(BLACK)
         self.draw_text("GAME OVER",self.screen,[WIDTH//2,100],36,FONT_MENU,RED)
         pygame.display.update()
@@ -233,4 +257,5 @@ class Game:
                 for xindex,char in enumerate(line):
                     if char == "C":
                         self.coins.append(vec(xindex,yindex))
+        self.gameOverLoop = True
         self.state = "playsingle"
