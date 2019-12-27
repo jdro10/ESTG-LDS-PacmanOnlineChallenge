@@ -22,4 +22,4 @@ TEXT_SIZE_GAME = 13
 FONT_GAME = 'arial black'
 
 #other settings
-FPS = 60
+FPS = 120

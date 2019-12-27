@@ -46,11 +46,14 @@ class Pacman:
         return False
 
     def smash_coin(self):
+        #pygame.mixer.Sound.stop(self.app.coin_sound)
         self.app.coins.remove(self.grid_pos)
+        pygame.mixer.Sound.play(self.app.coin_sound)
         self.score += 10
 
     def draw(self):
-        pygame.draw.circle(self.app.screen, YELLOW, (int(self.pixel_pos.x), int(self.pixel_pos.y)),self.app.cell_width//2-2)
+        #pygame.draw.circle(self.app.screen, YELLOW, (int(self.pixel_pos.x), int(self.pixel_pos.y)),self.app.cell_width//2-2)
+        self.app.screen.blit(self.app.yellowPacman,(int(self.pixel_pos.x-8), int(self.pixel_pos.y-8)))
 
         for x in range(self.lives):
             pygame.draw.circle(self.app.screen, YELLOW , (35 + 20*x, HEIGHT - 15),6)
