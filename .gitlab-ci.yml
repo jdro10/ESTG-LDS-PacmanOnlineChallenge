@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
 cache:
   paths:
     - Frontend/frontend/node_modules/
@@ -12,11 +13,17 @@ buildFrontend:
     - npm install
     - npm run-script build
 
-
-
 buildBackend:
   image: mcr.microsoft.com/dotnet/core/sdk:3.0
   stage: build
   script:
     - cd Backend/API/
     - "dotnet build"
+
+testFrontend:
+  image: node:latest
+  stage: test
+  script:
+    - cd Frontend/frontend/
+    - npm install
+    - npm run-script test
