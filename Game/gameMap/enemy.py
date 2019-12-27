@@ -64,7 +64,17 @@ class Enemy:
                 return vec(NUMBER_CELLS_WIDTH-2,NUMBER_CELLS_HEIGHT-2)
 
     def draw(self):
-        pygame.draw.circle(self.app.screen,self.color,(int(self.pix_pos.x),int(self.pix_pos.y)),self.radius) #BEM
+        #pygame.draw.circle(self.app.screen,self.color,(int(self.pix_pos.x),int(self.pix_pos.y)),self.radius) #BEM
+
+        if (self.number == 0):
+            self.app.screen.blit(self.app.redGhost, (int(self.pix_pos.x - 8), int(self.pix_pos.y - 8)))
+        elif (self.number == 1):
+            self.app.screen.blit(self.app.blueGhost, (int(self.pix_pos.x - 8), int(self.pix_pos.y - 8)))
+        elif (self.number == 2):
+            self.app.screen.blit(self.app.greenGhost, (int(self.pix_pos.x - 8), int(self.pix_pos.y - 8)))
+        elif (self.number == 3):
+            self.app.screen.blit(self.app.pinkGhost, (int(self.pix_pos.x - 8), int(self.pix_pos.y - 8)))
+
         #pygame.draw.(self.app.screen,self.image,(int(self.pix_pos.x)),int(self.pix_pos.y))
         #self.app.screen.blit(self.get_img(),(10,10))
 

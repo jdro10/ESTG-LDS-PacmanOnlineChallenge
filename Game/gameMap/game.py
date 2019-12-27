@@ -140,16 +140,8 @@ class Game:
         self.pacman.draw()
         #self.screen.blit(self.yellowPacman,self.pacman.get_pix_pos())
         for enemy in self.enemies:
-            #enemy.draw()
+            enemy.draw()
 
-            if(enemy.number == 0):
-                self.screen.blit(self.redGhost,((enemy.get_pix_pos()[0]-8),enemy.get_pix_pos()[1]-8))
-            elif(enemy.number == 1):
-                self.screen.blit(self.greenGhost,((enemy.get_pix_pos()[0]-8),enemy.get_pix_pos()[1]-8))
-            elif(enemy.number == 2):
-                self.screen.blit(self.pinkGhost,((enemy.get_pix_pos()[0]-8),enemy.get_pix_pos()[1]-8))
-            elif(enemy.number == 3):
-                self.screen.blit(self.blueGhost,((enemy.get_pix_pos()[0]-8),enemy.get_pix_pos()[1]-8))
 
         pygame.display.update()
         #self.coins.pop()
@@ -198,8 +190,8 @@ class Game:
         self.pinkGhost = pygame.transform.scale(self.pinkGhost,(14, 14))
         self.yellowPacman = pygame.image.load('pacman.png')
         self.yellowPacman = pygame.transform.scale(self.yellowPacman,(20,20))
-        self.coin = pygame.image.load('star.png')
-        self.coin = pygame.transform.scale(self.coin,(10,10))
+        self.coin = pygame.image.load('coin.png')
+        self.coin = pygame.transform.scale(self.coin,(13,10))
         self.coin_sound = pygame.mixer.Sound('coin.wav')
         self.gameover_sound = pygame.mixer.Sound('gameover.wav')
 

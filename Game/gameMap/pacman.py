@@ -56,7 +56,8 @@ class Pacman:
         self.app.screen.blit(self.app.yellowPacman,(int(self.pixel_pos.x-8), int(self.pixel_pos.y-8)))
 
         for x in range(self.lives):
-            pygame.draw.circle(self.app.screen, YELLOW , (35 + 20*x, HEIGHT - 15),6)
+            self.app.screen.blit(self.app.yellowPacman,(35 + 20*x, HEIGHT - 25))
+            #pygame.draw.circle(self.app.screen, YELLOW , (35 + 20*x, HEIGHT - 15),6)
         #DESENHA gajo atras
         #pygame.draw.rect(self.app.screen,RED,
                         # (self.grid_pos[0]*self.app.cell_width+TOP_BOTTOM_SPACE//2,
