@@ -11,7 +11,7 @@ exports[`Testing Pacman Component should render correctly 1`] = `
     >
       <img
         alt="It a match"
-        className="logo"
+        className="logoLogin"
         src="logo.png"
       />
       <input

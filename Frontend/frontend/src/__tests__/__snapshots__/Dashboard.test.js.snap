@@ -26,9 +26,42 @@ exports[`Testing Pacman Component should render correctly 1`] = `
       <div
         className="cashier"
       >
+        <ImageLevel>
+          <div>
+            <img
+              alt="Level"
+              className="imgLevel"
+            />
+          </div>
+        </ImageLevel>
         <h1>
           Stats
         </h1>
+        <Stats>
+          <p>
+            Level: 
+          </p>
+          <ProgressBar>
+            <div
+              className="progress-bar"
+            >
+              <div
+                className="filler"
+                style={
+                  Object {
+                    "width": "NaN%",
+                  }
+                }
+              />
+            </div>
+          </ProgressBar>
+          <p>
+            Score: 
+          </p>
+          <p>
+            Rank: 
+          </p>
+        </Stats>
       </div>
     </div>
     <div
@@ -40,6 +73,50 @@ exports[`Testing Pacman Component should render correctly 1`] = `
         <h1>
           Challenges
         </h1>
+        <Challenges
+          nameCha1=""
+          nameCha2=""
+          nameCha3=""
+        >
+          <h3>
+            <img
+              alt="It a match"
+              className="logo"
+              src="logo.png"
+            />
+          </h3>
+          <h3>
+            <b>
+               Reward:
+            </b>
+          </h3>
+          <hr />
+          <h3>
+            <img
+              alt="It a match"
+              className="logo"
+              src="logo.png"
+            />
+          </h3>
+          <h3>
+            <b>
+               Reward:
+            </b>
+          </h3>
+          <hr />
+          <h3>
+            <img
+              alt="It a match"
+              className="logo"
+              src="logo.png"
+            />
+          </h3>
+          <h3>
+            <b>
+               Reward:
+            </b>
+          </h3>
+        </Challenges>
       </div>
     </div>
     <div
