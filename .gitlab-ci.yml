@@ -27,9 +27,3 @@ testFrontend:
     - cd Frontend/frontend/
     - npm install
     - npm run-script test
-
-testBackend:
-  image: mcr.microsoft.com/dotnet/core/sdk:3.0
-  stage: test
-  script:
-    - cd Backend/API | "dotnet run"
