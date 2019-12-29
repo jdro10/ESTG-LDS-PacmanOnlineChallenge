@@ -18,7 +18,7 @@ buildBackend:
   stage: build
   script:
     - cd Backend/API/
-    - "dotnet build"
+    - "dotnet run"
 
 testFrontend:
   image: node:latest
