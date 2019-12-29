@@ -79,16 +79,16 @@ namespace API.Controllers
                 _levelService.setUserLevel(userRanks[i]);
                 userList.Add(userRanks[i]);
             }
-            
-            var userRanks2 =  _userService.Get().ToArray();
+
+            var userRanks2 = _userService.Get().ToArray();
 
             UserStatsDto[] userRanksDto = new UserStatsDto[userRanks2.Length];
 
-            for(int i = 0; i < userRanks2.Length; i++)
+            for (int i = 0; i < userRanks2.Length; i++)
             {
                 userRanksDto[i] = new UserStatsDto();
                 userRanksDto[i].Id = userRanks2[i].Id;
-                userRanksDto[i].Username =userRanks2[i].Username;
+                userRanksDto[i].Username = userRanks2[i].Username;
                 userRanksDto[i].Email = userRanks2[i].Email;
                 userRanksDto[i].Level = userRanks2[i].Level;
                 userRanksDto[i].Score = userRanks2[i].Score;
@@ -100,9 +100,13 @@ namespace API.Controllers
 
             UserStatsDto[] usdto = new UserStatsDto[10];
 
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < listArray.Length; i++)
             {
                 usdto[i] = listArray[i];
+                if (i == 9)
+                {
+                    break;
+                }
             }
 
             return usdto;
