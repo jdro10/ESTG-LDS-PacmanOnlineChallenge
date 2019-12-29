@@ -1,5 +1,6 @@
 import pygame
 from MenuInstrucoes import start_draw1
+from Multi import startDraw
 
 clock = pygame.time.Clock()
 clock.tick(5)
@@ -51,8 +52,8 @@ def start_draw():
         draw_text('INSTRUCTIONS', screen, [WIDTH // 2, HEIGHT // 2 + 150], TEXT_SIZE_MENU, FONT_MENU, GREEN)
         draw_text('STATS', screen, [WIDTH // 2, HEIGHT // 2 + 200], TEXT_SIZE_MENU, FONT_MENU, BLUE)
         screen.blit(pygame.transform.scale(img, (70, 70)), (WIDTH // 3 - 130, pos_y_pacman))
-        #pygame.mixer.music.load('song.flac')
-        #pygame.mixer.music.play(0)
+        pygame.mixer.music.load('song.wav')
+        pygame.mixer.music.play(1)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.QUIT()
@@ -73,7 +74,7 @@ def select_menu(pos_y_pacman):
     if pos_y_pacman == (HEIGHT // 2 + 30):
         print("1")
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 50):
-        print("2")
+        startDraw()
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 100):
         start_draw1()
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 150):
