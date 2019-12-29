@@ -32,5 +32,4 @@ testBackend:
   image: mcr.microsoft.com/dotnet/core/sdk:3.0
   stage: test
   script:
-    - cd Backend/UnitTests/Tests
-    - "dotnet test"
+    - cd Backend/API | "dotnet run"
