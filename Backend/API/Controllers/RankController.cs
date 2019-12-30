@@ -93,7 +93,6 @@ namespace API.Controllers
                 userRanksDto[i].Level = userRanks2[i].Level;
                 userRanksDto[i].Score = userRanks2[i].Score;
                 userRanksDto[i].Rank = userRanks2[i].Rank;
-                userRanksDto[i].dailyChallenges = userRanks2[i].dailyChallenges;
             }
 
             var listArray = this.OrderByScore2(userRanksDto).ToArray();
