@@ -1,0 +1,23 @@
+.container-leaderboard {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-base);
+}
+
+.leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 400px;
+  width: 100%;
+
+  background: var(--color-zero);
+  border-radius: 6px;
+  padding: 30px;
+}
