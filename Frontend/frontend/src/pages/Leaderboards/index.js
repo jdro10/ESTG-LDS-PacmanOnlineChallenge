@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import "./styles.css";
 import api from "./../../services/api";
+import BoxRank from "./../../components/BoxRank/index";
 
 export default function Leaderboards() {
   const [player0Name, setPlayer0Name] = useState("");
@@ -117,10 +118,7 @@ export default function Leaderboards() {
         {player0Name === "" ? (
           console.log("clear")
         ) : (
-          <p>
-            {player0Name}
-            {player0Score}
-          </p>
+          <BoxRank classification="1" name={player0Name} score={player0Score} />
         )}
 
         {player1Name === "" ? (
