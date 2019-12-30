@@ -189,14 +189,19 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPut("{id:length(24)}")]
-        public IActionResult ForgotPassword(string id)
+        [HttpGet("forgotpassword")]
+        public IActionResult ForgotPassword()
         {
-            var user = _userService.Get(id);
+            var headerEmail = Request.Headers["email"];
+
+            var user = _userService.GetByEmail(headerEmail);
 
             if (user == null)
             {
-                return NotFound();
+                return Ok(new
+                {
+                    success = "false",
+                });
             }
 
             var newPassword = NewRandomPassword();
@@ -208,7 +213,7 @@ namespace API.Controllers
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _userService.Update(id, user);
+            _userService.Update(user.Id, user);
 
             _emailService.newPasswordRequest(user.Email, user.Username, user.Password);
 
