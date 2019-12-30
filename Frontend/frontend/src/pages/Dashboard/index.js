@@ -6,6 +6,11 @@ import Stats from "../../components/Stats";
 import ImageLevel from "./../../components/ImageLevel/index";
 import Challenges from "./../../components/Challenges/index";
 
+import facebook from "../../assets/001-facebook.png";
+import twitter from "../../assets/013-twitter-1.png";
+import instagram from "../../assets/011-instagram.png";
+import ranking from "../../assets/ranking.png";
+
 export default function Dashboard({ history }) {
   const user_id = localStorage.getItem("userId");
   const token = localStorage.getItem("userToken");
@@ -47,7 +52,11 @@ export default function Dashboard({ history }) {
 
   load();
 
-  function handleClickRegister(event) {
+  function handleClickExit(event) {
+    event.preventDefault();
+    history.push("/");
+  }
+  function handleClickLeaderboards(event) {
     event.preventDefault();
     history.push("/");
   }
@@ -82,25 +91,24 @@ export default function Dashboard({ history }) {
       </div>
       <div className="footer-container">
         <div className="social">
-          <a href="https://github.com/RAJ66">
-            <img
-              src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png"
-              alt="Facebook"
-            />
+          <a href="https://pt.wikipedia.org/wiki/Pac-Man" className="icon">
+            <img src={facebook} alt="Facebook" />
           </a>
-          <a href="https://github.com/RAJ66">
-            <img
-              src="https://img.icons8.com/material/50/000000/instagram-new--v1.png"
-              alt="Instagram"
-            />
+          <a href="https://pt.wikipedia.org/wiki/Pac-Man" className="icon">
+            <img src={instagram} alt="Instagram" />
           </a>
-          <a href="https://github.com/RAJ66">
-            <img
-              src="https://img.icons8.com/ios-filled/50/000000/twitter-circled.png"
-              alt="Twitter"
-            />
+          <a href="https://pt.wikipedia.org/wiki/Pac-Man" className="icon">
+            <img src={twitter} alt="Twitter" />
           </a>
-          <button onClick={handleClickRegister} className="link-button ">
+        </div>
+        <div className="actions">
+          <button
+            onClick={handleClickLeaderboards}
+            className="link-button icon "
+          >
+            <img src={ranking} alt="leaderboards" />
+          </button>
+          <button onClick={handleClickExit} className="link-button icon">
             <img
               src="https://img.icons8.com/ios-filled/50/000000/exit.png"
               alt="Exit"

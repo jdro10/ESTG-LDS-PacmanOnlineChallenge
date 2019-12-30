@@ -91,6 +91,11 @@ h1 {
   text-decoration: none;
 }
 
+.icon {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 @media only screen and (max-width: 600px) {
   .container-dashboard {
     grid-template-columns: 1fr;
@@ -109,6 +114,10 @@ h1 {
   button {
     font-size: 12px;
   }
+  .icon {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 }
 
 @media only screen and (max-height: 550px) {
@@ -120,5 +129,9 @@ h1 {
   }
   h1 {
     font-size: 25px;
+  }
+  .icon {
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
