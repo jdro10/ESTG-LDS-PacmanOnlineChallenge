@@ -58,7 +58,7 @@ export default function Dashboard({ history }) {
   }
   function handleClickLeaderboards(event) {
     event.preventDefault();
-    history.push("/");
+    history.push("/leaderboards");
   }
 
   return (
