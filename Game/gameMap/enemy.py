@@ -111,19 +111,19 @@ class Enemy:
 
     def set_image(self):
         if self.number == 0:
-            image = pygame.image.load("verde.png")
+            image = pygame.image.load("img/verde.png")
             image = pygame.transform.scale(image,(8,6))
             self.image = image
         elif self.number == 1:
-            image = pygame.image.load("vermelho.png")
+            image = pygame.image.load("img/vermelho.png")
             image = pygame.transform.scale(image, (8, 6))
             self.image = image
         elif self.number == 2:
-            image = pygame.image.load("rosa.png")
+            image = pygame.image.load("img/rosa.png")
             image = pygame.transform.scale(image, (8, 6))
             self.image = image
         elif self.number == 3:
-            image = pygame.image.load("azul.png")
+            image = pygame.image.load("img/azul.png")
             image = pygame.transform.scale(image, (8, 6))
             self.image = image
 

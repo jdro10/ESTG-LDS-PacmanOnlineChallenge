@@ -11,7 +11,7 @@ class Game:
         self.screen = pygame.display.set_mode((WIDTH,HEIGHT))
         self.clock  = pygame.time.Clock()
         self.gameLoop = True
-        self.state = 'menu'
+        self.state = 'playsingle'
         self.cell_width = MAP_WIDTH//NUMBER_CELLS_WIDTH
         self.cell_height = MAP_HEIGHT//NUMBER_CELLS_HEIGHT
         self.pacman_position = None
@@ -25,19 +25,10 @@ class Game:
         self.make_enemies()
         self.gameOverLoop = True
 
-
-
-
-
-
     #### GAME LOOP ####
     def run(self):
         while self.gameLoop:
-            if self.state == 'menu':
-                self.start_events()
-                self.start_update()
-                self.start_draw()
-            elif self.state == 'playsingle':
+            if self.state == 'playsingle':
                 self.playsingle_events()
                 self.playsingle_update()
                 self.playsingle_draw()
@@ -179,21 +170,21 @@ class Game:
 
 
     def load(self):
-        self.background = pygame.image.load('maze.png')
-        self.redGhost = pygame.image.load('vermelho.png')
+        self.background = pygame.image.load('img/maze.png')
+        self.redGhost = pygame.image.load('img/vermelho.png')
         self.redGhost = pygame.transform.scale(self.redGhost,(14,14))
-        self.blueGhost = pygame.image.load('azul.png')
+        self.blueGhost = pygame.image.load('img/azul.png')
         self.blueGhost = pygame.transform.scale(self.blueGhost,(14, 14))
-        self.greenGhost = pygame.image.load('verde.png')
+        self.greenGhost = pygame.image.load('img/verde.png')
         self.greenGhost = pygame.transform.scale(self.greenGhost,(14, 14))
-        self.pinkGhost = pygame.image.load('rosa.png')
+        self.pinkGhost = pygame.image.load('img/rosa.png')
         self.pinkGhost = pygame.transform.scale(self.pinkGhost,(14, 14))
-        self.yellowPacman = pygame.image.load('pacman.png')
+        self.yellowPacman = pygame.image.load('img/pacman.png')
         self.yellowPacman = pygame.transform.scale(self.yellowPacman,(20,20))
-        self.coin = pygame.image.load('coin.png')
+        self.coin = pygame.image.load('img/coin.png')
         self.coin = pygame.transform.scale(self.coin,(13,10))
-        self.coin_sound = pygame.mixer.Sound('coin.wav')
-        self.gameover_sound = pygame.mixer.Sound('gameover.wav')
+        self.coin_sound = pygame.mixer.Sound('music/coin.wav')
+        self.gameover_sound = pygame.mixer.Sound('music/gameover.wav')
 
         #HA FALTA DE MELHOR VAI TER QUE SER ASSIM com a string
         self.background = pygame.transform.scale(self.background, (MAP_WIDTH, MAP_HEIGHT))
