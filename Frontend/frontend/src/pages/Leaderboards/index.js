@@ -114,7 +114,7 @@ export default function Leaderboards() {
   return (
     <div className="container-leaderboard">
       <div className="leaderboard-container">
-        {player0Name == "" ? (
+        {player0Name === "" ? (
           console.log("clear")
         ) : (
           <p>
@@ -123,7 +123,7 @@ export default function Leaderboards() {
           </p>
         )}
 
-        {player1Name == "" ? (
+        {player1Name === "" ? (
           console.log("clear")
         ) : (
           <p>
@@ -132,7 +132,7 @@ export default function Leaderboards() {
           </p>
         )}
 
-        {player2Name == "" ? (
+        {player2Name === "" ? (
           console.log("clear")
         ) : (
           <p>
@@ -141,7 +141,7 @@ export default function Leaderboards() {
           </p>
         )}
 
-        {player3Name == "" ? (
+        {player3Name === "" ? (
           console.log("clear")
         ) : (
           <p>
@@ -150,7 +150,7 @@ export default function Leaderboards() {
           </p>
         )}
 
-        {player4Name == "" ? (
+        {player4Name === "" ? (
           console.log("clear")
         ) : (
           <p>
@@ -159,7 +159,7 @@ export default function Leaderboards() {
           </p>
         )}
 
-        {player5Name == "" ? (
+        {player5Name === "" ? (
           console.log("clear")
         ) : (
           <p>
@@ -168,7 +168,7 @@ export default function Leaderboards() {
           </p>
         )}
 
-        {player6Name == "" ? (
+        {player6Name === "" ? (
           console.log("clear")
         ) : (
           <p>
@@ -177,7 +177,7 @@ export default function Leaderboards() {
           </p>
         )}
 
-        {player7Name == "" ? (
+        {player7Name === "" ? (
           console.log("clear")
         ) : (
           <p>
@@ -186,7 +186,7 @@ export default function Leaderboards() {
           </p>
         )}
 
-        {player8Name == "" ? (
+        {player8Name === "" ? (
           console.log("clear")
         ) : (
           <p>
@@ -195,7 +195,7 @@ export default function Leaderboards() {
           </p>
         )}
 
-        {player9Name == "" ? (
+        {player9Name === "" ? (
           console.log("clear")
         ) : (
           <p>
