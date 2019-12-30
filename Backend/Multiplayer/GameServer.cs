@@ -9,7 +9,7 @@ namespace GameServer
     public class NewGameServer
     {
         static string coordenadasJog1 = "255/255";
-        static string coordenadasJog2 = "355/355";
+        static string coordenadasJog2 = "355/295";
 
         static void Main(string[] args)
         {

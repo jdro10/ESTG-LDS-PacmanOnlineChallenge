@@ -3,7 +3,7 @@ vec = pygame.math.Vector2
 from settings import *
 
 HOST = '127.0.0.1'
-PORT = 65000
+PORT = 8001
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))

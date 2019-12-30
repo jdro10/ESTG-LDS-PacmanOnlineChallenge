@@ -5,7 +5,7 @@ pygame.init()
 
 
 def draw_text(message, screen, position, size, font_type, color):
-    font = pygame.font.SysFont(font_type, size)
+    font = pygame.font.Font(font_type, size)
     text = font.render(message, False, color)
     text_size = text.get_size()
     position[0] = position[0] - text_size[0] // 2
@@ -24,7 +24,7 @@ def menuMultiplayer():
     blue = (0, 0, 128)
 
     TEXT_SIZE_MENU = 30
-    FONT_MENU = 'PacFont'
+    FONT_MENU = 'PAC-FONT.TTF'
     TITLE_SIZE = 26
     TEXT_SIZE_GAME = 13
     FONT_GAME = 'arial black'
