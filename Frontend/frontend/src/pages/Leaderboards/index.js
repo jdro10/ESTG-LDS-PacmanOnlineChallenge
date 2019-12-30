@@ -124,82 +124,59 @@ export default function Leaderboards() {
         {player1Name === "" ? (
           console.log("clear")
         ) : (
-          <p>
-            {player1Name}
-            {player1Score}
-          </p>
+          <BoxRank classification="2" name={player1Name} score={player1Score} />
         )}
 
         {player2Name === "" ? (
           console.log("clear")
         ) : (
-          <p>
-            {player2Name}
-            {player2Score}
-          </p>
+          <BoxRank classification="3" name={player2Name} score={player2Score} />
         )}
 
         {player3Name === "" ? (
           console.log("clear")
         ) : (
-          <p>
-            {player3Name}
-            {player3Score}
-          </p>
+          <BoxRank classification="4" name={player3Name} score={player3Score} />
         )}
 
         {player4Name === "" ? (
           console.log("clear")
         ) : (
-          <p>
-            {player4Name}
-            {player4Score}
-          </p>
+          <BoxRank classification="5" name={player4Name} score={player4Score} />
         )}
 
         {player5Name === "" ? (
           console.log("clear")
         ) : (
-          <p>
-            {player5Name}
-            {player5Score}
-          </p>
+          <BoxRank classification="6" name={player5Name} score={player5Score} />
         )}
 
         {player6Name === "" ? (
           console.log("clear")
         ) : (
-          <p>
-            {player6Name}
-            {player6Score}
-          </p>
+          <BoxRank classification="7" name={player6Name} score={player6Score} />
         )}
 
         {player7Name === "" ? (
           console.log("clear")
         ) : (
-          <p>
-            {player7Name}
-            {player7Score}
-          </p>
+          <BoxRank classification="8" name={player7Name} score={player7Score} />
         )}
 
         {player8Name === "" ? (
           console.log("clear")
         ) : (
-          <p>
-            {player8Name}
-            {player8Score}
-          </p>
+          <BoxRank classification="9" name={player8Name} score={player8Score} />
         )}
 
         {player9Name === "" ? (
           console.log("clear")
         ) : (
-          <p>
-            {player9Name}
-            {player9Score}
-          </p>
+          <BoxRank
+            classification="10"
+            name={player9Name}
+            score={player9Score}
+          />
         )}
       </div>
     </div>
