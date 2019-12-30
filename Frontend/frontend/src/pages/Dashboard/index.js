@@ -27,9 +27,6 @@ export default function Dashboard({ history }) {
   const [pointCha2, setPointCha2] = useState();
   const [pointCha3, setPointCha3] = useState();
 
-  console.log(user_id);
-  console.log(token);
-
   async function load() {
     const response = await api.get("/api/ranks", {
       headers: { id: user_id, Authorization: `Bearer ${token}` }
