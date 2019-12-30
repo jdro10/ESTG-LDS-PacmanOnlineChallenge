@@ -66,7 +66,7 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("allusers")]
+        [HttpGet("topten")]
         public ActionResult<UserStatsDto[]> UsersInfo()
         {
             var userRanks = OrderByScore().ToArray();
