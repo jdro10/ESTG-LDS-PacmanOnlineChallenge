@@ -1,9 +1,9 @@
-import pygame , sys , socket
+import pygame , sys , socket , time
 vec = pygame.math.Vector2
 from settings import *
 
 HOST = '127.0.0.1'
-PORT = 8001
+PORT = 9000
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
@@ -26,13 +26,13 @@ class ghostMulti:
         self.score = 0
         self.speed = 2
         self.walls = []
-        self.coins = []
         self.player_position = None
         self.load()
         self.grid_pos = vec(self.player_position)
         self.pixel_pos = self.get_pix_pos()
         self.enemy_x = None
         self.enemy_y = None
+        self.start_time = time.time()
 
     def run(self):
         while self.gameLoop:
@@ -113,8 +113,6 @@ class ghostMulti:
         self.redGhost = pygame.transform.scale(self.redGhost,(14,14))
         self.yellowPacman = pygame.image.load('img/pacman.png')
         self.yellowPacman = pygame.transform.scale(self.yellowPacman,(20,20))
-        self.coin = pygame.image.load('img/coin.png')
-        self.coin = pygame.transform.scale(self.coin,(13,10))
         #self.coin_sound = pygame.mixer.Sound('music/coin.wav')
         #self.gameover_sound = pygame.mixer.Sound('music/gameover.wav')
 
@@ -126,8 +124,6 @@ class ghostMulti:
                 for xindex,char in enumerate(line):
                     if char == "1":
                         self.walls.append(vec(xindex,yindex))
-                    elif char == "C":
-                        self.coins.append(vec(xindex,yindex))
                     elif char == "E":
                         self.player_position = [xindex, yindex]
                     elif char == "B":
@@ -145,7 +141,10 @@ class ghostMulti:
     def multiplayer_draw(self):
         self.screen.fill(BLACK)
         self.screen.blit(self.background, (TOP_BOTTOM_SPACE // 2, TOP_BOTTOM_SPACE // 2))
-        self.draw_text('TIME : 0', self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
+        time_difference = time.time() - self.start_time
+        time_difference = str(time_difference)
+        time_difference = time_difference.split(".")
+        self.draw_text('TIME : {}'.format(time_difference[0]), self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH // 2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.draw()
         self.draw_enemy(self.enemy_x,self.enemy_y)

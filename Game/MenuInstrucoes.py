@@ -1,11 +1,12 @@
 import pygame
+
 clock = pygame.time.Clock()
 clock.tick(5)
 pygame.init()
 
 WIDTH, HEIGHT = 610, 670
 TOP_BOTTOM_SPACE = 10
-MAP_WIDTH, MAP_HEIGHT = WIDTH-TOP_BOTTOM_SPACE, HEIGHT-TOP_BOTTOM_SPACE
+MAP_WIDTH, MAP_HEIGHT = WIDTH - TOP_BOTTOM_SPACE, HEIGHT - TOP_BOTTOM_SPACE
 
 BLACK = (0, 0, 0)
 YELLOW = (255, 255, 0)
@@ -19,7 +20,7 @@ FONT_MENU = 'PAC-FONT.TTF'
 TITLE_SIZE = 26
 TEXT_SIZE_GAME = 13
 FONT_GAME = 'arial black'
-posFirstOption = (WIDTH // 2-50, HEIGHT // 2+30)
+posFirstOption = (WIDTH // 2 - 50, HEIGHT // 2 + 30)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 img = pygame.image.load('img/inst.png')
@@ -39,13 +40,25 @@ def menuInstrucoes():
         screen.fill(BLACK)
 
         screen.blit(pygame.transform.scale(img, (500, 670)), (50, 0))
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.QUIT()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    Running = False
-                if event.key == pygame.K_RETURN:
-                    Running = False
+
+        try:
+            j = pygame.joystick.Joystick(0)
+            j.init()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.QUIT()
+                if event.type == pygame.JOYAXISMOTION:
+                    if j.get_button(2) == 1:
+                        Running = False
+        except:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.QUIT()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        Running = False
+                    if event.key == pygame.K_RETURN:
+                        Running = False
 
             pygame.display.update()

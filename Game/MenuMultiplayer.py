@@ -50,18 +50,36 @@ def menuMultiplayer():
     x_seta = (display_width * 0.13)
     y_seta = (display_height * 0.67)
     while Running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.QUIT()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    if x_seta == (display_width * 0.13):
-                        x_seta = (display_width * 0.65)
-                if event.key == pygame.K_LEFT:
-                    if x_seta == (display_width * 0.65):
-                        x_seta = (display_width * 0.13)
-                if event.key == pygame.K_ESCAPE:
-                    Running = False
+        try:
+            j = pygame.joystick.Joystick(0)
+            j.init()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.QUIT()
+                if event.type == pygame.JOYAXISMOTION:
+                    if j.get_button(2) == 1:
+                        Running = False
+                    elif j.get_hat(0) == (-1, 0):
+                        if x_seta == (display_width * 0.65):
+                            x_seta = (display_width * 0.13)
+                    elif j.get_hat(0) == (1 , 0):
+                        if x_seta == (display_width * 0.13):
+                            x_seta = (display_width * 0.65)
+                    #if j.get_button(2) == 1: PARA USAR O X
+
+        except:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.QUIT()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:
+                        if x_seta == (display_width * 0.13):
+                            x_seta = (display_width * 0.65)
+                    if event.key == pygame.K_LEFT:
+                        if x_seta == (display_width * 0.65):
+                            x_seta = (display_width * 0.13)
+                    if event.key == pygame.K_ESCAPE:
+                        Running = False
 
         gameDisplay.fill(black)
         gameDisplay.blit(pacman, (x, y))
