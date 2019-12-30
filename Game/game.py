@@ -1,4 +1,4 @@
-import pygame , sys
+import pygame , sys , time
 from pacman import *
 from  enemy import *
 
@@ -24,15 +24,18 @@ class Game:
         self.pacman = Pacman(self, vec(self.pacman_position))
         self.make_enemies()
         self.gameOverLoop = True
+        self.start_time = None
 
     #### GAME LOOP ####
     def run(self):
+        self.start_time = time.time()
         while self.gameLoop:
             if self.state == 'playsingle':
                 self.playsingle_events()
                 self.playsingle_update()
                 self.playsingle_draw()
             elif self.state == 'game over':
+                self.start_time = time.time()
                 self.gameover_events()
                 self.gameover_update()
                 self.gameover_draw()
@@ -78,6 +81,8 @@ class Game:
             j.init()
 
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.gameLoop = False
                 if event.type == pygame.JOYAXISMOTION:
                     if j.get_axis(0) > 0.2:
                         self.pacman.move(vec(1,0))
@@ -125,8 +130,11 @@ class Game:
         self.screen.blit(self.background,(TOP_BOTTOM_SPACE//2,TOP_BOTTOM_SPACE//2))
         self.draw_coins()
         #self.draw_grid() #REDE
+        time_difference = time.time() - self.start_time
+        time_difference = str(time_difference)
+        time_difference = time_difference.split(".")
         self.draw_text('CURRENT SCORE : {}'.format(self.pacman.score), self.screen, [100,0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
-        self.draw_text('TIME : 0', self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
+        self.draw_text('TIME : {}'.format(time_difference[0]), self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH//2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.pacman.draw()
         #self.screen.blit(self.yellowPacman,self.pacman.get_pix_pos())

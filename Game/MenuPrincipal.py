@@ -46,31 +46,50 @@ def menuPrincipal():
     while Running:
         screen.fill(BLACK)
         draw_text('PACMAM ONLINE', screen, [
-                  WIDTH // 2, HEIGHT // 2 - 140], TITLE_SIZE, FONT_MENU, YELLOW)
+            WIDTH // 2, HEIGHT // 2 - 140], TITLE_SIZE, FONT_MENU, YELLOW)
         draw_text('CHALLENGE', screen, [
-                  WIDTH // 2, HEIGHT // 2 - 100], TITLE_SIZE, FONT_MENU, YELLOW)
+            WIDTH // 2, HEIGHT // 2 - 100], TITLE_SIZE, FONT_MENU, YELLOW)
         draw_text('SINGLE PLAYER', screen, [
-                  WIDTH // 2, HEIGHT // 2 + 50], TEXT_SIZE_MENU, FONT_MENU, BLUE)
+            WIDTH // 2, HEIGHT // 2 + 50], TEXT_SIZE_MENU, FONT_MENU, BLUE)
         draw_text('MULTIPLAYER', screen, [
-                  WIDTH // 2, HEIGHT // 2 + 100], TEXT_SIZE_MENU, FONT_MENU, RED)
+            WIDTH // 2, HEIGHT // 2 + 100], TEXT_SIZE_MENU, FONT_MENU, RED)
         draw_text('INSTRUCTIONS', screen, [
-                  WIDTH // 2, HEIGHT // 2 + 150], TEXT_SIZE_MENU, FONT_MENU, GREEN)
+            WIDTH // 2, HEIGHT // 2 + 150], TEXT_SIZE_MENU, FONT_MENU, GREEN)
         draw_text('STATS', screen, [
-                  WIDTH // 2, HEIGHT // 2 + 200], TEXT_SIZE_MENU, FONT_MENU, BLUE)
+            WIDTH // 2, HEIGHT // 2 + 200], TEXT_SIZE_MENU, FONT_MENU, BLUE)
         screen.blit(pygame.transform.scale(img, (70, 70)),
                     (WIDTH // 3 - 130, pos_y_pacman))
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.QUIT()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN:
-                    if ((pos_y_pacman + 50 <= HEIGHT // 2 + 180)):
-                        pos_y_pacman += 50
-                if event.key == pygame.K_UP:
-                    if ((pos_y_pacman - 50 >= HEIGHT // 2 + 30)):
-                        pos_y_pacman += -50
-                if event.key == pygame.K_RETURN:
-                    select_menu(pos_y_pacman)
+
+        try:
+            j = pygame.joystick.Joystick(0)
+            j.init()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.QUIT()
+                if event.type == pygame.JOYAXISMOTION:
+                    if j.get_hat(0) == (0, -1):
+                        if ((pos_y_pacman + 50 <= HEIGHT // 2 + 180)):
+                            pos_y_pacman += 50
+                    elif j.get_hat(0) == (0, 1):
+                        if ((pos_y_pacman - 50 >= HEIGHT // 2 + 30)):
+                            pos_y_pacman += -50
+                    elif j.get_button(1) == 1:
+                        select_menu(pos_y_pacman)
+
+        except:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.QUIT()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_DOWN:
+                        if ((pos_y_pacman + 50 <= HEIGHT // 2 + 180)):
+                            pos_y_pacman += 50
+                    elif event.key == pygame.K_UP:
+                        if ((pos_y_pacman - 50 >= HEIGHT // 2 + 30)):
+                            pos_y_pacman += -50
+                    elif event.key == pygame.K_RETURN:
+                        select_menu(pos_y_pacman)
 
         pygame.display.update()
 
