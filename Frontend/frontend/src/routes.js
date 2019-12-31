@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Pacman from "./components/Pacman/index";
 import Register from "./pages/Register/index";
+import Leaderboards from "./pages/Leaderboards/index";
 
 export default function Routes() {
   return (
@@ -13,6 +14,7 @@ export default function Routes() {
         <Route path="/" exact component={Login} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/register" component={Register} />
+        <Route path="/leaderboards" component={Leaderboards} />
 
         <Route path="/pacman" component={Pacman} />
       </Switch>

@@ -1,0 +1,11 @@
+.BoxRank {
+  border: 5px;
+  border-color: var(--color-base);
+  border-style: solid;
+  border-radius: 10px;
+  width: 80%;
+  margin-bottom: 20px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}

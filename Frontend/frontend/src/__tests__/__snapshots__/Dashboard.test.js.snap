@@ -126,31 +126,47 @@ exports[`Testing Pacman Component should render correctly 1`] = `
         className="social"
       >
         <a
-          href="https://github.com/RAJ66"
+          className="icon"
+          href="https://pt.wikipedia.org/wiki/Pac-Man"
         >
           <img
             alt="Facebook"
-            src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png"
+            src="001-facebook.png"
           />
         </a>
         <a
-          href="https://github.com/RAJ66"
+          className="icon"
+          href="https://pt.wikipedia.org/wiki/Pac-Man"
         >
           <img
             alt="Instagram"
-            src="https://img.icons8.com/material/50/000000/instagram-new--v1.png"
+            src="011-instagram.png"
           />
         </a>
         <a
-          href="https://github.com/RAJ66"
+          className="icon"
+          href="https://pt.wikipedia.org/wiki/Pac-Man"
         >
           <img
             alt="Twitter"
-            src="https://img.icons8.com/ios-filled/50/000000/twitter-circled.png"
+            src="013-twitter-1.png"
           />
         </a>
+      </div>
+      <div
+        className="actions"
+      >
         <button
-          className="link-button "
+          className="link-button icon "
+          onClick={[Function]}
+        >
+          <img
+            alt="leaderboards"
+            src="ranking.png"
+          />
+        </button>
+        <button
+          className="link-button icon"
           onClick={[Function]}
         >
           <img

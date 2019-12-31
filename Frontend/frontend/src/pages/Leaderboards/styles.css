@@ -1,0 +1,45 @@
+.container-leaderboard {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-base);
+}
+
+.leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 900px;
+  width: 100%;
+
+  background: var(--color-zero);
+  border-radius: 6px;
+  padding: 50px;
+}
+
+.back {
+  width: 80%;
+  border-style: solid;
+  border-radius: 10px;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.exitRank {
+  color: var(--color-zero);
+
+  border: 5px;
+  border-color: var(--color-base);
+}
+
+@media only screen and (max-height: 550px) {
+  .container-leaderboard {
+    width: 100%;
+    height: 100%;
+  }
+}
