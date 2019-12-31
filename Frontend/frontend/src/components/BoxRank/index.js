@@ -1,14 +1,15 @@
 import React from "react";
 
 import "./styles.css";
+import logo from "../../assets/logo.png";
 
 export default function BoxRank({ classification, name, score }) {
   return (
-    <div>
+    <div className="BoxRank">
       <p>
-        {classification}
-        {name}
-        {score}
+        <img src={logo} className="logo" alt="It a match" />
+        {classification}º {name} <br />
+        Score: {score}
       </p>
     </div>
   );

@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import "./styles.css";
 import api from "./../../services/api";
 import BoxRank from "./../../components/BoxRank/index";
+import logo from "../../assets/logo.png";
 
-export default function Leaderboards() {
+export default function Leaderboards({ history }) {
   const [player0Name, setPlayer0Name] = useState("");
   const [player0Score, setPlayer0Score] = useState("");
 
@@ -112,9 +113,18 @@ export default function Leaderboards() {
 
   load();
 
+  function handleClickExit(event) {
+    event.preventDefault();
+    history.push("/dashboard");
+  }
+
   return (
     <div className="container-leaderboard">
       <div className="leaderboard-container">
+        <div className="header">
+          <h1>Pacman Online Challenge Leaderboards</h1>
+          <img src={logo} alt="Logo" />
+        </div>
         {player0Name === "" ? (
           console.log("clear")
         ) : (
@@ -178,6 +188,7 @@ export default function Leaderboards() {
             score={player9Score}
           />
         )}
+        <button className="back" onClick={handleClickExit} />
       </div>
     </div>
   );
