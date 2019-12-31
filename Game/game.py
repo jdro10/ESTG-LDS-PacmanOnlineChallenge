@@ -1,6 +1,9 @@
 import pygame , sys , time
 from pacman import *
 from  enemy import *
+import MenuPrincipal
+import json
+import requests
 
 pygame.init()
 
@@ -25,9 +28,11 @@ class Game:
         self.make_enemies()
         self.gameOverLoop = True
         self.start_time = None
+        self.userPlaying = None
 
     #### GAME LOOP ####
-    def run(self):
+    def run(self, user):
+        self.userPlaying = str(user)
         self.start_time = time.time()
         while self.gameLoop:
             if self.state == 'playsingle':
@@ -39,6 +44,10 @@ class Game:
                 self.gameover_events()
                 self.gameover_update()
                 self.gameover_draw()
+                self.updateUser()
+                time.sleep(5)
+                self.state = 'playsingle'
+                MenuPrincipal.menuPrincipal('user')
             else:
                 self.gameLoop = False
             self.clock.tick(FPS)
@@ -52,6 +61,13 @@ class Game:
         text_size = text.get_size()
         position[0] = position[0]-text_size[0]//2
         screen.blit(text, position)
+
+    def updateUser(self):
+        url = "https://localhost:5001/api/game"
+        data = {'Username': str(self.userPlaying), 'Score': '1500'}
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        r = requests.post(url, data=json.dumps(data), headers=headers, verify= False)
+        print(r.status_code)
 
     #### EVENTS KEYS ####
     def start_events(self):

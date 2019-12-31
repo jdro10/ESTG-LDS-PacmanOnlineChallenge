@@ -81,7 +81,7 @@ def main():
                     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
                     r = requests.post(url, data=json.dumps(data), headers=headers, verify= False)
                     if r.status_code == 200:
-                        menuPrincipal()
+                        menuPrincipal(username)
                     else:
                         print("USERNAME OU PASSWORD INVALIDA")
                         main()
@@ -94,8 +94,8 @@ def main():
 
         screen.fill((0,0,0))
         for box in input_boxes:
-            
             box.draw(screen)
+
 
         username = input_box1.text.strip()
         password = input_box2.text.strip()
