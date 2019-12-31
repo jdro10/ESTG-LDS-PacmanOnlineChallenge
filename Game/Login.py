@@ -1,5 +1,7 @@
 import pygame
 import json
+import requests
+from MenuPrincipal import menuPrincipal
 
 pygame.init()
 screen = pygame.display.set_mode((610, 670))
@@ -29,8 +31,6 @@ class InputBox:
             if self.active:
                 if event.key == pygame.K_RETURN:
                     self.text = ''
-                    print("123")
-                    print(password)
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
                 else:
@@ -66,13 +66,28 @@ def main():
     input_boxes = [input_box1, input_box2]
     done = False
 
+    username = None
+    password = None
+
     while not done:
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    url = "https://localhost:5001/api/user/auth"
+                    data = {'Username': username, 'Password': password}
+                    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+                    r = requests.post(url, data=json.dumps(data), headers=headers, verify= False)
+                    if r.status_code == 200:
+                        menuPrincipal()
+                    else:
+                        print("USERNAME OU PASSWORD INVALIDA")
+                        main()
             for box in input_boxes:
                 box.handle_event(event)
+                
 
         for box in input_boxes:
             box.update()
@@ -81,6 +96,9 @@ def main():
         for box in input_boxes:
             
             box.draw(screen)
+
+        username = input_box1.text.strip()
+        password = input_box2.text.strip()
         
         InputBox.addText3(screen)
         InputBox.addText2(screen)
@@ -90,9 +108,8 @@ def main():
         img = pygame.image.load('img/logo.jpg')
         screen.blit(pygame.transform.scale(img, (610, 250)), (0, 0))
         pygame.display.flip()
-        clock.tick(30)
+        clock.tick(10)
         
         
-if __name__ == '__main__':
-    main()
-    pygame.quit()
+main()
+pygame.quit()

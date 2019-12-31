@@ -103,6 +103,3 @@ def select_menu(pos_y_pacman):
         menuInstrucoes()
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 150):
         print("4")
-
-
-menuPrincipal()
