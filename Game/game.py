@@ -46,8 +46,7 @@ class Game:
                 self.gameover_draw()
                 self.updateUser()
                 time.sleep(5)
-                self.state = 'playsingle'
-                MenuPrincipal.menuPrincipal('user')
+                MenuPrincipal.menuPrincipal(self.userPlaying)
             else:
                 self.gameLoop = False
             self.clock.tick(FPS)
@@ -64,7 +63,7 @@ class Game:
 
     def updateUser(self):
         url = "https://localhost:5001/api/game"
-        data = {'Username': str(self.userPlaying), 'Score': '1500'}
+        data = {'Username': str(self.userPlaying), 'Score': str(self.pacman.score)}
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         r = requests.post(url, data=json.dumps(data), headers=headers, verify= False)
         print(r.status_code)

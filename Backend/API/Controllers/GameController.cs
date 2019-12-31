@@ -21,24 +21,14 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Update(UserUpdate up)
+        public void Update(UserUpdate up)
         {
             int result = Int32.Parse(up.Score);
             var userToUpdate = _userService.GetByName(up.Username);
 
-            Console.WriteLine("ASDQUIASDASDASDSDADSAASD" + userToUpdate.Username);
-
-            userToUpdate.Score = result;
+            userToUpdate.Score += result;
 
             _userService.UpdateScore(userToUpdate.Username, userToUpdate);
-
-            return Ok(new
-            {
-                success = "true",
-            });
-            
-            
         }
-            
     }
 }

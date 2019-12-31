@@ -7,8 +7,6 @@ clock = pygame.time.Clock()
 clock.tick(5)
 pygame.init()
 
-run = Game()
-
 pygame.display.set_caption('PACMAN ONLINE CHALLENGE')
 WIDTH, HEIGHT = 610, 670
 TOP_BOTTOM_SPACE = 50
@@ -100,6 +98,7 @@ def menuPrincipal(username):
 
 def select_menu(pos_y_pacman, playerUsername):
     if pos_y_pacman == (HEIGHT // 2 + 30):
+        run = Game()
         run.run(playerUsername)
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 50):
         menuMultiplayer()

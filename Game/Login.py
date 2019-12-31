@@ -70,7 +70,7 @@ def main():
     password = None
 
     while not done:
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
@@ -78,8 +78,10 @@ def main():
                 if event.key == pygame.K_RETURN:
                     url = "https://localhost:5001/api/user/auth"
                     data = {'Username': username, 'Password': password}
-                    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-                    r = requests.post(url, data=json.dumps(data), headers=headers, verify= False)
+                    headers = {'Content-type': 'application/json',
+                               'Accept': 'text/plain'}
+                    r = requests.post(url, data=json.dumps(
+                        data), headers=headers, verify=False)
                     if r.status_code == 200:
                         menuPrincipal(username)
                     else:
@@ -87,19 +89,17 @@ def main():
                         main()
             for box in input_boxes:
                 box.handle_event(event)
-                
 
         for box in input_boxes:
             box.update()
 
-        screen.fill((0,0,0))
+        screen.fill((0, 0, 0))
         for box in input_boxes:
             box.draw(screen)
 
-
         username = input_box1.text.strip()
         password = input_box2.text.strip()
-        
+
         InputBox.addText3(screen)
         InputBox.addText2(screen)
         button = pygame.Rect(260, 400, 100, 40)
@@ -109,7 +109,7 @@ def main():
         screen.blit(pygame.transform.scale(img, (610, 250)), (0, 0))
         pygame.display.flip()
         clock.tick(10)
-        
-        
+
+
 main()
 pygame.quit()
