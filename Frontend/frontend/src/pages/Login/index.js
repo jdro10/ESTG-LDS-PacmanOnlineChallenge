@@ -31,7 +31,7 @@ export default function Login({ history }) {
       console.log("connect");
       history.push("/dashboard");
     } else {
-      alert("teste");
+      alert("Incorrect username or password");
     }
   }
 

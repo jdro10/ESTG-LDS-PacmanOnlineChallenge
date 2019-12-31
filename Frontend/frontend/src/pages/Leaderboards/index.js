@@ -188,7 +188,9 @@ export default function Leaderboards({ history }) {
             score={player9Score}
           />
         )}
-        <button className="back" onClick={handleClickExit} />
+        <button className="back" onClick={handleClickExit}>
+          <p className="exitRank">Go Back</p>
+        </button>
       </div>
     </div>
   );

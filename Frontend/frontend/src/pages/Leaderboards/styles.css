@@ -21,3 +21,18 @@
   border-radius: 6px;
   padding: 50px;
 }
+
+.back {
+  width: 80%;
+  border-style: solid;
+  border-radius: 10px;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.exitRank {
+  color: var(--color-zero);
+
+  border: 5px;
+  border-color: var(--color-base);
+}
