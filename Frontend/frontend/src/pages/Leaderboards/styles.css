@@ -36,3 +36,10 @@
   border: 5px;
   border-color: var(--color-base);
 }
+
+@media only screen and (max-height: 550px) {
+  .container-leaderboard {
+    width: 100%;
+    height: 100%;
+  }
+}
