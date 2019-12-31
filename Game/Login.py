@@ -18,6 +18,7 @@ class InputBox:
         self.txt_surface = FONT.render(text, True, self.color)
         self.active = False
         self.font = pygame.font.Font('PAC-FONT.TTF', 25)
+        self.hide = ''
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -33,10 +34,12 @@ class InputBox:
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
+                    self.hide = self.hide[:-1]
                 else:
                     password += '*'
                     self.text += event.unicode
-                self.txt_surface = FONT.render(self.text, True, self.color)
+                    self.hide += '*'
+                self.txt_surface = FONT.render(self.hide, True, self.color)
 
     def update(self):
         width = max(200, self.txt_surface.get_width()+10)
@@ -62,7 +65,7 @@ class InputBox:
 def main():
     clock = pygame.time.Clock()
     input_box1 = InputBox(220, 300, 140, 32, "Username")
-    input_box2 = InputBox(220, 350, 140, 32, "Password")
+    input_box2 = InputBox(220, 350, 140, 32, "")
     input_boxes = [input_box1, input_box2]
     done = False
 
@@ -96,6 +99,9 @@ def main():
         screen.fill((0, 0, 0))
         for box in input_boxes:
             box.draw(screen)
+
+        print(username)
+        print(password)
 
         username = input_box1.text.strip()
         password = input_box2.text.strip()
