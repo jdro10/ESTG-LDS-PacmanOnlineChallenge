@@ -54,7 +54,9 @@ namespace API.Controllers
             return _userStatsDto;
         }
 
-        private void updateUserRanks()
+        [AllowAnonymous]
+        [HttpGet("updateuserranks")]
+        public void updateUserRanks()
         {
             var userRanks = OrderByScore().ToArray();
 
@@ -62,6 +64,7 @@ namespace API.Controllers
             {
                 userRanks[i].Rank = i + 1;
                 _userService.UpdateRankPosition(userRanks[i].Id, userRanks[i]);
+                _levelService.setUserLevel(userRanks[i]);
             }
         }
 
