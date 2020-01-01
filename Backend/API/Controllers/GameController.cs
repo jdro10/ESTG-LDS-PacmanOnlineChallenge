@@ -25,6 +25,17 @@ namespace API.Controllers
             int result = Int32.Parse(up.Score);
             var userToUpdate = _userService.GetByName(up.Username);
 
+            for (int i = 0; i < userToUpdate.dailyChallenges.Length; i++)
+            {
+                if (userToUpdate.dailyChallenges[i] != null && userToUpdate.dailyChallenges[i].Points == 500)
+                {
+                    userToUpdate.todayDoneChallenge[i] = userToUpdate.dailyChallenges[i].Id;
+                    userToUpdate.dailyChallenges[i] = null;
+                    userToUpdate.Score += 500;
+                    _userService.UpdateScore(userToUpdate.Username, userToUpdate);
+                }
+            }
+
             if (result >= 1000)
             {
                 for (int i = 0; i < userToUpdate.dailyChallenges.Length; i++)
@@ -42,8 +53,7 @@ namespace API.Controllers
                             break;
                         }
                     }
-                }
-
+                }                
                 userToUpdate.Score += 750;
                 _userService.UpdateScore(userToUpdate.Username, userToUpdate);
             }
