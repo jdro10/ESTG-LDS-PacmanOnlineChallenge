@@ -1,5 +1,7 @@
 import pygame
 import json
+import requests
+from MenuPrincipal import menuPrincipal
 
 pygame.init()
 screen = pygame.display.set_mode((610, 670))
@@ -16,6 +18,7 @@ class InputBox:
         self.txt_surface = FONT.render(text, True, self.color)
         self.active = False
         self.font = pygame.font.Font('PAC-FONT.TTF', 25)
+        self.hide = ''
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -29,14 +32,14 @@ class InputBox:
             if self.active:
                 if event.key == pygame.K_RETURN:
                     self.text = ''
-                    print("123")
-                    print(password)
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
+                    self.hide = self.hide[:-1]
                 else:
                     password += '*'
                     self.text += event.unicode
-                self.txt_surface = FONT.render(self.text, True, self.color)
+                    self.hide += '*'
+                self.txt_surface = FONT.render(self.hide, True, self.color)
 
     def update(self):
         width = max(200, self.txt_surface.get_width()+10)
@@ -62,26 +65,47 @@ class InputBox:
 def main():
     clock = pygame.time.Clock()
     input_box1 = InputBox(220, 300, 140, 32, "Username")
-    input_box2 = InputBox(220, 350, 140, 32, "Password")
+    input_box2 = InputBox(220, 350, 140, 32, "")
     input_boxes = [input_box1, input_box2]
     done = False
 
+    username = None
+    password = None
+
     while not done:
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    url = "https://localhost:5001/api/user/auth"
+                    data = {'Username': username, 'Password': password}
+                    headers = {'Content-type': 'application/json',
+                               'Accept': 'text/plain'}
+                    r = requests.post(url, data=json.dumps(
+                        data), headers=headers, verify=False)
+                    if r.status_code == 200:
+                        menuPrincipal(username)
+                    else:
+                        print("USERNAME OU PASSWORD INVALIDA")
+                        main()
             for box in input_boxes:
                 box.handle_event(event)
 
         for box in input_boxes:
             box.update()
 
-        screen.fill((0,0,0))
+        screen.fill((0, 0, 0))
         for box in input_boxes:
-            
             box.draw(screen)
-        
+
+        print(username)
+        print(password)
+
+        username = input_box1.text.strip()
+        password = input_box2.text.strip()
+
         InputBox.addText3(screen)
         InputBox.addText2(screen)
         button = pygame.Rect(260, 400, 100, 40)
@@ -90,9 +114,8 @@ def main():
         img = pygame.image.load('img/logo.jpg')
         screen.blit(pygame.transform.scale(img, (610, 250)), (0, 0))
         pygame.display.flip()
-        clock.tick(30)
-        
-        
-if __name__ == '__main__':
-    main()
-    pygame.quit()
+        clock.tick(10)
+
+
+main()
+pygame.quit()
