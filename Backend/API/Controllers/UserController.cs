@@ -145,6 +145,10 @@ namespace API.Controllers
                 user.PasswordSalt = passwordSalt;
                 user.Level = 0;
                 user.Score = 0;
+                user.todayDoneChallenge = new string[3];
+                user.todayDoneChallenge[0] = null;
+                user.todayDoneChallenge[1] = null;
+                user.todayDoneChallenge[2] = null;
                 //_emailService.sendSignupMail(user.Email, user.Username, user.Password);
                 _userService.Create(user);
             }

@@ -64,12 +64,15 @@ class Game:
     def updateUser(self):
         url = "https://localhost:5001/api/game"
         url2 = "https://localhost:5001/api/ranks/updateuserranks"
+        url3 = "https://localhost:5001/api/game/checkchallenge"
         data = {'Username': str(self.userPlaying), 'Score': str(self.pacman.score)}
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         r = requests.post(url, data=json.dumps(data), headers=headers, verify= False)
         r2 = requests.get(url2, headers=headers, verify= False)
+        r3 = requests.post(url3, data=json.dumps(data), headers=headers, verify= False)
         print(r.status_code)
         print(r2.status_code)
+        print(r3.status_code)
 
     #### EVENTS KEYS ####
     def start_events(self):
