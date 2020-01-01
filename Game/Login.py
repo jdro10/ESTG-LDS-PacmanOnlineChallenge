@@ -11,7 +11,7 @@ FONT = pygame.font.Font(None, 32)
 
 
 class InputBox:
-    def __init__(self, x, y, w, h, text=''):
+    def __init__(self, x, y, w, h, n, text=''):
         self.rect = pygame.Rect(x, y, w, h)
         self.color = COLOR_INACTIVE
         self.text = text
@@ -19,6 +19,7 @@ class InputBox:
         self.active = False
         self.font = pygame.font.Font('PAC-FONT.TTF', 25)
         self.hide = ''
+        self.number = n
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -39,7 +40,10 @@ class InputBox:
                     password += '*'
                     self.text += event.unicode
                     self.hide += '*'
-                self.txt_surface = FONT.render(self.hide, True, self.color)
+                if self.number == 1:
+                    self.txt_surface = FONT.render(self.text, True, self.color)
+                else:
+                    self.txt_surface = FONT.render(self.hide, True, self.color)
 
     def update(self):
         width = max(200, self.txt_surface.get_width()+10)
@@ -64,8 +68,8 @@ class InputBox:
 
 def main():
     clock = pygame.time.Clock()
-    input_box1 = InputBox(220, 300, 140, 32, "Username")
-    input_box2 = InputBox(220, 350, 140, 32, "")
+    input_box1 = InputBox(220, 300, 140, 32, 1, "Username")
+    input_box2 = InputBox(220, 350, 140, 32, 2, "")
     input_boxes = [input_box1, input_box2]
     done = False
 
