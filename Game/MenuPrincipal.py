@@ -7,8 +7,6 @@ clock = pygame.time.Clock()
 clock.tick(5)
 pygame.init()
 
-run = Game()
-
 pygame.display.set_caption('PACMAN ONLINE CHALLENGE')
 WIDTH, HEIGHT = 610, 670
 TOP_BOTTOM_SPACE = 50
@@ -31,6 +29,8 @@ posFirstOption = (WIDTH // 2 - 50, HEIGHT // 2 + 30)
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 img = pygame.image.load('img/pacman.png')
 
+playerUsername = ''
+
 
 def draw_text(message, screen, position, size, font_type, color):
     font = pygame.font.Font(font_type, size)
@@ -40,8 +40,10 @@ def draw_text(message, screen, position, size, font_type, color):
     screen.blit(text, position)
 
 
-def menuPrincipal():
+def menuPrincipal(username):
+    playerUsername = username
     Running = True
+    print(playerUsername)
     pos_y_pacman = HEIGHT // 2 + 30
     while Running:
         screen.fill(BLACK)
@@ -75,7 +77,7 @@ def menuPrincipal():
                         if ((pos_y_pacman - 50 >= HEIGHT // 2 + 30)):
                             pos_y_pacman += -50
                     elif j.get_button(1) == 1:
-                        select_menu(pos_y_pacman)
+                        select_menu(pos_y_pacman, playerUsername)
 
         except:
             for event in pygame.event.get():
@@ -89,20 +91,18 @@ def menuPrincipal():
                         if ((pos_y_pacman - 50 >= HEIGHT // 2 + 30)):
                             pos_y_pacman += -50
                     elif event.key == pygame.K_RETURN:
-                        select_menu(pos_y_pacman)
+                        select_menu(pos_y_pacman, playerUsername)
 
         pygame.display.update()
 
 
-def select_menu(pos_y_pacman):
+def select_menu(pos_y_pacman, playerUsername):
     if pos_y_pacman == (HEIGHT // 2 + 30):
-        run.run()
+        run = Game()
+        run.run(playerUsername)
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 50):
         menuMultiplayer()
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 100):
         menuInstrucoes()
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 150):
         print("4")
-
-
-menuPrincipal()
