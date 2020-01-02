@@ -85,7 +85,7 @@ def menuMultiplayer():
                         run.run()
                     if x_seta == (display_width * 0.13) and event.key == pygame.K_RETURN:
                         run = pacmanMulti()
-                        run.run()    
+                        run.run()
                     if event.key == pygame.K_ESCAPE:
                         Running = False
 

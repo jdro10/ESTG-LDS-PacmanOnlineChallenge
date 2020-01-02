@@ -49,6 +49,10 @@ namespace GameServer
 
                     ASCIIEncoding asen = new ASCIIEncoding();
                     socket.Send(asen.GetBytes(coordenadasJog2));
+
+                    if(DetectCollision()){
+                        break;
+                    }
                 }
                 else
                 {
@@ -61,6 +65,16 @@ namespace GameServer
                     socket.Send(asen.GetBytes(coordenadasJog1));
                 }
             }
+            socket.Close();
+        }
+
+        public static bool DetectCollision()
+        {
+            if(coordenadasJog1.Equals(coordenadasJog2))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
