@@ -17,7 +17,7 @@ namespace GameServer
             TcpListener myList = null;
             IPAddress ipAd = IPAddress.Parse("127.0.0.1");
 
-            myList = new TcpListener(ipAd, 8001);
+            myList = new TcpListener(ipAd, 9000);
             myList.Start();
 
             int playerNumber = 0;

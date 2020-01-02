@@ -1,5 +1,7 @@
 import pygame
 from MenuInstrucoes import menuInstrucoes
+from pacmanMulti import *
+from ghostMulti import *
 
 pygame.init()
 
@@ -78,8 +80,15 @@ def menuMultiplayer():
                     if event.key == pygame.K_LEFT:
                         if x_seta == (display_width * 0.65):
                             x_seta = (display_width * 0.13)
+                    if x_seta == (display_width * 0.65) and event.key == pygame.K_RETURN:
+                        run = ghostMulti()
+                        run.run()
+                    if x_seta == (display_width * 0.13) and event.key == pygame.K_RETURN:
+                        run = pacmanMulti()
+                        run.run()    
                     if event.key == pygame.K_ESCAPE:
                         Running = False
+
 
         gameDisplay.fill(black)
         gameDisplay.blit(pacman, (x, y))
