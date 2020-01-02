@@ -46,16 +46,16 @@ namespace API.Controllers
                     }
                     else
                     {
-                        if (userToUpdate.dailyChallenges[i].Points == 750)
+                        if (userToUpdate.dailyChallenges[i] != null && userToUpdate.dailyChallenges[i].Points == 750)
                         {
                             userToUpdate.todayDoneChallenge[i] = userToUpdate.dailyChallenges[i].Id;
                             userToUpdate.dailyChallenges[i] = null;
+                            userToUpdate.Score += 750;
+                            _userService.UpdateScore(userToUpdate.Username, userToUpdate);
                             break;
                         }
                     }
                 }                
-                userToUpdate.Score += 750;
-                _userService.UpdateScore(userToUpdate.Username, userToUpdate);
             }
             return Ok();
         }
