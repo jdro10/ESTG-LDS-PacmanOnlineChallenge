@@ -1,10 +1,26 @@
 import React, { useState } from "react";
-
 import "./styles.css";
+import api from "./../../services/api";
 
-export default function ResetPassword() {
+export default function ResetPassword({ history }) {
   const [email, setEmail] = useState("");
-  function handleSubmit(event) {}
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const response = await api.get("/api/user/forgotPassword", {
+      headers: { email: email }
+    });
+
+    console.log(response);
+    if (response.data.success === "true") {
+      alert("Email sent");
+      history.push("/");
+    } else {
+      alert("Email does not exist");
+    }
+  }
+
   return (
     <div className="container-reset">
       <div className="reset-container">
@@ -15,6 +31,7 @@ export default function ResetPassword() {
           <input
             placeholder="Email address"
             value={email}
+            type="email"
             onChange={event => setEmail(event.target.value)}
           />
 
