@@ -11,7 +11,7 @@ export default function ResetPassword() {
         <h3>
           Already have an account? <a href="/">Log in</a>
         </h3>
-        <form onSubmit={handleSubmit}>
+        <form className="resetForm" onSubmit={handleSubmit}>
           <input
             placeholder="Email address"
             value={email}
@@ -19,7 +19,7 @@ export default function ResetPassword() {
           />
 
           <button type="submit" className="glow-on-hover basebutton">
-            Login
+            Reset password
           </button>
         </form>
       </div>

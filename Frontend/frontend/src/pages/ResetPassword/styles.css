@@ -21,3 +21,21 @@
   border-radius: 6px;
   padding: 30px;
 }
+
+.resetForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.resetForm input {
+  margin-top: var(--size-small-medium);
+  border: 2px solid var(--color-base);
+  border-radius: 4px;
+  height: 48px;
+  width: 100%;
+  padding: 0 var(--size-small-medium);
+  font-size: 16px;
+  color: var(--color-base);
+}
