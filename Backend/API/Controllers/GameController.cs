@@ -19,6 +19,25 @@ namespace API.Controllers
             _userService = userService;
         }
 
+        [HttpPost("multiplayerchallenge")]
+        public IActionResult ComepleteMultiplayerChallenge(UserUpdate up)
+        {
+            var userToUpdate = _userService.GetByName(up.Username);
+
+            for (int i = 0; i < userToUpdate.dailyChallenges.Length; i++)
+            {
+                if (userToUpdate.dailyChallenges[i] != null && userToUpdate.dailyChallenges[i].Points == 1000)
+                {
+                    userToUpdate.todayDoneChallenge[i] = userToUpdate.dailyChallenges[i].Id;
+                    userToUpdate.dailyChallenges[i] = null;
+                    userToUpdate.Score += 1000;
+                    _userService.UpdateScore(userToUpdate.Username, userToUpdate);
+                }
+            }
+
+            return Ok();
+        }
+
         [HttpPost("checkchallenge")]
         public IActionResult checkIfPlayerCompletedChallenge(UserUpdate up)
         {

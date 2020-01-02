@@ -27,7 +27,6 @@ namespace API.Services
         {
             var userToUpdate = _userService.GetByName(user.Username);
             var userScore = userToUpdate.Score;
-            int firstDigit = (int)(userScore.ToString()[0]) - 48;
             
             int i = 0;
 

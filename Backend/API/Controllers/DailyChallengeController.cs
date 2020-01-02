@@ -41,7 +41,7 @@ namespace API.Controllers
                 dc2[i].Description = "Score 1000 points in a game";
                 dc2[i].Points = 750;
 
-                dc3[i].Description = "Win a multiplayer game";
+                dc3[i].Description = "Play 1 multiplayer game";
                 dc3[i].Points = 1000;
             }
 
