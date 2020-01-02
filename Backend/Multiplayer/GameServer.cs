@@ -70,8 +70,12 @@ namespace GameServer
 
         public static bool DetectCollision()
         {
-            if(coordenadasJog1.Equals(coordenadasJog2))
+            string[] split = coordenadasJog1.Split("/");
+            string coords1 = split[0] + "/" + split[1];
+            
+            if(coords1.Equals(coordenadasJog2))
             {
+                
                 return true;
             }
             return false;
