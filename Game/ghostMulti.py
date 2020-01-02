@@ -1,6 +1,7 @@
 import pygame , sys , socket , time
 vec = pygame.math.Vector2
 from settings import *
+import MenuPrincipal
 
 HOST = '127.0.0.1'
 PORT = 9000
@@ -38,12 +39,16 @@ class ghostMulti:
     def run(self):
         while self.gameLoop:
             if self.state == 'playing':
-                myCoord = bytes(str(self.pixel_pos[0]) + "/" + str(self.pixel_pos[1]), 'utf-8')
-                s.sendall(myCoord)
-                otherPlayerCoord = s.recv(1024)
-                decode = otherPlayerCoord.decode('utf-8').split("/")
-                self.enemy_x, self.enemy_y = float(decode[0]), float(decode[1])
-                self.current_time = decode[2]
+                try:
+                    myCoord = bytes(str(self.pixel_pos[0]) + "/" + str(self.pixel_pos[1]), 'utf-8')
+                    s.sendall(myCoord)
+                    otherPlayerCoord = s.recv(1024)
+                    decode = otherPlayerCoord.decode('utf-8').split("/")
+                    self.enemy_x, self.enemy_y = float(decode[0]), float(decode[1])
+                    self.current_time = decode[2]
+                except:
+                    MenuPrincipal.menuPrincipal('user02')
+
                 self.multiplayer_events()
                 self.multiplayer_update()
                 self.multiplayer_draw()
