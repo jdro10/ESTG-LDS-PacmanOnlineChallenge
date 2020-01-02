@@ -2,6 +2,7 @@ import pygame
 import json
 import requests
 from MenuPrincipal import menuPrincipal
+import webbrowser
 
 pygame.init()
 screen = pygame.display.set_mode((610, 670))
@@ -62,9 +63,8 @@ class InputBox:
             'ONLINE CHALLENGE', True, (255, 255, 0)), (150, 250))
 
     def addText3(self):
-        screen.blit(pygame.font.Font('PAC-FONT.TTF', 15).render(
-            'CLICK HERE IF YOU FORGOT YOUR ACCOUNT DETAILS', True, (255, 0, 0)), (20, 600))
-
+        screen.blit(pygame.font.Font('PAC-FONT.TTF', 20).render(
+            'CLICK Y TO CREATE A NEW ACCOUNT', True, (0, 128, 0)), (40, 600))
 
 def main():
     clock = pygame.time.Clock()
@@ -94,6 +94,9 @@ def main():
                     else:
                         print("USERNAME OU PASSWORD INVALIDA")
                         main()
+                if event.key == pygame.K_y:
+                    webbrowser.open('http://localhost:3000/') 
+
             for box in input_boxes:
                 box.handle_event(event)
 
