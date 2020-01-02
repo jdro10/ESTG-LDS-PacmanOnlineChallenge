@@ -35,8 +35,10 @@ class pacmanMulti:
         self.enemy_y = None
         self.start_time = time.time()
         self.current_time = None
+        self.username = ''
 
-    def run(self):
+    def run(self, user):
+        self.username = user
         while self.gameLoop:
             if self.state == 'playing':
                 try:
@@ -46,7 +48,7 @@ class pacmanMulti:
                     decode = otherPlayerCoord.decode('utf-8').split("/")
                     self.enemy_x, self.enemy_y = float(decode[0]), float(decode[1])
                 except:
-                    MenuPrincipal.menuPrincipal('user01')
+                    MenuPrincipal.menuPrincipal(self.username)
 
                 self.multiplayer_events()
                 self.multiplayer_update()

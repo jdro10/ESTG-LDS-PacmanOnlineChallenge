@@ -35,8 +35,10 @@ class ghostMulti:
         self.enemy_y = None
         self.start_time = time.time()
         self.current_time = None
+        self.username = ''
 
-    def run(self):
+    def run(self, user):
+        self.username = user
         while self.gameLoop:
             if self.state == 'playing':
                 try:
@@ -47,7 +49,7 @@ class ghostMulti:
                     self.enemy_x, self.enemy_y = float(decode[0]), float(decode[1])
                     self.current_time = decode[2]
                 except:
-                    MenuPrincipal.menuPrincipal('user02')
+                    MenuPrincipal.menuPrincipal(self.username)
 
                 self.multiplayer_events()
                 self.multiplayer_update()

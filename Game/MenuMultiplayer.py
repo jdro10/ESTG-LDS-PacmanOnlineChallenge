@@ -14,7 +14,7 @@ def draw_text(message, screen, position, size, font_type, color):
     screen.blit(text, position)
 
 
-def menuMultiplayer():
+def menuMultiplayer(user):
     display_width = 610
     display_height = 670
 
@@ -82,10 +82,10 @@ def menuMultiplayer():
                             x_seta = (display_width * 0.13)
                     if x_seta == (display_width * 0.65) and event.key == pygame.K_RETURN:
                         run = ghostMulti()
-                        run.run()
+                        run.run(user)
                     if x_seta == (display_width * 0.13) and event.key == pygame.K_RETURN:
                         run = pacmanMulti()
-                        run.run()
+                        run.run(user)
                     if event.key == pygame.K_ESCAPE:
                         Running = False
 
