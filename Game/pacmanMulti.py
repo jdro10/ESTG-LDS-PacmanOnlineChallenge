@@ -2,6 +2,8 @@ import pygame , sys , socket , time
 vec = pygame.math.Vector2
 from settings import *
 import MenuPrincipal
+import requests
+import json
 
 HOST = '127.0.0.1'
 PORT = 9000
@@ -36,6 +38,7 @@ class pacmanMulti:
         self.start_time = time.time()
         self.current_time = None
         self.username = ''
+        self.score = 0
 
     def run(self, user):
         self.username = user
@@ -48,6 +51,11 @@ class pacmanMulti:
                     decode = otherPlayerCoord.decode('utf-8').split("/")
                     self.enemy_x, self.enemy_y = float(decode[0]), float(decode[1])
                 except:
+                    if int(self.current_time) < 60:
+                        self.score = 500
+                    elif int(self.current_time) > 60:
+                        self.score = 1000
+                    self.updateUser()
                     MenuPrincipal.menuPrincipal(self.username)
 
                 self.multiplayer_events()
@@ -59,6 +67,13 @@ class pacmanMulti:
             self.clock.tick(FPS)
         pygame.quit()
         sys.exit()
+
+    def updateUser(self):
+        url = "https://localhost:5001/api/game/multiplayerchallenge"
+        data = {'Username': str(self.username), 'Score': str(self.score)}
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        r = requests.post(url, data=json.dumps(data), headers=headers, verify= False)
+        print(r.status_code)
 
     def draw_enemy(self,x,y):
         self.screen.blit(self.redGhost, (int(x)-8, int(y)-8))
