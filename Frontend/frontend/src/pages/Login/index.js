@@ -42,8 +42,7 @@ export default function Login({ history }) {
 
   function handleClickForgot(event) {
     event.preventDefault();
-    alert("Email send");
-    history.push("/");
+    history.push("/resetpass");
   }
 
   return (
