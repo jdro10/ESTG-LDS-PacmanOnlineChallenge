@@ -146,9 +146,9 @@ namespace API.Controllers
                 user.Level = 0;
                 user.Score = 0;
                 user.todayDoneChallenge = new string[3];
-                user.todayDoneChallenge[0] = null;
-                user.todayDoneChallenge[1] = null;
-                user.todayDoneChallenge[2] = null;
+                user.todayDoneChallenge[0] = "0";
+                user.todayDoneChallenge[1] = "0";
+                user.todayDoneChallenge[2] = "0";
                 //_emailService.sendSignupMail(user.Email, user.Username, user.Password);
                 _userService.Create(user);
             }

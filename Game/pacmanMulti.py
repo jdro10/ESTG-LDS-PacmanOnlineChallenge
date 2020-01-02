@@ -1,6 +1,9 @@
 import pygame , sys , socket , time
 vec = pygame.math.Vector2
 from settings import *
+import MenuPrincipal
+import requests
+import json
 
 HOST = '127.0.0.1'
 PORT = 9000
@@ -33,15 +36,28 @@ class pacmanMulti:
         self.enemy_x = None
         self.enemy_y = None
         self.start_time = time.time()
+        self.current_time = None
+        self.username = ''
+        self.score = 0
 
-    def run(self):
+    def run(self, user):
+        self.username = user
         while self.gameLoop:
             if self.state == 'playing':
-                myCoord = bytes(str(self.pixel_pos[0]) + "/" + str(self.pixel_pos[1]), 'utf-8')
-                s.sendall(myCoord)
-                otherPlayerCoord = s.recv(1024)
-                decode = otherPlayerCoord.decode('utf-8').split("/")
-                self.enemy_x, self.enemy_y = float(decode[0]), float(decode[1])
+                try:
+                    myCoord = bytes(str(self.pixel_pos[0]) + "/" + str(self.pixel_pos[1]) + "/" + str(self.current_time), 'utf-8')
+                    s.sendall(myCoord)
+                    otherPlayerCoord = s.recv(1024)
+                    decode = otherPlayerCoord.decode('utf-8').split("/")
+                    self.enemy_x, self.enemy_y = float(decode[0]), float(decode[1])
+                except:
+                    if int(self.current_time) < 60:
+                        self.score = 500
+                    elif int(self.current_time) > 60:
+                        self.score = 1000
+                    self.updateUser()
+                    MenuPrincipal.menuPrincipal(self.username)
+
                 self.multiplayer_events()
                 self.multiplayer_update()
                 self.multiplayer_draw()
@@ -51,6 +67,13 @@ class pacmanMulti:
             self.clock.tick(FPS)
         pygame.quit()
         sys.exit()
+
+    def updateUser(self):
+        url = "https://localhost:5001/api/game/multiplayerchallenge"
+        data = {'Username': str(self.username), 'Score': str(self.score)}
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        r = requests.post(url, data=json.dumps(data), headers=headers, verify= False)
+        print(r.status_code)
 
     def draw_enemy(self,x,y):
         self.screen.blit(self.redGhost, (int(x)-8, int(y)-8))
@@ -153,6 +176,7 @@ class pacmanMulti:
         time_difference = time.time() - self.start_time
         time_difference = str(time_difference)
         time_difference = time_difference.split(".")
+        self.current_time = time_difference[0]
         self.draw_text('TIME : {}'.format(time_difference[0]), self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH // 2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.draw()

@@ -101,7 +101,7 @@ def select_menu(pos_y_pacman, playerUsername):
         run = Game()
         run.run(playerUsername)
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 50):
-        menuMultiplayer()
+        menuMultiplayer(playerUsername)
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 100):
         menuInstrucoes()
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 150):
