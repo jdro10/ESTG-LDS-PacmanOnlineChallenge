@@ -33,11 +33,12 @@ class pacmanMulti:
         self.enemy_x = None
         self.enemy_y = None
         self.start_time = time.time()
+        self.current_time = None
 
     def run(self):
         while self.gameLoop:
             if self.state == 'playing':
-                myCoord = bytes(str(self.pixel_pos[0]) + "/" + str(self.pixel_pos[1]), 'utf-8')
+                myCoord = bytes(str(self.pixel_pos[0]) + "/" + str(self.pixel_pos[1]) + "/" + str(self.current_time), 'utf-8')
                 s.sendall(myCoord)
                 otherPlayerCoord = s.recv(1024)
                 decode = otherPlayerCoord.decode('utf-8').split("/")
@@ -153,6 +154,7 @@ class pacmanMulti:
         time_difference = time.time() - self.start_time
         time_difference = str(time_difference)
         time_difference = time_difference.split(".")
+        self.current_time = time_difference[0]
         self.draw_text('TIME : {}'.format(time_difference[0]), self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH // 2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.draw()

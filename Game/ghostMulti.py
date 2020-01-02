@@ -33,6 +33,7 @@ class ghostMulti:
         self.enemy_x = None
         self.enemy_y = None
         self.start_time = time.time()
+        self.current_time = None
 
     def run(self):
         while self.gameLoop:
@@ -42,6 +43,7 @@ class ghostMulti:
                 otherPlayerCoord = s.recv(1024)
                 decode = otherPlayerCoord.decode('utf-8').split("/")
                 self.enemy_x, self.enemy_y = float(decode[0]), float(decode[1])
+                self.current_time = decode[2]
                 self.multiplayer_events()
                 self.multiplayer_update()
                 self.multiplayer_draw()
@@ -144,7 +146,7 @@ class ghostMulti:
         time_difference = time.time() - self.start_time
         time_difference = str(time_difference)
         time_difference = time_difference.split(".")
-        self.draw_text('TIME : {}'.format(time_difference[0]), self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
+        self.draw_text('TIME : {}'.format(self.current_time), self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH // 2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.draw()
         self.draw_enemy(self.enemy_x,self.enemy_y)
