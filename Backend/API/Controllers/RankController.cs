@@ -141,6 +141,7 @@ namespace API.Controllers
                 Level = user2.Level,
                 Score = user2.Score,
                 Rank = user2.Rank,
+                TodayDoneChallenge = user2.todayDoneChallenge,
                 DailyChallenge = user2.dailyChallenges
             });
         }
