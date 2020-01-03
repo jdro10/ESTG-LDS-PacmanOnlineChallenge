@@ -77,46 +77,10 @@ exports[`Testing Pacman Component should render correctly 1`] = `
           nameCha1=""
           nameCha2=""
           nameCha3=""
-        >
-          <h3>
-            <img
-              alt="It a match"
-              className="logo"
-              src="logo.png"
-            />
-          </h3>
-          <h3>
-            <b>
-               Reward:
-            </b>
-          </h3>
-          <hr />
-          <h3>
-            <img
-              alt="It a match"
-              className="logo"
-              src="logo.png"
-            />
-          </h3>
-          <h3>
-            <b>
-               Reward:
-            </b>
-          </h3>
-          <hr />
-          <h3>
-            <img
-              alt="It a match"
-              className="logo"
-              src="logo.png"
-            />
-          </h3>
-          <h3>
-            <b>
-               Reward:
-            </b>
-          </h3>
-        </Challenges>
+          valid1=""
+          valid2=""
+          valid3=""
+        />
       </div>
     </div>
     <div

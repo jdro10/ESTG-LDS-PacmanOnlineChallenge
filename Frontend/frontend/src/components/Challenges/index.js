@@ -9,39 +9,62 @@ export default function Challenges({
   nameCha3,
   pointCha1,
   pointCha2,
-  pointCha3
+  pointCha3,
+  valid1,
+  valid2,
+  valid3
 }) {
   return (
     <>
-      <h3>
-        <img src={logo} className="logo" alt="It a match" />
-        {nameCha1}
-      </h3>
-      <h3>
-        <b> Reward:</b>
-        {pointCha1}
-      </h3>
-      <hr />
-      <h3>
-        <img src={logo} className="logo" alt="It a match" />
+      {valid1 === "0" ? (
+        <>
+          <h3>
+            <img src={logo} className="logo" alt="It a match" />
+            {nameCha1}
+          </h3>
+          <h3>
+            <b> Reward:</b>
+            {pointCha1}
+          </h3>
+          <hr />
+        </>
+      ) : (
+        console.log("")
+      )}
 
-        {nameCha2}
-      </h3>
-      <h3>
-        <b> Reward:</b>
-        {pointCha2}
-      </h3>
-      <hr />
-      <h3>
-        <img src={logo} className="logo" alt="It a match" />
+      {valid2 === "0" ? (
+        <>
+          <h3>
+            <img src={logo} className="logo" alt="It a match" />
 
-        {nameCha3}
-      </h3>
+            {nameCha2}
+          </h3>
+          <h3>
+            <b> Reward:</b>
+            {pointCha2}
+          </h3>
+          <hr />
+        </>
+      ) : (
+        console.log("")
+      )}
 
-      <h3>
-        <b> Reward:</b>
-        {pointCha3}
-      </h3>
+      {valid3 === "0" ? (
+        <>
+          <h3>
+            <img src={logo} className="logo" alt="It a match" />
+
+            {nameCha3}
+          </h3>
+
+          <h3>
+            <b> Reward:</b>
+            {pointCha3}
+          </h3>
+        </>
+      ) : (
+        console.log("")
+      )}
     </>
   );
 }
