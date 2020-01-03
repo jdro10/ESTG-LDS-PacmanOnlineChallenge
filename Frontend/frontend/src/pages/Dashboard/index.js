@@ -27,6 +27,10 @@ export default function Dashboard({ history }) {
   const [pointCha2, setPointCha2] = useState();
   const [pointCha3, setPointCha3] = useState();
 
+  const [valid1, setValid1] = useState("");
+  const [valid2, setValid2] = useState("");
+  const [valid3, setValid3] = useState("");
+
   async function load() {
     const response = await api.get("/api/ranks", {
       headers: { id: user_id, Authorization: `Bearer ${token}` }
@@ -43,6 +47,10 @@ export default function Dashboard({ history }) {
     setPointCha1(response.data.dailyChallenge[0].points);
     setPointCha2(response.data.dailyChallenge[1].points);
     setPointCha3(response.data.dailyChallenge[2].points);
+
+    setValid1(response.data.todayDoneChallenge[0]);
+    setValid2(response.data.todayDoneChallenge[1]);
+    setValid3(response.data.todayDoneChallenge[2]);
 
     console.log(response);
   }
@@ -83,6 +91,9 @@ export default function Dashboard({ history }) {
             pointCha1={pointCha1}
             pointCha2={pointCha2}
             pointCha3={pointCha3}
+            valid1={valid1}
+            valid2={valid2}
+            valid3={valid3}
           />
         </div>
       </div>
