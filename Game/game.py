@@ -147,11 +147,15 @@ class Game:
             if enemy.grid_pos == self.pacman.grid_pos:
                 self.remove_life()
 
+        if(self.pacman.score == 2870):
+            self.state = "game over"
+
+
     def playsingle_draw(self):
         self.screen.fill(BLACK)
         self.screen.blit(self.background,(TOP_BOTTOM_SPACE//2,TOP_BOTTOM_SPACE//2))
         self.draw_coins()
-        #self.draw_grid() #REDE
+        #self.draw_grid()  #REDE
         time_difference = time.time() - self.start_time
         time_difference = str(time_difference)
         time_difference = time_difference.split(".")
@@ -160,9 +164,10 @@ class Game:
         self.finalTime = time_difference[0]
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH//2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.pacman.draw()
-        #self.screen.blit(self.yellowPacman,self.pacman.get_pix_pos())
         for enemy in self.enemies:
             enemy.draw()
+
+
 
 
         pygame.display.update()
@@ -173,6 +178,8 @@ class Game:
         if self.pacman.lives == 0:
             self.state = "game over"
         else:
+            #pygame.mixer.Sound('music/you-can-do-it.wav')
+            pygame.mixer.Sound.play(pygame.mixer.Sound('music/you-can-do-it.wav'))
             self.pacman.grid_pos = vec(self.pacman.starting_position)
             self.pacman.pixel_pos = self.pacman.get_pix_pos()
             self.pacman.direction *= 0
@@ -189,10 +196,10 @@ class Game:
 
 ##SO PRA MOSTRAR
     def draw_grid(self):
-        for x in range (WIDTH//self.cell_width):
-            pygame.draw.line(self.background, WHITE , (x*self.cell_width,0), (x*self.cell_width, HEIGHT))
-        for x in range (HEIGHT//self.cell_height):
-            pygame.draw.line(self.background, WHITE , (0 , x*self.cell_height), (WIDTH, x*self.cell_height))
+        #for x in range (WIDTH//self.cell_width):
+            #pygame.draw.line(self.background, WHITE , (x*self.cell_width,0), (x*self.cell_width, HEIGHT))
+        #for x in range (HEIGHT//self.cell_height):
+            #pygame.draw.line(self.background, WHITE , (0 , x*self.cell_height), (WIDTH, x*self.cell_height))
         for coin in self.coins:
             pygame.draw.rect(self.background, GREEN, (coin.x*self.cell_width,coin.y*self.cell_height,self.cell_width,self.cell_height))
 
@@ -213,9 +220,8 @@ class Game:
         self.coin_sound = pygame.mixer.Sound('music/coin.wav')
         self.gameover_sound = pygame.mixer.Sound('music/gameover.wav')
 
-        #HA FALTA DE MELHOR VAI TER QUE SER ASSIM com a string
+
         self.background = pygame.transform.scale(self.background, (MAP_WIDTH, MAP_HEIGHT))
-        #settings wall while opening and characters / coins
         with open("walls.txt",'r') as fp:
             for yindex,line in enumerate(fp):
                 for xindex,char in enumerate(line):
@@ -225,14 +231,14 @@ class Game:
                         self.coins.append(vec(xindex,yindex))
                     elif char == "P":
                         self.pacman_position = [xindex,yindex]
-                    elif char  in ["2","3","4","5"]:
-                        self.e_pos.append([xindex,yindex])
-                    elif char == "B":
-                        pygame.draw.rect(self.background,BLACK , (xindex*self.cell_width,yindex*self.cell_height,self.cell_width,self.cell_height))
 
 
 
     def make_enemies(self):
+        self.e_pos.append([2,4])
+        self.e_pos.append([2,20])
+        self.e_pos.append([21,4])
+        self.e_pos.append([21,20])
         for xindex ,pos in enumerate(self.e_pos):
             self.enemies.append(Enemy(self,vec(pos),xindex))
 
