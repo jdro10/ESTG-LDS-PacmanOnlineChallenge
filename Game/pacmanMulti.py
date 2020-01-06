@@ -55,6 +55,8 @@ class pacmanMulti:
                         self.score = 500
                     elif int(self.current_time) > 60:
                         self.score = 1000
+                    self.gameover_draw()
+                    time.sleep(5)
                     self.updateUser()
                     MenuPrincipal.menuPrincipal(self.username)
 
@@ -228,3 +230,16 @@ class pacmanMulti:
                     elif event.key == pygame.K_UP:
                         self.move(vec(0, -1))
 
+    def gameover_draw(self):
+        enemyscore = 0
+        if self.score == 1000:
+            enemyscore = 500
+        else:
+            enemyscore = 1000
+        self.screen.fill(BLACK)
+        self.draw_text("YOUR SCORE: " + str(self.score), self.screen, [WIDTH//2,500],36, FONT_MENU, (0, 128, 0))
+        self.draw_text("ENEMY SCORE: " + str(enemyscore), self.screen, [WIDTH//2,550],36, FONT_MENU, (0, 128, 0))
+        self.draw_text("TIME PLAYED: " + str(self.current_time), self.screen, [WIDTH//2,600],36, FONT_MENU, (0, 128, 0))
+        img = pygame.image.load('img/go.jpeg')
+        self.screen.blit(pygame.transform.scale(img, (400, 500)), (100, 0))
+        pygame.display.update()
