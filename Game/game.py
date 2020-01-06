@@ -29,6 +29,7 @@ class Game:
         self.gameOverLoop = True
         self.start_time = None
         self.userPlaying = None
+        self.finalTime = None
 
     #### GAME LOOP ####
     def run(self, user):
@@ -156,6 +157,7 @@ class Game:
         time_difference = time_difference.split(".")
         self.draw_text('CURRENT SCORE : {}'.format(self.pacman.score), self.screen, [100,0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
         self.draw_text('TIME : {}'.format(time_difference[0]), self.screen, [550, 0], TEXT_SIZE_GAME, FONT_GAME, WHITE)
+        self.finalTime = time_difference[0]
         self.draw_text('PACMAN ONLINE CHALLENGE', self.screen, [WIDTH//2, 650], TEXT_SIZE_GAME, FONT_GAME, YELLOW)
         self.pacman.draw()
         #self.screen.blit(self.yellowPacman,self.pacman.get_pix_pos())
@@ -253,7 +255,10 @@ class Game:
             pygame.mixer.Sound.play(self.gameover_sound)
             self.gameOverLoop = False
         self.screen.fill(BLACK)
-        self.draw_text("GAME OVER",self.screen,[WIDTH//2,100],36,FONT_MENU,RED)
+        self.draw_text("YOUR FINAL SCORE: " + str(self.pacman.score), self.screen, [WIDTH//2,500],36, FONT_MENU, RED)
+        self.draw_text("TIME PLAYED: " + str(self.finalTime), self.screen, [WIDTH//2,550],36, FONT_MENU, RED)
+        img = pygame.image.load('img/go.jpeg')
+        self.screen.blit(pygame.transform.scale(img, (400, 500)), (100, 0))
         pygame.display.update()
 
 
