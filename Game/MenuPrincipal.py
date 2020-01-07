@@ -2,6 +2,7 @@ import pygame
 from MenuInstrucoes import menuInstrucoes
 from MenuMultiplayer import menuMultiplayer
 from game import *
+import webbrowser
 
 clock = pygame.time.Clock()
 clock.tick(5)
@@ -30,7 +31,6 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 img = pygame.image.load('img/pacman.png')
 
 playerUsername = ''
-
 
 def draw_text(message, screen, position, size, font_type, color):
     font = pygame.font.Font(font_type, size)
@@ -105,4 +105,4 @@ def select_menu(pos_y_pacman, playerUsername):
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 100):
         menuInstrucoes()
     if pos_y_pacman == ((HEIGHT // 2 + 30) + 150):
-        print("4")
+        webbrowser.open('http://localhost:3000/')

@@ -71,9 +71,6 @@ class Game:
         r = requests.post(url, data=json.dumps(data), headers=headers, verify= False)
         r2 = requests.get(url2, headers=headers, verify= False)
         r3 = requests.post(url3, data=json.dumps(data), headers=headers, verify= False)
-        print(r.status_code)
-        print(r2.status_code)
-        print(r3.status_code)
 
     #### EVENTS KEYS ####
     def start_events(self):
@@ -252,9 +249,6 @@ class Game:
                 self.reset()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 self.running = False
-
-    def gameover_update(self):
-        pass
 
     def gameover_draw(self):
         if self.gameOverLoop:

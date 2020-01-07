@@ -107,9 +107,6 @@ def main():
         for box in input_boxes:
             box.draw(screen)
 
-        print(username)
-        print(password)
-
         username = input_box1.text.strip()
         password = input_box2.text.strip()
 
