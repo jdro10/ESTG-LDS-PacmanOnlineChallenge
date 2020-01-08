@@ -43,7 +43,6 @@ class Game:
             elif self.state == 'game over':
                 self.start_time = time.time()
                 self.gameover_events()
-                self.gameover_update()
                 self.gameover_draw()
                 self.updateUser()
                 time.sleep(5)
