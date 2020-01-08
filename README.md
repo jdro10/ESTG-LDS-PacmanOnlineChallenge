@@ -31,6 +31,7 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 - Dentro da pasta Backend/API:
 	- dotnet build;
 	- dotnet run;
+	- No browser https://localhost:5001 - desativar o certificado;
 - Dentro da pasta Backend/Multiplayer:
 	- dotnet build;
 	- dotnet run;
