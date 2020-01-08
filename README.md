@@ -19,3 +19,23 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 <p>Pasta com todo o código do frontend.<p>
 <h3>Game<h3>
 <p>Pasta com código relativo ao jogo singleplayer.<p>
+
+## Requisitos para correr o projeto:
+
+- Ter o .NET instalado;
+- Ter o python e pygame instalados;
+- Ter o npm instalado;
+
+## Como correr o projeto:
+
+- Dentro da pasta Backend/API:
+	- dotnet build;
+	- dotnet run;
+- Dentro da pasta Backend/Multiplayer:
+	- dotnet build;
+	- dotnet run;
+- Dentro da pasta Frontend/Frontend:
+	- npm install;
+	- npm start;
+- Dentro da pasta Game:
+	- py Login.py
