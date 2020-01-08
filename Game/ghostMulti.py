@@ -11,7 +11,6 @@ PORT = 9000
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 
-
 pygame.init()
 
 class ghostMulti:
@@ -60,7 +59,6 @@ class ghostMulti:
                     time.sleep(5)
                     self.updateUser()
                     MenuPrincipal.menuPrincipal(self.username)
-
                 self.multiplayer_events()
                 self.multiplayer_update()
                 self.multiplayer_draw()
@@ -75,7 +73,6 @@ class ghostMulti:
         data = {'Username': str(self.username), 'Score': str(self.score)}
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         r = requests.post(url, data=json.dumps(data), headers=headers, verify= False)
-        print(r.status_code)
 
     def draw_enemy(self,x,y):
         self.screen.blit(self.yellowPacman, (int(x)-8, int(y)-8))
@@ -101,8 +98,6 @@ class ghostMulti:
         self.update()
 
         #inimigos
-
-
 
     def draw(self):
         self.screen.blit(self.redGhost, (int(self.pixel_pos.x - 8), int(self.pixel_pos.y - 8)))

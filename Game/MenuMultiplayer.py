@@ -67,8 +67,12 @@ def menuMultiplayer(user):
                     elif j.get_hat(0) == (1 , 0):
                         if x_seta == (display_width * 0.13):
                             x_seta = (display_width * 0.65)
-                    #if j.get_button(2) == 1: PARA USAR O X
-
+                    if j.get_button(2) == 1 and x_seta == (display_width * 0.65):
+                        run = ghostMulti()
+                        run.run(user)
+                    if j.get_button(2) == 1 and x_seta == (display_width * 0.13):
+                        run = pacmanMulti()
+                        run.run(user)
         except:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
