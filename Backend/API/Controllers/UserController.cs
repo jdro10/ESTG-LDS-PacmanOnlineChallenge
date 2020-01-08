@@ -149,7 +149,7 @@ namespace API.Controllers
                 user.todayDoneChallenge[0] = "0";
                 user.todayDoneChallenge[1] = "0";
                 user.todayDoneChallenge[2] = "0";
-                //_emailService.sendSignupMail(user.Email, user.Username, user.Password);
+                _emailService.sendSignupMail(user.Email, user.Username, user.Password);
                 _userService.Create(user);
             }
             else
