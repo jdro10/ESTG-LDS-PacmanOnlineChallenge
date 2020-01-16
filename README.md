@@ -46,15 +46,15 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 <ul>
   
  <li> 
-<a href="mailto:8160578@estg.ipp.pt">Hugo Correia - 8160578</a>
+<a href="mailto:8160578@estg.ipp.pt">Hugo Correia - 8160578 - Interface do jogo e servidor email </a>
 </li>
   <li>
-<a href="mailto:8100163 @estg.ipp.pt">João Moreira - 8160163</a>
+<a href="mailto:8100163 @estg.ipp.pt">João Moreira - 8160163 - Jogo Python</a>
 </li>
 <li> 
-<a href="mailto:8160579@estg.ipp.pt">Jorge Oliveira - 8160579</a>
+<a href="mailto:8160579@estg.ipp.pt">Jorge Oliveira - 8160579 - Backend .NET</a>
 </li>
 <li>
-<a href="mailto:8160277@estg.ipp.pt">Vitor Barbosa - 8160277</a>
+<a href="mailto:8160277@estg.ipp.pt">Vitor Barbosa - 8160277 - Frontend ReactJS</a>
 </li>
 </ul>
