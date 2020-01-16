@@ -46,7 +46,7 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 <ul>
   
  <li> 
-<a href="https://github.com/RAJ66">Hugo Correia - 8160578 - Interface do jogo e servidor email </a>
+<a href="https://github.com/hrscorreia">Hugo Correia - 8160578 - Interface do jogo e servidor email </a>
 </li>
   <li>
 <a href="https://github.com/xPromate">João Moreira - 8160163 - Jogo Python</a>
@@ -55,6 +55,6 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 <a href="https://github.com/jdro10">Jorge Oliveira - 8160579 - Backend .NET</a>
 </li>
 <li>
-<a href="https://github.com/hrscorreia">Vitor Barbosa - 8160277 - Frontend ReactJS</a>
+<a href="https://github.com/RAJ66">Vitor Barbosa - 8160277 - Frontend ReactJS</a>
 </li>
 </ul>
