@@ -8,7 +8,7 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 
 ## 💻Stack
 
-- [.Net](https://dotnet.microsoft.com/)
+- [.NET](https://dotnet.microsoft.com/)
 - [React](https://reactjs.org)
 - [Pygame](https://www.pygame.org/)
 - [mongoDB](https://www.mongodb.com/)
@@ -22,9 +22,9 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 
 ## Requisitos para correr o projeto:
 
-- Ter o .NET instalado;
-- Ter o python e pygame instalados;
-- Ter o npm instalado;
+- .NET;
+- Python e Pygame;
+- NPM;
 
 ## Como correr o projeto:
 
@@ -40,3 +40,21 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 	- npm start;
 - Dentro da pasta Game:
 	- py Login.py
+	
+## 👦Equipa
+### Grupo 2 
+<ul>
+  
+ <li> 
+<a href="mailto:8160578@estg.ipp.pt">Hugo Correia - 8160578</a>
+</li>
+  <li>
+<a href="mailto:8100163 @estg.ipp.pt">João Moreira - 8160163</a>
+</li>
+<li> 
+<a href="mailto:8160579@estg.ipp.pt">Jorge Oliveira - 8160579</a>
+</li>
+<li>
+<a href="mailto:8160277@estg.ipp.pt">Vitor Barbosa - 8160277</a>
+</li>
+</ul>
