@@ -58,3 +58,5 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 <a href="https://github.com/RAJ66">Vitor Barbosa - 8160277 - Frontend ReactJS</a>
 </li>
 </ul>
+
+<p>Projeto desenvolvido no gitlab, sendo agora portado para o github<p>
