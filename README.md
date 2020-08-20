@@ -13,13 +13,6 @@ O jogo a ser desenvolvido terá por base o tão conhecido Pacman, desenvolvido p
 - [Pygame](https://www.pygame.org/)
 - [mongoDB](https://www.mongodb.com/)
 
-<h3>Backend</h3>
-<p>Pasta que contém todo o código relativo ao backend, contendo a REST API e a parte correspondente ao multiplayer.<p>
-<h3>Frontend</h3>
-<p>Pasta com todo o código do frontend.<p>
-<h3>Game</h3>
-<p>Pasta com código relativo ao jogo singleplayer.<p>
-
 ## Requisitos para correr o projeto:
 
 - .NET;
